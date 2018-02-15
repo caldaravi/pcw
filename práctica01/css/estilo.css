@@ -1,29 +1,112 @@
 /* Hoja de estilos ordenada por abecedario */
 
+
 a {
 	text-decoration: none;
 }
+a:hover {color:#546E7A;}
 
-header ul {
+body{
+	margin: 0;
+}
+
+footer
+{
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+
+}
+
+h1
+{
+	top: 0;
+	margin: 0;
+	padding: 35px 0 0 10px;
+	color: #FFAB40;
+	text-shadow: 0px 0px 10px #FFFFFF;
+}
+
+header>div
+{
+	background-color: #FFCC80;
 	
-	list-style-type: none;
-
 }
 
-header li {
-	display: inline;
+header>p
+{
+	background-color: #FFB74D;
+	margin: 0;
+	padding: 30px 0 10px 0;
+	text-align: center;
+	color: #263238;
 }
 
-li a:hover {
-	background-color: #111;
-
+html *
+{
+	font-family: 'Roboto', sans-serif;
 }
+
+nav
+{
+	height: 50px;
+	width: 100%;
+}
+
+#menu
+{
+	/* Remove indent of UL */
+	padding: 0;
+	list-style: none;
+	margin: 0 auto;
+	/* Fill width */
+	width: 100%;
+	height: 100%;
+	/* Fill UL size*/
+	display: table;
+	box-sizing: border-box;
+	text-transform: uppercase;
+	background-color: #EEEEEE;
+}
+#menu>li
+{
+	display: inline-block;
+	height: 100%;
+	display: table-cell;
+}
+#menu>li>a, #menu>li>a:visited
+{
+	padding: 25px 0 25px 0;
+	height: 100%;
+	display: block;
+	text-align: center;
+	color: #616161;
+
+	-o-transition:2s;
+  	-ms-transition:2s;
+  	-moz-transition:2s;
+  	-webkit-transition:2s;
+  	transition:2s;
+}
+#menu>li>a:hover
+{
+	color: #263238;
+	background-color: #B0BEC5
+}
+ 
 
 
 @media screen and (max-width: 480px){
-	header ul{
+	#menu{
 		display:none;
 	}
+	
+
 	@font-face {
 	
 	  font-family: 'fontello';
@@ -60,6 +143,7 @@ li a:hover {
 		  /* Animation center compensation - margins should be symmetric */
 		  /* remove if not needed */
 		  margin-left: .2em;
+		  padding: 10px;
 		 
 		  /* you can be more comfortable with increased icons size */
 		  /* font-size: 120%; */
