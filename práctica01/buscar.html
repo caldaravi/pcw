@@ -23,27 +23,183 @@
 			<li><label for="activador">&equiv;</label></li>
 			<li><a href="index.html"><span class="icon-home" aria-hidden="true"></span><span>Inicio</span></a></li>
 			<li><a href="buscar.html"><span class="icon-search" aria-hidden="true"></span><span>Buscar</span></a></li>
-			<li><a href="pagina3.html"><span class="icon-login" aria-hidden="true"></span><span>Login</span></a></li>
+			<li><a href="login.html"><span class="icon-login" aria-hidden="true"></span><span>Login</span></a></li>
 			<li><a href="pagina4.html"><span class="icon-logout" aria-hidden="true"></span><span>Logout</span></a></li>
 			<li><a href="pagina5.html"><span class="icon-list-add" aria-hidden="true"></span><span>Nueva receta</span></a></li>
 			
 		</ul>
 	</nav>
 	
-	<div id="busqueda" class="card">
-		<div>
-		<input type="text">
-		<input type="checkbox" id="busqueda_ext">
-		<span class="icon-search"></span>
-		<label for="busqueda_ext"><span class="icon-down-open"></span></label>
-		</div>
+	<div id="container_busqueda">
+		
+		<form action="busqueda.php">
+			
+			<input type="checkbox" id="busqueda_ext">
+			<div id="busqueda" class="card">
+				
+					<input type="search" name="busqueda" placeholder="Búsqueda por título...">
+					<label for="busqueda_ext"><span class="icon-down-open"></span></label>
+					<span class="icon-search"></span>
+					
+					<label class="tag" for="ingredientes">
+						Ingredientes:</label> <input id="ingredientes" type="text" name="ingredientes">
+					
+					<label class="tag" for="tiempo">
+						Tiempo:</label> <input id="tiempo" type="time" name="tiempo">
 
+	<!-- Si pide que el input de time sea mas complejo, rollo minutos exactos y tiempos limite: http://www.htmlquick.com/es/reference/tags/input-time.html -->
+
+					<label class="tag" for="dificultad">
+						Dificultad:</label> <input id="dificultad" type="text" name="dificultad">
+
+					<label class="tag" for="comensales">
+						Comensales:</label> <input id="comensales" type="text" name="comensales">
+
+					<label class="tag" for="autor">
+						Autor:</label> <input id="autor" type="text" name="autor">
+
+			</div>
+
+		</form>
+
+		<div class="card">
+			
+			Ordenar por 
+			<select>
+				<option value="nombre">Nombre</option>
+				<option value="fecha">Fecha</option>
+			</select>
+			en orden
+			<select>
+				<option value="asc">Ascendente</option>
+				<option value="desc">Descendente</option>
+			</select>
+
+		</div>
 	</div>
 
-	<section>
-		
+	
 
+	<section>
+		<div>
+			<article class="card">
+				<a href="receta.html"><h3>Lorem ipsum dolor sit.</h3></a>
+				<img src="imgs/pollo.png" alt="">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dicta soluta commodi ad magni illum ratione quo praesentium, necessitatibus facere, pariatur, nemo? Repellendus, blanditiis quae. Odio commodi, exercitationem sapiente illum!</p>
+				<footer>
+					<div>
+						<div>
+							<p>likes</p>
+							<p>comentarios</p>
+						</div>
+						<div>
+							<p>dislikes</p>
+					<p><time datetime="2018-01-29">2018-01-29</time></p>
+						</div>
+					</div>
+				</footer>
+			</article>
+			
+			<article class="card">
+				<a href="receta.html"><h3>Lorem ipsum dolor sit.</h3></a>
+				<img src="imgs/pollo.png" alt="">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dicta soluta commodi ad magni illum ratione quo praesentium, necessitatibus facere, pariatur, nemo? Repellendus, blanditiis quae. Odio commodi, exercitationem sapiente illum!</p>
+				<footer>
+					<div>
+						<div>
+							<p>likes</p>
+							<p>comentarios</p>
+						</div>
+						<div>
+							<p>dislikes</p>
+					<p><time datetime="2018-01-29">2018-01-29</time></p>
+						</div>
+					</div>
+				</footer>
+			</article>
+
+			<article class="card">
+				<a href="receta.html"><h3>Lorem ipsum dolor sit.</h3></a>
+				<img src="imgs/pollo.png" alt="">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dicta soluta commodi ad magni illum ratione quo praesentium, necessitatibus facere, pariatur, nemo? Repellendus, blanditiis quae. Odio commodi, exercitationem sapiente illum!</p>
+				<footer>
+					<div>
+						<div>
+							<p>likes</p>
+							<p>comentarios</p>
+						</div>
+						<div>
+							<p>dislikes</p>
+					<p><time datetime="2018-01-29">2018-01-29</time></p>
+						</div>
+					</div>
+				</footer>
+			</article>
+
+			<article class="card">
+				<a href="receta.html"><h3>Lorem ipsum dolor sit.</h3></a>
+				<img src="imgs/pollo.png" alt="">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dicta soluta commodi ad magni illum ratione quo praesentium, necessitatibus facere, pariatur, nemo? Repellendus, blanditiis quae. Odio commodi, exercitationem sapiente illum!</p>
+				<footer>
+					<div>
+						<div>
+							<p>likes</p>
+							<p>comentarios</p>
+						</div>
+						<div>
+							<p>dislikes</p>
+					<p><time datetime="2018-01-29">2018-01-29</time></p>
+						</div>
+					</div>
+				</footer>
+			</article>
+
+			<article class="card">
+				<a href="receta.html"><h3>Lorem ipsum dolor sit.</h3></a>
+				<img src="imgs/pollo.png" alt="">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dicta soluta commodi ad magni illum ratione quo praesentium, necessitatibus facere, pariatur, nemo? Repellendus, blanditiis quae. Odio commodi, exercitationem sapiente illum!</p>
+				<footer>
+					<div>
+						<div>
+							<p>likes</p>
+							<p>comentarios</p>
+						</div>
+						<div>
+							<p>dislikes</p>
+					<p><time datetime="2018-01-29">2018-01-29</time></p>
+						</div>
+					</div>
+				</footer>
+			</article>
+
+			<article class="card">
+				<a href="receta.html"><h3>Lorem ipsum dolor sit.</h3></a>
+				<img src="imgs/pollo.png" alt="">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dicta soluta commodi ad magni illum ratione quo praesentium, necessitatibus facere, pariatur, nemo? Repellendus, blanditiis quae. Odio commodi, exercitationem sapiente illum!</p>
+				<footer>
+					<div>
+						<div>
+							<p>likes</p>
+							<p>comentarios</p>
+						</div>
+						<div>
+							<p>dislikes</p>
+					<p><time datetime="2018-01-29">2018-01-29</time></p>
+						</div>
+					</div>
+				</footer>
+			</article>
+			
+
+		</div>
 	</section>
+
+	<footer>
+		
+			<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a></p>
+
+	</footer>
+
 
 </body>
 </html>
