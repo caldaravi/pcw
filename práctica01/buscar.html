@@ -32,14 +32,18 @@
 	
 	<div id="container_busqueda">
 		
+	<input type="checkbox" id="busqueda_ext">
+
+	<div id="busqueda" class="card">
+
 		<form action="busqueda.php">
 			
-			<input type="checkbox" id="busqueda_ext">
-			<div id="busqueda" class="card">
+			<div>
+				<input type="search" name="busqueda" placeholder="Búsqueda por título...">
+				<span class="icon-search"></span>
+				<label for="busqueda_ext"><span class="icon-down-open"></span></label>
+			</div>
 				
-					<input type="search" name="busqueda" placeholder="Búsqueda por título...">
-					<label for="busqueda_ext"><span class="icon-down-open"></span></label>
-					<span class="icon-search"></span>
 					
 					<label class="tag" for="ingredientes">
 						Ingredientes:</label> <input id="ingredientes" type="text" name="ingredientes">
@@ -58,18 +62,18 @@
 					<label class="tag" for="autor">
 						Autor:</label> <input id="autor" type="text" name="autor">
 
-			</div>
+			
 
-		</form>
-
+			</form>
+		</div>
 		<div class="card">
 			
-			Ordenar por 
+			<p>Ordenar por </p>
 			<select>
 				<option value="nombre">Nombre</option>
 				<option value="fecha">Fecha</option>
 			</select>
-			en orden
+			<p>en orden</p>
 			<select>
 				<option value="asc">Ascendente</option>
 				<option value="desc">Descendente</option>
