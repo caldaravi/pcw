@@ -6,6 +6,9 @@
 	box-sizing: border-box;
 }
 
+
+/* Index.html */
+
 body{
 	margin:0 auto;
   min-width: 320px;
@@ -182,6 +185,24 @@ li>a>span:nth-of-type(1){
 }
 
 
+#ordenar{
+	height: 3.5em;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+	#ordenar>p{
+		display: inline-block;
+		font-size: .75em;
+	}
+	#ordenar>select{
+		margin: 0 .5em;
+	}
+
+
+
 /* Receta.html */
 
 #receta>.card{
@@ -241,7 +262,16 @@ li>a>span:nth-of-type(1){
 	display: flex;
 	flex-direction: column;
 }
+	#container_busqueda span:hover{
+		cursor: pointer;
+	}	
+	#container_busqueda input:hover{
+
+		box-shadow: 0px 0px 10px #FFFFFF;
+		border-radius: 2px;
+	}
 	
+
 	#container_busqueda>div.card:nth-of-type(2){
 		height: 3.5em;
 
@@ -337,9 +367,17 @@ div#login.card>form+div{
 	border: 1px #FFE0B2;
 }
 
+/* General icons */
+span[class="icon-thumbs-up"]{
+	color:#8BC34A;
+}
+span[class="icon-thumbs-down"]{
+	color:#C62828;
+}
 
 @media all and (min-width: 480px){
 	
+	/* Index.html */
 	body>header>div{
 		flex-direction: column;
 	}
@@ -368,6 +406,9 @@ div#login.card>form+div{
 		padding-top: 1em;
 		padding-bottom: 1em;
 	}
+	#ordenar>p{
+		font-size: 1em;
+	}
 
 
 	/* Receta.html */
@@ -389,6 +430,7 @@ div#login.card>form+div{
 
 @media all and (min-width: 650px){
 	
+	/* Index.html */
 	body>section>div{
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -396,6 +438,7 @@ div#login.card>form+div{
 	body>section>div>article{
 		width: 300px;
 	}
+	
 
 	/* Receta.html */
 	#receta>.card>div>img {
@@ -439,7 +482,6 @@ div#login.card>form+div{
 		display: inline-block;
 		margin-left: 1em;
 		
-
 		left: inherit;
 		transform: inherit;
 	}
