@@ -55,11 +55,11 @@ body>nav{
 			text-decoration: none;
 			color: #616161;
 
-			-o-transition:2s;
-		  	-ms-transition:2s;
-		  	-moz-transition:2s;
-		  	-webkit-transition:2s;
-		  	transition:2s;
+			-o-transition:1s;
+		  	-ms-transition:1s;
+		  	-moz-transition:1s;
+		  	-webkit-transition:1s;
+		  	transition:1s;
 		}
 		body>nav>ul>li>a:hover{
 			color: #263238;
@@ -69,7 +69,7 @@ body>nav{
 		display: none;
 	}
 	#activador:checked+nav>ul{
-		max-height: 10em;
+		max-height: 12em;
 	}
 		#activador:checked+nav>ul>li:first-of-type>label{
 
@@ -352,6 +352,65 @@ div#login.card>form+div{
 	align-items: center;
 	justify-content: center; 
 }
+
+
+/* nuevareceta.html */
+div#nuevareceta{
+	margin-bottom: 3.5em;
+}
+div#nuevareceta.card>div>form{
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+	div#nuevareceta.card>div>form div{
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		margin-top: .5em;
+	}
+	div#nuevareceta.card>div>form div>label{
+		width: 7em;
+		margin-right: .5em;
+	}
+	/* override Elaboracion input */
+	div#nuevareceta.card>div>form>div:nth-of-type(2){
+		flex-direction: column;
+	}
+		div#nuevareceta.card>div>form>div:nth-of-type(2)>label{
+			margin-bottom: .15em;
+		}
+	/* override Ingredientes input */
+	div#nuevareceta.card>div>form>div:nth-of-type(5){
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+		div#nuevareceta.card>div>form>div:nth-of-type(5)>ul{
+			margin-top: .25em;
+		}
+	/* override añadir fotos div */
+	div#nuevareceta.card>div>form>div:nth-of-type(6){
+		flex-direction: column;
+	}
+		div#nuevareceta.card>div>form>div:nth-of-type(6) div{
+			flex-direction: column;
+			align-items: center;
+		}
+		div#nuevareceta.card>div>form>div:nth-of-type(6) div>p{
+			margin: .25em;
+		}
+		div#nuevareceta.card>div>form>div:nth-of-type(6) div>img{
+			width: 50%;
+		}
+		div#nuevareceta.card>div>form>div:nth-of-type(6) div>textarea{
+			width: 90%;
+		}
+
+
+
+
+
+
 
 
 /* Buttons */
