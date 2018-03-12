@@ -35,55 +35,70 @@
 		<div>
 			<form action="nuevareceta.php">
 				<div>
-					<label for="titulo">Titulo: </label><input id="titulo" name="titulo" type="text">
+					<label for="titulo">Titulo: </label><input required id="titulo" name="titulo" type="text">
 				</div>
 				<div>
-					<label for="elaboracion">Elaboracion: </label><textarea name="elaboracion" id="elaboracion" cols="30" rows="10"></textarea>
+					<label for="elaboracion">Elaboracion: </label><textarea required name="elaboracion" id="elaboracion" cols="30" rows="10" maxlength="250"></textarea>
 				</div>
 				<div>
-					<label for="comensales">Comensales: </label><input id="comensales" name="comensales" type="number">
+					<label for="comensales">Comensales: </label><input required id="comensales" name="comensales" min="0" type="number">
 				</div>
 				<div>
-					<label for="tiempo">Tiempo (min): </label><input id="tiempo" name="tiempo" type="number">
+					<label for="tiempo">Tiempo (min): </label><input required id="tiempo" name="tiempo" min="0" type="number">
+				</div>
+				<div>
+					<label for="dificultad">Dificultad</label>
+						<select name="input" id="input">
+							<option value="baja">Baja</option>
+							<option value="media">Media</option>
+							<option value="alta">Alta</option>
+						</select>
 				</div>
 				
 				<div>
 					<label for="ingredientes">Ingredientes:</label>
-					<ul contenteditable="true">
+					<ul contenteditable="true" required>
 						<li id="ingredientes">Ingrediente 1</li>
 						<li>...</li>
 					</ul>
 				</div>
 
 				<div>
-  					<h4>Añadir fotos </h4><input id="foto" type="file" name="foto" accept="image/*">
+  					<h4>Añadir fotos </h4><input required id="foto" type="file" name="foto" accept="image/*">
   					<div class="imgcontainer">
-  						<p>Foto:</p>
+  						<p><a href=""><span class="icon-cancel"></span></a>
+  						Foto:</p>
   						<img src="imgs/pollo.png" alt="pollo">
   						<p>Descripcion: </p>
   						<textarea name="descripcion1" id="" cols="30" rows="10"></textarea>
   					</div>
   					<div class="imgcontainer">
-  						<p>Foto:</p>
+  						<p><a href=""><span class="icon-cancel"></span></a>
+  						Foto:</p>
   						<img src="imgs/pollo.png" alt="pollo">
   						<p>Descripcion: </p>
   						<textarea name="descripcion1" id="" cols="30" rows="10"></textarea>
   					</div>
   					<div class="imgcontainer">
-  						<p>Foto:</p>
+  						<p><a href=""><span class="icon-cancel"></span></a>
+  						Foto:</p>
   						<img src="imgs/pollo.png" alt="pollo">
   						<p>Descripción:</p>
   						<textarea name="descripcion1" id="" cols="30" rows="10"></textarea>
   					</div>
+				</div>
+				<div>
+					<input type="submit">
 				</div>
 
 			</form>
 		</div>
 	</div>
 
+	
 	<footer>
 		
-			<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a></p>
+			<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a><a href=""><span class="icon-up-open"></span></a></p>
 
 	</footer>
 

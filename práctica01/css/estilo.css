@@ -17,21 +17,21 @@ body{
 
 body>nav{
 	overflow: hidden;
+	background-color: #EEEEEE;
 }
 
 	body>nav>ul{
-		margin:0;
+		margin:0 auto;
 		padding: 0;
 		width: 100%;
 		height: 100%;
 		list-style: none;
-
+		max-width: 800px;
 		overflow: hidden;
 		max-height: 2em;
 		transition: max-height 0.7s;
 
 		text-transform: uppercase;
-		background-color: #EEEEEE;
 		
 
 		
@@ -55,11 +55,11 @@ body>nav{
 			text-decoration: none;
 			color: #616161;
 
-			-o-transition:1s;
-		  	-ms-transition:1s;
-		  	-moz-transition:1s;
-		  	-webkit-transition:1s;
-		  	transition:1s;
+			-o-transition:.5s;
+		  	-ms-transition:.5s;
+		  	-moz-transition:.5s;
+		  	-webkit-transition:.5s;
+		  	transition:.5s;
 		}
 		body>nav>ul>li>a:hover{
 			color: #263238;
@@ -93,6 +93,14 @@ body>footer
   text-align: center;
 
 }
+body>footer a{
+	text-decoration: none;
+	color: inherit;
+	transition: .35s;
+}
+body>footer a:hover{
+	color: #0050ff;
+}
 
 body>section>div{
 	display: flex;
@@ -116,6 +124,9 @@ article.card{
 	align-items: center;
 	justify-content: space-between;
 	flex-grow: 1;
+
+				box-shadow: 0px 2px 5px  #455A64;
+
 }
 
 article.card a{
@@ -138,7 +149,6 @@ article.card>img{
 }
 
 article.card>footer{
-    border-top: 1px dotted #234;
 	width: 100%;
 }
 	article.card>footer>div>div{
@@ -204,58 +214,117 @@ li>a>span:nth-of-type(1){
 
 
 /* Receta.html */
-
-#receta>.card{
+section#receta>article.card{
+	margin-bottom: 1em; 
+}
+section#receta>.card:last-child{
 	margin-bottom: 3.5em; 
 }
-#receta>.card>div{
+section#receta>article.card>div{
 	width: 100%;
 	overflow: hidden;
 
 }
-	#receta>.card>div>time{
+	section#receta>article.card>div>time{
 		width: 50%;
 		margin: 0 auto;
 	}
 
-	#receta>.card>div>img{
+	section#receta>article.card>div>img{
 		width: 100%;
 	}
 
-	#receta>.card>div:nth-of-type(1)>p{
+	section#receta>article.card>div:nth-of-type(1)>p{
 		position: absolute;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		background-color: #FFCC80;
 		padding: .5em 1em 0.75em 1em;
+		box-shadow: 0px 2px 15px #78909C;
 	}
-	#receta>.card>div>a{
+	section#receta>article.card>div>a{
 		position: absolute;
 		top: 50%;
 		opacity: 0.5;
 	}
 
-	#receta>.card>div>a:nth-of-type(1){
+	section#receta>article.card>div>a:nth-of-type(1){
 		left: .5em;
 		padding: 5em 2em;
 		transform: translate(0, -50%);
 	}
 
-	#receta>.card>div>a:nth-of-type(2){
+	section#receta>article.card>div>a:nth-of-type(2){
 		right: .5em;
 		padding: 5em 2em;
 		transform: translate(0, -50%);
 	}
 
-	#receta>.card>div>a:hover{
+	section#receta>article.card>div>a:hover{
 		background-color: #B0BEC5;
 	}
-		#receta>.card>div:nth-of-type(2)>div:nth-of-type(1){
+
+		section#receta>article.card>div:nth-of-type(2)>div:nth-of-type(1){
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: space-around;
 		}
+		section#receta>article.card>div:nth-of-type(2)>p:nth-of-type(1){
+			text-align: justify;
+    		text-justify: inter-word;
+    		padding: 1.5em; 
+		}
+		section#receta>article.card>div:nth-of-type(2)>p:nth-of-type(2){
+			text-align: center;
+		}
+
+			section#receta>div.card{
+				box-shadow: 0px 2px 5px  #455A64;
+			
+			}
+
+			section#receta>div.card div{
+				background-color: #ffffff;
+				padding: 1em;
+				box-shadow: 0px 0px 2px  #455A64;
+			}
+			section#receta>div.card div>time{
+				float: right;
+			}
+
+			div#comentarios.card{
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+			}
+			div#comentarios.card a{
+				text-decoration: none;	
+				color: #546E7A;
+				transition: .7s;
+			}
+			div#comentarios.card a:hover{
+				color: #263238;
+			}
+			/* comenta */
+			div#comenta.card{
+				flex-direction: column;
+				align-items: center;
+			}
+			div#comenta.card>form{
+				display: flex;
+				flex-direction: column;
+				align-content: center;
+			}
+			div#comenta.card>form>input{
+				margin-bottom: 1em;
+			}
+			div#comenta.card>form>input[type="submit"]{
+				margin-top: 1em; 
+			}	
+			div#comenta.card>form>textarea{
+				max-width: 400px;
+			}
 
 /* Busqueda.html */
 #container_busqueda{
@@ -265,11 +334,6 @@ li>a>span:nth-of-type(1){
 	#container_busqueda span:hover{
 		cursor: pointer;
 	}	
-	#container_busqueda input:hover{
-
-		box-shadow: 0px 0px 10px #FFFFFF;
-		border-radius: 2px;
-	}
 	
 
 	#container_busqueda>div.card:nth-of-type(2){
@@ -320,7 +384,7 @@ li>a>span:nth-of-type(1){
 		transition: transform 0.5s;
 	}
 		#busqueda_ext:checked+div#busqueda.card:nth-of-type(1){
-			height: 27em;
+			height: 28em;
 		}
 		#busqueda_ext:checked+div.card>form>div>label:nth-of-type(1){
 			transform: rotate(180deg);
@@ -358,6 +422,9 @@ div#login.card>form+div{
 div#nuevareceta{
 	margin-bottom: 3.5em;
 }
+div#nuevareceta.card{
+	box-shadow: 0px 2px 5px #455A64;
+}
 div#nuevareceta.card>div>form{
 display: flex;
 flex-direction: column;
@@ -381,36 +448,75 @@ justify-content: center;
 			margin-bottom: .15em;
 		}
 	/* override Ingredientes input */
-	div#nuevareceta.card>div>form>div:nth-of-type(5){
+	div#nuevareceta.card>div>form>div:nth-of-type(6){
 		flex-direction: column;
 		justify-content: flex-start;
 	}
-		div#nuevareceta.card>div>form>div:nth-of-type(5)>ul{
+		div#nuevareceta.card>div>form>div:nth-of-type(6)>ul{
 			margin-top: .25em;
 		}
 	/* override añadir fotos div */
-	div#nuevareceta.card>div>form>div:nth-of-type(6){
+	div#nuevareceta.card>div>form>div:nth-of-type(7){
 		flex-direction: column;
 	}
-		div#nuevareceta.card>div>form>div:nth-of-type(6) div{
+
+		div#nuevareceta.card>div>form>div:nth-of-type(7) div{
 			flex-direction: column;
 			align-items: center;
 		}
-		div#nuevareceta.card>div>form>div:nth-of-type(6) div>p{
+		div#nuevareceta.card>div>form>div:nth-of-type(7) div>p{
 			margin: .25em;
 		}
-		div#nuevareceta.card>div>form>div:nth-of-type(6) div>img{
+		div#nuevareceta.card>div>form>div:nth-of-type(7) div>img{
 			width: 50%;
 		}
-		div#nuevareceta.card>div>form>div:nth-of-type(6) div>textarea{
+		div#nuevareceta.card>div>form>div:nth-of-type(7) div>textarea{
 			width: 90%;
 		}
+	div#nuevareceta.card ul[contenteditable="true"]{
+		padding-top: 1em;
+		padding-bottom: 1em;
+	}
+
+	div.imgcontainer>span{
+		float: right;
+		display: inherit;
+	}
+
+		
+
+/* reigstro.html */
+div#login.card>form>div{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+}
+div#login.card>form>div input{
+	margin-bottom: 2em;
+}
 
 
 
 
-
-
+/* inputs */
+input{
+	height: 2em;
+	padding-left:.5em;
+	padding-right: .5em; 
+}
+input, textarea, ul[contenteditable="true"], select{
+	border: none;
+	background-color: #CFD8DC;
+	transition: .35s;
+}
+input:hover, textarea:hover, ul[contenteditable="true"]:hover, select:hover{
+	box-shadow: 0px 0px 5px #455A64;
+}
+input[type="submit"]{
+	padding: 1em 2em;
+	height: 3em;	
+}
 
 
 /* Buttons */
@@ -427,11 +533,49 @@ justify-content: center;
 }
 
 /* General icons */
+a>span{
+	transition: .5s;
+}
 span[class="icon-thumbs-up"]{
 	color:#8BC34A;
 }
+a>span[class="icon-thumbs-up"]:hover{
+	color: #33691E;
+}
+
 span[class="icon-thumbs-down"]{
-	color:#C62828;
+	color:#FF8A80;
+}
+a>span[class="icon-thumbs-down"]:hover{
+	color: #C62828;
+
+}
+
+
+
+
+
+
+/* Pagination */
+.pagination {
+    display: inline;
+    justify-content: center;
+    align-self: center;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: .5s;
+}
+
+.pagination a:hover {
+	background-color: #B0BEC5;
+}
+div.card>div.pagination>p{
+
 }
 
 @media all and (min-width: 480px){
@@ -502,8 +646,7 @@ span[class="icon-thumbs-down"]{
 	/* Receta.html */
 	#receta>.card>div>img {
 		max-width: 35em;
-	}
-
+	}	
 	/* Busqueda.html */
 	#container_busqueda{
 		flex-direction: row;
@@ -522,26 +665,47 @@ span[class="icon-thumbs-down"]{
 	}
 
 
+
+	/* reigstro.html */
+	div#login.card>form>div{
+		flex-direction: row;
+	}
+	div#login.card>form>div label{
+		width: 10em; 
+	}
+
+	/* Receta comentarios */
+	div#comentarios.card div{
+		max-width: 600px; 
+		margin: 0 auto;
+	}
+	div#comentarios.card>h4{
+		text-align: center;
+	}
+
 }
 
 /* Receta grande */
 @media all and (min-width: 720px){
-	#receta>.card{
+	section#receta>article.card{
 		flex-direction: row;
 	}
-	#receta>.card>div:nth-of-type(2)>div:nth-of-type(1){
+	section#receta>article.card>div:nth-of-type(2)>div:nth-of-type(1){
 		flex-direction: row;
 		flex-wrap: 1;
 	}
-	#receta>.card>div:nth-of-type(1)>h3{
+	section#receta>article.card>div:nth-of-type(1)>h3{
 		display: inline-block;
 	}
-	#receta>.card>div:nth-of-type(1)>p{
+	section#receta>article.card>div:nth-of-type(1)>p{
 		position: inherit;
 		display: inline-block;
 		margin-left: 1em;
 		
 		left: inherit;
 		transform: inherit;
+	}
+	section#receta>article.card>div>a:nth-of-type(2){
+		right: 50%;
 	}
 }

@@ -13,3 +13,5 @@
 .icon-clock:before { content: '\e80b'; } /* '' */
 .icon-star-empty:before { content: '\e80c'; } /* '' */
 .icon-down-open:before { content: '\e80d'; } /* '' */
+.icon-up-open:before { content: '\e80e'; } /* '' */
+.icon-cancel:before { content: '\e80f'; } /* '' */
