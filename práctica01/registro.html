@@ -8,9 +8,9 @@
 	<link rel="stylesheet" href="css/fontello.css">
 </head>
 <body>
-	
-	<header>
 
+	<header>
+	<img src="imgs/logo.svg" alt="logo">
 		<div>
 			<h1>Recétate</h1>
 			<p>Aquí encontrarás las mejores y más sabrosas recetas de cocina</p>
@@ -26,25 +26,25 @@
 			<li><a href="login.html"><span class="icon-login" aria-hidden="true"></span><span>Login</span></a></li>
 			<li><a href="pagina4.html"><span class="icon-logout" aria-hidden="true"></span><span>Logout</span></a></li>
 			<li><a href="nuevareceta.html"><span class="icon-list-add" aria-hidden="true"></span><span>Nueva receta</span></a></li>
-			
+
 		</ul>
 	</nav>
-	
+
 			<div id="login" class="card">
 				<form action="login.html">
 					<h3>Registro de nuevo usuario</h3>
 					<div>
-						<label for="login">Login:</label>
-						<input type="text" name="login" id="login" pattern="^[^0-9][a-zA-Z0-9]{6,20}">
+						<label for="nickname">Login:</label>
+						<input type="text" name="login" id="nickname" pattern="^[^0-9][a-zA-Z0-9]{5,19}">
 					</div>
 					<div>
 						<label for="usuario">Usuario:</label><input type="text" name="usuario" id="usuario" pattern="^[a-zA-Z0-9]{5,19}">
 					</div>
 					<div>
-						<label for="contrasena">Contraseña:</label><input type="password" name="contrasena" id="contrasena" pattern="^[a-zA-Z0-9_-]{8,20}">
+						<label for="contrasena">Contraseña:</label><input type="password" name="contrasena" id="contrasena" pattern="^[a-zA-Z0-9_-]{7,19}">
 					</div>
 					<div>
-						<label for="contrasena2">Repetir contraseña:</label><input type="password" name="contrasena2" id="contrasena2" pattern="^[a-zA-Z0-9_-]{8,20}">
+						<label for="contrasena2">Repetir contraseña:</label><input type="password" name="contrasena2" id="contrasena2" pattern="^[a-zA-Z0-9_-]{7,19}">
 					</div>
 					<div>
 						<label for="email">Email:</label><input type="email" name="email" id="email">
@@ -56,14 +56,14 @@
 				</form>
 			</div>
 
-		
 
 
-	<footer>
-		
-			<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a><a href=""><span class="icon-up-open"></span></a></p>
 
-	</footer>
+			<footer>
+
+					<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a><a href=""><span class="icon-up-open"></span></a></p>
+
+			</footer>
 
 
 </body>

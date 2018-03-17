@@ -8,9 +8,9 @@
 	<link rel="stylesheet" href="css/fontello.css">
 </head>
 <body>
-	
-	<header>
 
+	<header>
+	<img src="imgs/logo.svg" alt="logo">
 		<div>
 			<h1>Recétate</h1>
 			<p>Aquí encontrarás las mejores y más sabrosas recetas de cocina</p>
@@ -26,32 +26,32 @@
 			<li><a href="login.html"><span class="icon-login" aria-hidden="true"></span><span>Login</span></a></li>
 			<li><a href="pagina4.html"><span class="icon-logout" aria-hidden="true"></span><span>Logout</span></a></li>
 			<li><a href="nuevareceta.html"><span class="icon-list-add" aria-hidden="true"></span><span>Nueva receta</span></a></li>
-			
+
 		</ul>
 	</nav>
-	
+
 	<div id="container_busqueda">
-		
+
 	<input type="checkbox" id="busqueda_ext">
 
 	<div id="busqueda" class="card">
 
 		<form action="busqueda.php">
-			
+
 			<div>
 				<input type="search" name="busqueda" placeholder="Búsqueda por título...">
-				<span class="icon-search"></span>
-				<label for="busqueda_ext"><span class="icon-down-open"></span></label>
+				<input type="submit" name="submit" value="Buscar">
+				<label for="busqueda_ext" title="Busq. avanzada"><span class="icon-down-open"></span></label>
 			</div>
-				
-					
+
+
 					<label class="tag" for="ingredientes">
 						Ingredientes:</label> <input id="ingredientes" type="text" name="ingredientes">
-					
-					<label class="tag" for="tiempo">
-						Tiempo:</label> <input id="tiempo" type="time" name="tiempo">
 
-	<!-- Si pide que el input de time sea mas complejo, rollo minutos exactos y tiempos limite: http://www.htmlquick.com/es/reference/tags/input-time.html -->
+						<label class="tag" for="tiempomin">
+							Tiempo min.:</label> <input id="tiempomin" type="number" min="0" name="tiempomin">
+						<label class="tag" for="tiempomax">
+							Tiempo max.:</label> <input id="tiempomax" type="number" min="0" name="tiempomax">
 
 					<label class="tag" for="dificultad">
 						Dificultad:</label> <input id="dificultad" type="text" name="dificultad">
@@ -62,12 +62,11 @@
 					<label class="tag" for="autor">
 						Autor:</label> <input id="autor" type="text" name="autor">
 
-			
 
 			</form>
 		</div>
 		<div class="card">
-			
+
 			<p>Ordenar por </p>
 			<select>
 				<option value="nombre">Nombre</option>
@@ -82,7 +81,7 @@
 		</div>
 	</div>
 
-	
+
 
 	<section>
 		<div>
@@ -211,9 +210,9 @@
 		</div>
 	</section>
 
-	
+
 	<footer>
-		
+
 			<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a><a href=""><span class="icon-up-open"></span></a></p>
 
 	</footer>

@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	
+
 	<header>
 
 		<div>
@@ -27,30 +27,48 @@
 			<li><a href="login.html"><span class="icon-login" aria-hidden="true"></span><span>Login</span></a></li>
 			<li><a href="pagina4.html"><span class="icon-logout" aria-hidden="true"></span><span>Logout</span></a></li>
 			<li><a href="nuevareceta.html"><span class="icon-list-add" aria-hidden="true"></span><span>Nueva receta</span></a></li>
-			
+
 		</ul>
 	</nav>
 
 	<section id="receta">
 		<article class="card">
 			<div>
-				<h3>Titulo de la receta</h3>
-					<p>5 comensales</p>
-					<img src="imgs/pollo.png" alt="Imagen de receta">
-					<a href=""><</a>
-					<a href="">></a>
-				</div>
-			<div>
+
 				<div>
-					<h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html">Chicote Como To</a></h4>
-					<p><span class="icon-clock"></span> 34 horas</p>
-					<p><span class="icon-star-empty"></span>Nivel: Arguiñano</p>
+					<h3>Titulo de la receta</h3>
+						<p>5 comensales</p>
+						<img src="imgs/pollo.png" alt="Imagen de receta">
+						<a href="">&lt;</a>
+						<a href="">&gt;</a>
 				</div>
+
+				<div>
+					<div>
+						<h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html">Chicote Como To</a></h4>
+						<p><span class="icon-clock"></span> 34 horas</p>
+						<p><span class="icon-star-empty"></span>Nivel: Arguiñano</p>
+					</div>
+					<div>
+						<ul>
+							<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, exercitationem.</li>
+							<li>Architecto cum ab voluptatem maxime, numquam saepe mollitia maiores tempora?</li>
+							<li>Sit sed voluptate odio, culpa libero, voluptas optio unde dolores.</li>
+							<li>Veniam blanditiis est tenetur enim quisquam doloremque fugiat maxime cupiditate.</li>
+							<li>Modi provident odit nisi labore obcaecati libero quos numquam similique.</li>
+							<li>Inventore architecto obcaecati suscipit placeat alias atque, laborum odit explicabo.</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+			<div>
+
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda deleniti nesciunt similique ut quisquam natus quod, minima in. Placeat facilis nostrum asperiores expedita rerum doloribus sit pariatur magni quas labore architecto qui commodi nihil recusandae, odit unde, ipsum quisquam aliquam, aliquid fugit? Incidunt recusandae sunt nobis repudiandae nostrum, sed iste!</p>
 				<p><time datetime="2018-01-01">2018-01-01</time></p>
-				
+
 			</div>
-			
+
 		</article>
 
 		<div id="comentarios" class="card">
@@ -59,22 +77,32 @@
 				<p><span class="icon-user"></span> <a href="buscar.html"><strong>Pepito Palotes</strong></a> dice:</p>
 				<p><strong>Salao salao</strong></p>
 				<p>La sopa estaba muy buena, pero yo le habría echado más sal.</p>
-				<p><a href=""><span class="icon-thumbs-up"></a></span> 23 likes<a href=""><span class="icon-thumbs-down"></span></a> 2 dislikes</p>
+				<p><a href=""><span class="icon-thumbs-up"></span></a> 23 likes<a href=""><span class="icon-thumbs-down"></span></a> 2 dislikes</p>
 				<time datetime="2018-12-03">2018-12-03</time>
-				
+
 			</div>
 			<hr>
 			<div>
 				<p><span class="icon-user"></span> <a href="buscar.html"><strong>Pepito Palotes</strong></a> dice:</p>
 				<p><strong>Salao salao</strong></p>
 				<p>La sopa estaba muy buena, pero yo le habría echado más sal.</p>
-				<p><a href=""><span class="icon-thumbs-up"></a></span> 23 likes<a href=""><span class="icon-thumbs-down"></span></a> 2 dislikes</p>
+				<p><a href=""><span class="icon-thumbs-up"></span></a> 23 likes<a href=""><span class="icon-thumbs-down"></span></a> 2 dislikes</p>
 				<time datetime="2018-12-03">2018-12-03</time>
-				
+
 			</div>
 		</div>
+
+		<div id="comenta" class="card">
+			<h4>Añade tu comentario</h4>
+			<form action="anadecomentario.php">
+				<input type="text" placeholder="Título..." required>
+				<textarea name="comentario" id="comentario" cols="30" rows="10" placeholder="Comentario..." required></textarea>
+				<input type="submit">
+			</form>
+		</div>
+
 		<div class="card">
-			
+
 			<div class="pagination">
 			  <a href="#">&laquo;</a>
 			  <a href="#">1</a>
@@ -86,20 +114,12 @@
 			  <a href="#">&raquo;</a>
 			</div>
 		</div>
-		<div id="comenta" class="card">
-			<h4>Añade tu comentario</h4>
-			<form action="anadecomentario.php">
-				<input type="text" placeholder="Título..." required>
-				<textarea name="comentario" id="comentario" cols="30" rows="10" placeholder="Comentario..." required></textarea>
-				<input type="submit">
-			</form>
-		</div>
 	</section>
 
-	
-	
+
+
 	<footer>
-		
+
 			<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a><a href=""><span class="icon-up-open"></span></a></p>
 
 	</footer>

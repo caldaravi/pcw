@@ -6,6 +6,9 @@
 	box-sizing: border-box;
 }
 
+html{
+	background-color: #B0BEC5;
+}
 
 /* Index.html */
 
@@ -32,9 +35,9 @@ body>nav{
 		transition: max-height 0.7s;
 
 		text-transform: uppercase;
-		
 
-		
+
+
 	}
 		body>nav>ul>li:first-of-type>label{
 			display: inline-block;
@@ -163,17 +166,27 @@ article.card>footer{
 h1
 {
 	margin: 0 .5em;
-	padding-top: 1em;
+	padding-top: .5em;
 	color: #FFAB40;
 	text-shadow: 0px 0px 10px #FFFFFF;
+}
+header{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background-color: #FFCC80;
+}
+header>img{
+	width: 4em;
+	height: 4em;
+	margin: 1em;
 }
 
 header>div
 {
 	display: flex;
-	flex-direction: row;
-	background-color: #FFCC80;
-	
+	flex-direction: column;
+	width: 100%;
 }
 
 header>div>p
@@ -184,6 +197,7 @@ header>div>p
 	text-align: center;
 	color: #263238;
 }
+
 
 html *
 {
@@ -215,26 +229,29 @@ li>a>span:nth-of-type(1){
 
 /* Receta.html */
 section#receta>article.card{
-	margin-bottom: 1em; 
+	margin-bottom: 1em;
 }
 section#receta>.card:last-child{
-	margin-bottom: 3.5em; 
+	margin-bottom: 3.5em;
 }
-section#receta>article.card>div{
+section#receta>article.card>div>div:nth-of-type(1){
 	width: 100%;
 	overflow: hidden;
 
 }
+	section#receta>article.card>div:nth-of-type(1)>div:nth-of-type(1){
+		position: relative;
+	}
 	section#receta>article.card>div>time{
 		width: 50%;
 		margin: 0 auto;
 	}
 
-	section#receta>article.card>div>img{
+	section#receta>article.card>div>div:nth-of-type(1)>img{
 		width: 100%;
 	}
 
-	section#receta>article.card>div:nth-of-type(1)>p{
+	section#receta>article.card>div>div:nth-of-type(1)>p{
 		position: absolute;
 		left: 50%;
 		transform: translate(-50%, -50%);
@@ -242,46 +259,48 @@ section#receta>article.card>div{
 		padding: .5em 1em 0.75em 1em;
 		box-shadow: 0px 2px 15px #78909C;
 	}
-	section#receta>article.card>div>a{
+	section#receta>article.card>div>div:nth-of-type(1)>a{
 		position: absolute;
 		top: 50%;
 		opacity: 0.5;
+		color: #000000;
+		background-color:#E0E0E0;
 	}
 
-	section#receta>article.card>div>a:nth-of-type(1){
+	section#receta>article.card>div>div>a:nth-of-type(1){
 		left: .5em;
 		padding: 5em 2em;
 		transform: translate(0, -50%);
 	}
 
-	section#receta>article.card>div>a:nth-of-type(2){
+	section#receta>article.card>div>div>a:nth-of-type(2){
 		right: .5em;
 		padding: 5em 2em;
 		transform: translate(0, -50%);
 	}
 
-	section#receta>article.card>div>a:hover{
-		background-color: #B0BEC5;
+	section#receta>article.card>div>div>a:hover{
+		background-color: #616161;
 	}
 
-		section#receta>article.card>div:nth-of-type(2)>div:nth-of-type(1){
+		section#receta>article.card>div>div:nth-of-type(2)>div:nth-of-type(1){
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: space-around;
 		}
-		section#receta>article.card>div:nth-of-type(2)>p:nth-of-type(1){
+		section#receta>article.card>div>div:nth-of-type(2)>p:nth-of-type(1){
 			text-align: justify;
     		text-justify: inter-word;
-    		padding: 1.5em; 
+    		padding: 1.5em;
 		}
-		section#receta>article.card>div:nth-of-type(2)>p:nth-of-type(2){
+		section#receta>article.card>div>div:nth-of-type(2)>p:nth-of-type(2){
 			text-align: center;
 		}
 
 			section#receta>div.card{
 				box-shadow: 0px 2px 5px  #455A64;
-			
+
 			}
 
 			section#receta>div.card div{
@@ -299,7 +318,7 @@ section#receta>article.card>div{
 				justify-content: space-around;
 			}
 			div#comentarios.card a{
-				text-decoration: none;	
+				text-decoration: none;
 				color: #546E7A;
 				transition: .7s;
 			}
@@ -320,8 +339,8 @@ section#receta>article.card>div{
 				margin-bottom: 1em;
 			}
 			div#comenta.card>form>input[type="submit"]{
-				margin-top: 1em; 
-			}	
+				margin-top: 1em;
+			}
 			div#comenta.card>form>textarea{
 				max-width: 400px;
 			}
@@ -333,8 +352,8 @@ section#receta>article.card>div{
 }
 	#container_busqueda span:hover{
 		cursor: pointer;
-	}	
-	
+	}
+
 
 	#container_busqueda>div.card:nth-of-type(2){
 		height: 3.5em;
@@ -375,6 +394,12 @@ section#receta>article.card>div{
 		height: 2em;
 		float: left;
 	}
+	#busqueda>form>div>input[type='submit']{
+		text-align: center;
+		vertical-align: center;
+		margin: 0 1em;
+		cursor: pointer;
+	}
 	#busqueda>form>div>span,#busqueda>form>div>label:nth-of-type(1){
 		display: inline-block;
 		font-size: 1.14em;
@@ -384,7 +409,7 @@ section#receta>article.card>div{
 		transition: transform 0.5s;
 	}
 		#busqueda_ext:checked+div#busqueda.card:nth-of-type(1){
-			height: 28em;
+			height: 34em;
 		}
 		#busqueda_ext:checked+div.card>form>div>label:nth-of-type(1){
 			transform: rotate(180deg);
@@ -414,7 +439,7 @@ div#login.card>form+div{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center; 
+	justify-content: center;
 }
 
 
@@ -478,12 +503,22 @@ justify-content: center;
 		padding-bottom: 1em;
 	}
 
-	div.imgcontainer>span{
-		float: right;
-		display: inherit;
+	div.imgcontainer a{
+		position: absolute;
+		right: .5em;
+		top: .5em;
+		font-size: 1em;
+	}
+	.imgcontainer{
+		background-color: #CFD8DC;
+		padding: 1em;
+		position: relative;
+	}
+	.imgcontainer>textarea{
+		background-color: #B0BEC5;
 	}
 
-		
+
 
 /* reigstro.html */
 div#login.card>form>div{
@@ -503,7 +538,7 @@ div#login.card>form>div input{
 input{
 	height: 2em;
 	padding-left:.5em;
-	padding-right: .5em; 
+	padding-right: .5em;
 }
 input, textarea, ul[contenteditable="true"], select{
 	border: none;
@@ -514,8 +549,7 @@ input:hover, textarea:hover, ul[contenteditable="true"]:hover, select:hover{
 	box-shadow: 0px 0px 5px #455A64;
 }
 input[type="submit"]{
-	padding: 1em 2em;
-	height: 3em;	
+	height: 3em;
 }
 
 
@@ -530,6 +564,12 @@ input[type="submit"]{
 .simple:hover{
 	background-color: #FFA726;
 	border: 1px #FFE0B2;
+}
+
+a.simple{
+	text-decoration: none;
+	background-color: #CFD8DC;
+	color: #000;
 }
 
 /* General icons */
@@ -574,15 +614,12 @@ a>span[class="icon-thumbs-down"]:hover{
 .pagination a:hover {
 	background-color: #B0BEC5;
 }
-div.card>div.pagination>p{
-
-}
 
 @media all and (min-width: 480px){
-	
+
 	/* Index.html */
 	body>header>div{
-		flex-direction: column;
+		flex-direction: row;
 	}
 
 	body>nav{
@@ -632,7 +669,7 @@ div.card>div.pagination>p{
 }
 
 @media all and (min-width: 650px){
-	
+
 	/* Index.html */
 	body>section>div{
 		flex-direction: row;
@@ -641,12 +678,11 @@ div.card>div.pagination>p{
 	body>section>div>article{
 		width: 300px;
 	}
-	
+
 
 	/* Receta.html */
-	#receta>.card>div>img {
-		max-width: 35em;
-	}	
+
+
 	/* Busqueda.html */
 	#container_busqueda{
 		flex-direction: row;
@@ -654,7 +690,7 @@ div.card>div.pagination>p{
 		justify-content: space-around;
 		align-items: stretch;
 	}
-		
+
 	div#container_busqueda>div.card{
 		width: 48%;
 		flex-grow: 1;
@@ -671,41 +707,70 @@ div.card>div.pagination>p{
 		flex-direction: row;
 	}
 	div#login.card>form>div label{
-		width: 10em; 
+		width: 10em;
 	}
 
 	/* Receta comentarios */
 	div#comentarios.card div{
-		max-width: 600px; 
+		max-width: 600px;
 		margin: 0 auto;
 	}
 	div#comentarios.card>h4{
 		text-align: center;
 	}
 
+	/* Nueva receta */
+	div#nuevareceta.card{
+		max-width: 650px;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	div.imgcontainer a{
+		right: 1.5em;
+		top: 1.5em;
+		font-size: 1.5em;
+	}
+
 }
 
 /* Receta grande */
 @media all and (min-width: 720px){
+	article.card{
+		align-items: initial;
+	}
 	section#receta>article.card{
-		flex-direction: row;
+		flex-direction: column;
 	}
-	section#receta>article.card>div:nth-of-type(2)>div:nth-of-type(1){
-		flex-direction: row;
-		flex-wrap: 1;
+		section#receta>article.card>div:nth-of-type(1){
+			display: flex;
+			flex-direction: row;
+		}
+			section#receta>article.card>div>div:nth-of-type(1)>h3{
+				display: inline-block;
+			}
+			section#receta>article.card>div>div:nth-of-type(1)>p{
+				position: inherit;
+				display: inline-block;
+				margin-left: 1em;
+
+				left: inherit;
+				transform: inherit;
+			}
+
+			section#receta>article.card>div>div:nth-of-type(2)>div:nth-of-type(1){
+				flex-direction: row;
+			}
+
+	section#receta>article.card>div:nth-of-type(2){
+		flex-direction: column;
 	}
-	section#receta>article.card>div:nth-of-type(1)>h3{
-		display: inline-block;
+	section#receta>article.card>div:nth-of-type(2)>p:first-of-type{
+		padding: 1em 1em 0 1em;
 	}
-	section#receta>article.card>div:nth-of-type(1)>p{
-		position: inherit;
-		display: inline-block;
-		margin-left: 1em;
-		
-		left: inherit;
-		transform: inherit;
+	section#receta>article.card>div:nth-of-type(2)>p:nth-of-type(2){
+		padding: 0 2.5em 0 0;
+		float: right;
 	}
-	section#receta>article.card>div>a:nth-of-type(2){
-		right: 50%;
-	}
+		/**/
+
 }
