@@ -420,12 +420,15 @@ section#receta>article.card>div>div:nth-of-type(1){
 		margin-top:2em;
 	}
 
+
+
+
 /* Login */
 
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
+    position: absolute; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
@@ -449,7 +452,7 @@ section#receta>article.card>div>div:nth-of-type(1){
 .close {
     /* Position it in the top right corner outside of the modal */
     position: absolute;
-    right: 25px;
+    right: 20px;
     top: 0;
     color: #000;
     font-size: 35px;
@@ -461,6 +464,18 @@ section#receta>article.card>div>div:nth-of-type(1){
 .close:focus {
     color: red;
     cursor: pointer;
+}
+
+div.modal>div{
+	position: relative;
+	top: 50%;
+	transform: translateY(-100%);
+	width: 75%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 div#login.card{
