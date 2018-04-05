@@ -1,6 +1,6 @@
 function hacerLogin(frm)
 {
-  var comprueba = require("./recordar");
+  //var comprueba = require("./recordar");
 	let fd = new FormData(frm),
   xhr = new XMLHttpRequest(),
   url = 'rest/login/';
@@ -14,7 +14,7 @@ function hacerLogin(frm)
   	if(r.RESPUESTA='OK'){
   		console.log(r);
   		sessionStorage.setItem('usuario', xhr.responseText);
-      comprueba.comprobar();
+      //comprueba.comprobar();
     } else {
     	 console.log('ERROR')
     }

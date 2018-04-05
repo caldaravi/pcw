@@ -31,6 +31,16 @@
 
 		</ul>
 	</nav>
+			<!-- The Modal -->
+			<div id="id01" class="modal">
+				<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+				<!-- Modal Content -->
+				
+					Login correcto
+
+
+			</div>
 
 			<div id="login" class="card">
 				<form onsubmit="return hacerLogin(this);">
@@ -39,7 +49,7 @@
 					<input required autofocus type="text" name="login" id="usuario" pattern="^[^0-9 ][a-zA-Z0-9]{5,19}">
 					<label for="password">Password</label>
 					<input required type="password" name="pwd" id="password" pattern="^[a-zA-Z0-9_-]{5,19}$">
-					<input type="submit" value="Entrar" class="simple">
+					<input type="submit" value="Entrar" class="simple" onclick="document.getElementById('id01').style.display='block'">
 				</form>
 				<div>
 					<p>¿Todavía no estás registrado?</p>
