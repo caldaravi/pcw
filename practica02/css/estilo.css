@@ -484,6 +484,12 @@ div#login.card>form+div{
 	justify-content: center;
 }
 
+div#login.card>form>div#rememberdiv{
+	display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
 
 /* nuevareceta.html */
 div#nuevareceta{
@@ -592,6 +598,10 @@ input:hover, textarea:hover, ul[contenteditable="true"]:hover, select:hover{
 }
 input[type="submit"]{
 	height: 3em;
+}
+
+input[type="checkbox"]{
+	height: inherit;
 }
 
 

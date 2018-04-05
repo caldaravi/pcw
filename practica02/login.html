@@ -36,7 +36,7 @@
 				<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
 
 				<!-- Modal Content -->
-				
+
 					Login correcto
 
 
@@ -48,8 +48,15 @@
 					<label for="usuario">Usuario</label>
 					<input required autofocus type="text" name="login" id="usuario" pattern="^[^0-9 ][a-zA-Z0-9]{5,19}">
 					<label for="password">Password</label>
+
 					<input required type="password" name="pwd" id="password" pattern="^[a-zA-Z0-9_-]{5,19}$">
-					<input type="submit" value="Entrar" class="simple" onclick="document.getElementById('id01').style.display='block'">
+
+					<div id="rememberdiv">
+						<input type="checkbox" name="remember" id="remember">
+						<label for="remember">Recordar</label>
+					</div>
+					<input type="submit" value="Entrar" class="simple">
+
 				</form>
 				<div>
 					<p>¿Todavía no estás registrado?</p>

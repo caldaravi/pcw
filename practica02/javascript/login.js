@@ -1,6 +1,6 @@
 function hacerLogin(frm)
 {
-  //var comprueba = require("./recordar");
+  var comprueba = require("./recordar.js");
 	let fd = new FormData(frm),
   xhr = new XMLHttpRequest(),
   url = 'rest/login/';
@@ -11,10 +11,11 @@ function hacerLogin(frm)
   	console.log(xhr.responseText);
   	let r = JSON.parse(xhr.responseText);
 
-  	if(r.RESPUESTA='OK'){
+  	if(r.RESULTADO=='OK'){
   		console.log(r);
   		sessionStorage.setItem('usuario', xhr.responseText);
-      //comprueba.comprobar();
+      document.getElementById('id01').style.display='block';
+      comprueba.comprobar();
     } else {
     	 console.log('ERROR')
     }
