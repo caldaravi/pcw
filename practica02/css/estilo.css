@@ -643,6 +643,15 @@ a>span[class="icon-thumbs-down"]:hover{
 
 }
 
+/* Control de contenido */
+
+.logged{
+	display: none;
+}
+
+.deslogged {
+	display: block;
+}
 
 
 
