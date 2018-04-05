@@ -6,8 +6,10 @@
 	<title>PCW</title>
 	<link rel="stylesheet" href="css/estilo.css">
 	<link rel="stylesheet" href="css/fontello.css">
+	<script src="javascript/login.js"></script>
+	<script src="javascript/recordar.js"></script>
 </head>
-<body>
+<body onload="rellenar();">
 
 	<header>
 	<img src="imgs/logo.svg" alt="logo">
@@ -31,12 +33,12 @@
 	</nav>
 
 			<div id="login" class="card">
-				<form action="login.html">
+				<form onsubmit="return hacerLogin(this);">
 					<h3>Iniciar sesión</h3>
 					<label for="usuario">Usuario</label>
-					<input required autofocus type="text" name="usuario" id="usuario" pattern="^[^0-9 ][a-zA-Z0-9]{5,19}">
+					<input required autofocus type="text" name="login" id="usuario" pattern="^[^0-9 ][a-zA-Z0-9]{5,19}">
 					<label for="password">Password</label>
-					<input required type="password" name="password" id="password" pattern="^[a-zA-Z0-9_-]{5,19}$">
+					<input required type="password" name="pwd" id="password" pattern="^[a-zA-Z0-9_-]{5,19}$">
 					<input type="submit" value="Entrar" class="simple">
 				</form>
 				<div>
