@@ -6,8 +6,9 @@
 	<title>PCW</title>
 	<link rel="stylesheet" href="css/estilo.css">
 	<link rel="stylesheet" href="css/fontello.css">
+	<script src="javascript/recetas.js"></script>
 </head>
-<body>
+<body onload="getRecetas();">
 
 	<header>
 	<img src="imgs/logo.svg" alt="logo">
@@ -29,21 +30,6 @@
 
 		</ul>
 	</nav>
-
-	<div id="ordenar" class="card">
-
-			<p>Ordenar por </p>
-			<select>
-				<option value="nombre">Nombre</option>
-				<option value="fecha">Fecha</option>
-			</select>
-			<p>en orden</p>
-			<select>
-				<option value="asc">Ascendente</option>
-				<option value="desc">Descendente</option>
-			</select>
-
-	</div>
 
 	<section>
 		<div>

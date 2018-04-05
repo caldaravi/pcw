@@ -19,9 +19,11 @@ function hacerLogin(frm)
           //}
       }
   		console.log(r);
-      document.getElementById('id01').style.display='block';      
+      document.getElementById('id01').style.display='block';
     } else {
-    	 console.log('ERROR')
+    	 console.log('ERROR');
+       document.getElementById('id02').style.display='block';
+
     }
   }
 
