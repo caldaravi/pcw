@@ -11,18 +11,19 @@ function getRecetas()
       response.json().then(function(data){
         //console.log(data);
 
-    var cont = document.querySelectorAll("article");
+    var cont = document.getElementsByTagName("section")[0].children[0];
 
     var i;
     for(i=0;i<data.FILAS.length;i++)
     {
-      cont[i].innerHTML +=
+      cont.innerHTML +=
       `
+      <article class="card">
       <a href="receta.html?id=` + data.FILAS[i].id + `"><h3>` + data.FILAS[i].nombre + `</h3></a>
       <img src="fotos/` + data.FILAS[i].fichero + `" alt="` + data.FILAS[i].nombre + `">
       <p>`+ data.FILAS[i].descripcion_foto + `</p>
       <div>
-        <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?="` + data.FILAS[i].autor + `">` + data.FILAS[i].autor + `</a></h4>
+        <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?u=` + data.FILAS[i].autor + `>` + data.FILAS[i].autor + `</a></h4>
       </div>
       <footer>
         <div>
@@ -36,33 +37,12 @@ function getRecetas()
           </div>
         </div>
       </footer>
+      </article>
       `;
-      console.log(cont[i]);
+      //console.log(cont[i]);
     }
 
-    // Paginacion
-    var total = cont.length;
-    let paginas = total / 6;
-      // Ceil redondea al entero mayor (si hay 13 resultados, 13/6 = 2,... habrán 3 páginas)
-    paginas = Math.ceil(paginas);
-    var docu = document.getElementsByClassName("pagination");
-    if(paginas == 1 )
-    {
-        docu[0].innerHTML +=
-        `
-        <a href="#">1</a>
-        `;
-    }
-    else {
-      docu[0].innerHTML += '<a href="#">&laquo;</a>';
-      for(var i = 1; i<=paginas; i++)
-      {
-        docu[0].innerHTML += '<a href="#">' + i + '</a>';
-      }
-      docu[0].innerHTML += '<a href="#">&raquo;</a>';
-    }
-    console.log(paginas);
-
+    paginacion(i,6);
 
     });
 })
@@ -71,4 +51,39 @@ function getRecetas()
 
     console.log('ERROR');
 });
+}
+
+function paginacion(i, results) {
+  var url_string = window.location.href;
+  var url = new URL(url_string);
+  // Select actual page:
+  var pag = url.searchParams.get("pag");
+  console.log("pag actual: ");
+  console.log(pag);
+  // Paginacion
+  var total = i;
+  let paginas = total / results;
+    // Ceil redondea al entero mayor (si hay 13 resultados, 13/6 = 2,... habrán 3 páginas)
+  paginas = Math.ceil(paginas);
+  var docu = document.getElementsByClassName("pagination");
+  if(paginas == 1 )
+  {
+      docu[0].innerHTML +=
+      `
+      <a href="#">1</a>
+      `;
+  }
+  else {
+    var i;
+    for(i = 1; i<=paginas; i++)
+    {
+      docu[0].innerHTML += '<a href="buscar.html?pag=' + (i-1) + '&lpag=4">' + i + '</a>';
+      if( (i-1) == pag )
+      {
+        docu[0].children[pag].style.backgroundColor = "grey";
+      }
+    }
+
+  }
+
 }

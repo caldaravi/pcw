@@ -17,6 +17,11 @@ function compruebaid(){
           response.json().then(function(data) {
 
             inf_data = data.FILAS[0];
+            if(inf_data === undefined )
+            {
+              window.location.replace("index.html");
+
+            }
             console.log(inf_data);
 
             // Si ha ido OK -> GET de fotos de esa receta
@@ -87,7 +92,7 @@ function compruebaid(){
                                             <div>
                                               <div>
                                                 <h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html?a=` + inf_data.autor + `">` + inf_data.autor + `</a></h4>
-                                                <p><span class="icon-clock"></span> ` + inf_data.tiempo + ` </p>
+                                                <p><span class="icon-clock"></span> ` + inf_data.tiempo + ` min </p>
                                                 <p><span class="icon-star-empty"></span>Nivel: ` + inf_data.dificultad + `</p>
                                               </div>
                                               <div>

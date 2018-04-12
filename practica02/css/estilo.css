@@ -345,7 +345,7 @@ section#receta>article.card>div>div:nth-of-type(1){
 				max-width: 400px;
 			}
 
-/* Busqueda.html */
+/* Buscar.html */
 #container_busqueda{
 	display: flex;
 	flex-direction: column;
