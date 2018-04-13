@@ -1,38 +1,49 @@
+function acceso(){
+  if(sessionStorage.getItem('usuario') != null){
+    if(location.pathname === "/pcw/practica02/login.html" ||
+       location.pathname === "/pcw/practica02/registro.html"){
+        window.location.href = "/pcw/practica02/index.html";
+        //window.location.replace("/pcw/practica02/index.html"); HACE LO MISMO
+    }
+  } else {
+    if(location.pathname === "/pcw/practica02/nuevareceta.html"){
+      window.location.href = "/pcw/practica02/index.html";
+    }
+  }
+}
+
 function control(){
-  var elements = document.getElementsByClassName('logged');
-  var elements2 = document.getElementsByClassName('deslogged');
+  var logged = document.getElementsByClassName('logged');
+  var offline = document.getElementsByClassName('offline');
 
   if(sessionStorage.getItem('usuario') != null){
     console.log("logueado");
-    for(item in elements){
-      console.log("Antes de none, element:" + item);
-      console.log(elements[item]);
-      elements[item].style.display='block';
-      console.log("Despues de none, element:" + item);
-      console.log(elements[item]);
+     for(item in logged){
+       if(item < logged.length){
+        logged[item].style.display='block';
+      }
     }
-    for(item2 in elements2){
-      console.log("Antes de none, element:" + item2);
-      console.log(elements2[item2]);
-      elements2[item2].style.display='none';
-      console.log("Despues de none, element:" + item2);
-      console.log(elements2[item2]);
+    for(item2 in offline){
+      if(item2 < offline.length){
+        offline[item2].style.display='none';
+      }
     }
   } else {
     console.log("deslogueado");
-    for(item in elements){
-      console.log("Antes de none, element:" + item);
-      console.log(elements[item]);
-      elements[item].style.display='none';
-      console.log("Despues de none, element:" + item);
-      console.log(elements[item]);
+    for(item in logged){
+      if(item < logged.length){
+        logged[item].style.display='none';
+      }
     }
-    for(item2 in elements2){
-      console.log("Antes de none, element:" + item2);
-      console.log(elements2[item2]);
-      elements2[item2].style.display='block';
-      console.log("Despues de none, element:" + item2);
-      console.log(elements2[item2]);
+    for(item2 in offline){
+      if(item2 < offline.length){
+        offline[item2].style.display='block';
+      }
     }
   }
+}
+
+function logout(){
+  sessionStorage.removeItem('usuario');
+  sessionStorage.removeItem('password');
 }
