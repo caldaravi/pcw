@@ -481,6 +481,7 @@ div.modal>div{
 div#login.card{
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 4em;
 }
 div#login.card>form{
 	display: flex;
@@ -590,8 +591,14 @@ div#login.card>form>div{
 	justify-content: center;
 	align-content: center;
 }
+div#login.card>form>div{
+	margin-bottom: 1.6em;
+}
 div#login.card>form>div input{
-	margin-bottom: 2em;
+	margin-bottom: 0.5em;
+}
+#usuarioStatus,#contrasenaDistinta{
+	text-align: center;
 }
 
 

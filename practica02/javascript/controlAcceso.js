@@ -13,37 +13,61 @@ function acceso(){
 }
 
 function control(){
-  var logged = document.getElementsByClassName('logged');
-  var offline = document.getElementsByClassName('offline');
+  var no_reg = [];
+  no_reg.push({a: "index.html", icon: "home", text: "Inicio"});
+  no_reg.push({a: "buscar.html", icon: "search", text: "Buscar"});
+  no_reg.push({a: "login.html", icon: "login", text: "Login"});
+  no_reg.push({a: "registro.html", icon: "registro", text: "Regístrate"});
+
+  var menu = [];
+  menu.push({a: "index.html", icon: "home", text: "Inicio"});
+  menu.push({a: "buscar.html", icon: "search", text: "Buscar"});
+  menu.push({a: "nuevareceta.html", icon: "list-add", text: "Nueva receta"});
+  menu.push({a: "index.html", icon: "logout", text: "Logout"});
+
+  var ul = document.getElementsByTagName('nav')[0].children[0];
+  // console.log(ul);
+  // console.log(menu);
 
   if(sessionStorage.getItem('usuario') != null){
-    console.log("logueado");
-     for(item in logged){
-       if(item < logged.length){
-        logged[item].style.display='block';
-      }
+    // Hay Usuario
+    var i;
+    for(i=0; i<menu.length; i++)
+    {
+      ul.innerHTML +=
+      `
+      <li>
+        <a href="` + menu[i].a + `">
+          <span class="icon-` + menu[i].icon + `" aria-hidden="true"></span>
+          <span>` + menu[i].text +`</span>
+        </a>
+      </li>
+      `
     }
-    for(item2 in offline){
-      if(item2 < offline.length){
-        offline[item2].style.display='none';
-      }
-    }
+    // Se añade el logout onclick
+    var li_logout = ul.children[i];
+    //  li_logout.onclick = logout();
+    li_logout.addEventListener('click', logout, true);
+    //console.log(li_logout);
+
   } else {
-    console.log("deslogueado");
-    for(item in logged){
-      if(item < logged.length){
-        logged[item].style.display='none';
-      }
-    }
-    for(item2 in offline){
-      if(item2 < offline.length){
-        offline[item2].style.display='block';
-      }
+    for(var i=0; i<menu.length; i++)
+    {
+      ul.innerHTML +=
+      `
+      <li>
+        <a href="` + no_reg[i].a + `">
+          <span class="icon-` + no_reg[i].icon + `" aria-hidden="true"></span>
+          <span>` + no_reg[i].text +`</span>
+        </a>
+      </li>
+      `
     }
   }
 }
 
 function logout(){
+  console.log("fuera");
   sessionStorage.removeItem('usuario');
   sessionStorage.removeItem('password');
 }

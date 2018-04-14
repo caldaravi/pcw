@@ -17,17 +17,26 @@ function check(form) {
   		console.log(r);
     } else {
     	 console.log('ERROR');
-       document.getElementById("contrasenaDistinta").innerHTML = "";
-       document.getElementById("usuarioStatus").innerHTML = "";
+       var pass = document.getElementById("contrasenaDistinta") ;
+       var user = document.getElementById("usuarioStatus");
+       user = "";
+       pass.innerHTML = "";
         if(r.CODIGO==400){
           if(r.DESCRIPCION=='Login no válido'){
-            document.getElementById("usuarioStatus").innerHTML = "Usuario incorrecto";
+            user.innerHTML  = "Usuario incorrecto";
+            user.style.color = "#4BB543";
           } else {
-            document.getElementById("usuarioStatus").innerHTML = "Usuario NO disponible";
+            user.innerHTML  = "Usuario NO disponible";
+            user.style.color = "#B22222";
           }
         } else {
           if(r.CODIGO==401){
-            document.getElementById("contrasenaDistinta").innerHTML = "Las contraseñas no coinciden";
+            pass.innerHTML = "Las contraseñas NO coinciden";
+            pass.style.color = "#B22222";
+          }
+          else{
+            pass.innerHTML = "Las contraseñas coinciden";
+            pass.style.color = "#4BB543";
           }
         }
     }
@@ -48,10 +57,15 @@ function checkUser(value){
     let r = JSON.parse(xhr.responseText);
 
     if(r.RESULTADO=='OK'){
+      var texto = document.getElementById("usuarioStatus");
+      console.log(texto);
         if(r.DISPONIBLE){
-          document.getElementById("usuarioStatus").innerHTML = "Usuario disponible";
+          texto.innerHTML = "Usuario disponible";
+          texto.style.color = "#4BB543";
         } else {
-          document.getElementById("usuarioStatus").innerHTML = "Usuario NO disponible";
+          texto.innerHTML = "Usuario NO disponible";
+          texto.style.color = "#B22222";
+
         }
 
       console.log(r);
