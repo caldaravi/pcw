@@ -59,11 +59,11 @@ if( !( isset($PARAMS['login']) ) )
 
 // Se pillan el usuario y el login:
 $login  = sanatize($PARAMS['login']);
-$pwd    = sanatize($PARAMS['pwd']);
-$pwd2   = sanatize($PARAMS['pwd2']);
+$pwd    = sanatize($PARAMS['contrasena']);
+$pwd2   = sanatize($PARAMS['contrasena2']);
 $nombre = sanatize($PARAMS['nombre']);
 $email  = sanatize($PARAMS['email']);
-$fnac   = sanatize($PARAMS['fnac']);
+$fnac   = sanatize($PARAMS['fecha']);
 
 if( $pwd != $pwd2 )
 { // Contraseñas distintas
