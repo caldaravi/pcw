@@ -76,50 +76,84 @@ function compruebaid(){
                                             `;
                                           }
                                           let docu = document.getElementById("receta");
-                                          docu.innerHTML +=
-                                          `
-                                          <article class="card">
-                                          <div>
-
+                                          if(sessionStorage.getItem('usuario') != null){
+                                            docu.innerHTML +=
+                                            `
+                                            <article class="card">
                                             <div>
-                                              <h3>` + inf_data.nombre + `</h3>
-                                                <p>` + inf_data.comensales + `s</p>
-                                                <img src="fotos/` + inf_data.fichero + `" alt="` + inf_data.descripcion_foto + `">
-                                                <a href="">&lt;</a>
-                                                <a href="">&gt;</a>
-                                            </div>
 
-                                            <div>
                                               <div>
-                                                <h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html?a=` + inf_data.autor + `">` + inf_data.autor + `</a></h4>
-                                                <p><span class="icon-clock"></span> ` + inf_data.tiempo + ` min </p>
-                                                <p><span class="icon-star-empty"></span>Nivel: ` + inf_data.dificultad + `</p>
+                                                <h3>` + inf_data.nombre + `</h3>
+                                                  <p>` + inf_data.comensales + `s</p>
+                                                  <img src="fotos/` + inf_data.fichero + `" alt="` + inf_data.descripcion_foto + `">
+                                                  <a href="">&lt;</a>
+                                                  <a href="">&gt;</a>
                                               </div>
-                                              <div>
-                                                <ul>
-                                                  <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, exercitationem.</li>
-                                                  <li>Architecto cum ab voluptatem maxime, numquam saepe mollitia maiores tempora?</li>
-                                                  <li>Sit sed voluptate odio, culpa libero, voluptas optio unde dolores.</li>
-                                                  <li>Veniam blanditiis est tenetur enim quisquam doloremque fugiat maxime cupiditate.</li>
-                                                  <li>Modi provident odit nisi labore obcaecati libero quos numquam similique.</li>
-                                                  <li>Inventore architecto obcaecati suscipit placeat alias atque, laborum odit explicabo.</li>
-                                                </ul>
-                                              </div>
-                                      				<p>
-                                              <a href="">
-                                              <span class="icon-thumbs-up"></span>
-                                              </a> ` + inf_data.positivos + ` likes<a href="">
-                                              <span class="icon-thumbs-down"></span>
-                                              </a> ` + inf_data.negativos + ` dislikes
-                                              </p>
-                                            </div>
 
-                                          </div>
+                                              <div>
+                                                <div>
+                                                  <h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html?a=` + inf_data.autor + `">` + inf_data.autor + `</a></h4>
+                                                  <p><span class="icon-clock"></span> ` + inf_data.tiempo + ` min </p>
+                                                  <p><span class="icon-star-empty"></span>Nivel: ` + inf_data.dificultad + `</p>
+                                                </div>
+                                                <div>
+                                                  <ul>
+                                                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, exercitationem.</li>
+                                                    <li>Architecto cum ab voluptatem maxime, numquam saepe mollitia maiores tempora?</li>
+                                                    <li>Sit sed voluptate odio, culpa libero, voluptas optio unde dolores.</li>
+                                                    <li>Veniam blanditiis est tenetur enim quisquam doloremque fugiat maxime cupiditate.</li>
+                                                    <li>Modi provident odit nisi labore obcaecati libero quos numquam similique.</li>
+                                                    <li>Inventore architecto obcaecati suscipit placeat alias atque, laborum odit explicabo.</li>
+                                                  </ul>
+                                                </div>
+                                        				<p>
+                                                <a href="">
+                                                <span class="icon-thumbs-up"></span>
+                                                </a> ` + inf_data.positivos + ` likes<a href="">
+                                                <span class="icon-thumbs-down"></span>
+                                                </a> ` + inf_data.negativos + ` dislikes
+                                                </p>
+                                              </div>
+                                            </div>
+                                            `} else {
+                                              docu.innerHTML +=
+                                              `
+                                              <article class="card">
+                                              <div>
+
+                                                <div>
+                                                  <h3>` + inf_data.nombre + `</h3>
+                                                    <p>` + inf_data.comensales + `s</p>
+                                                    <img src="fotos/` + inf_data.fichero + `" alt="` + inf_data.descripcion_foto + `">
+                                                    <a href="">&lt;</a>
+                                                    <a href="">&gt;</a>
+                                                </div>
+
+                                                <div>
+                                                  <div>
+                                                    <h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html?a=` + inf_data.autor + `">` + inf_data.autor + `</a></h4>
+                                                    <p><span class="icon-clock"></span> ` + inf_data.tiempo + ` min </p>
+                                                    <p><span class="icon-star-empty"></span>Nivel: ` + inf_data.dificultad + `</p>
+                                                  </div>
+                                                  <div>
+                                                    <ul>
+                                                      <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, exercitationem.</li>
+                                                      <li>Architecto cum ab voluptatem maxime, numquam saepe mollitia maiores tempora?</li>
+                                                      <li>Sit sed voluptate odio, culpa libero, voluptas optio unde dolores.</li>
+                                                      <li>Veniam blanditiis est tenetur enim quisquam doloremque fugiat maxime cupiditate.</li>
+                                                      <li>Modi provident odit nisi labore obcaecati libero quos numquam similique.</li>
+                                                      <li>Inventore architecto obcaecati suscipit placeat alias atque, laborum odit explicabo.</li>
+                                                    </ul>
+                                                  </div>
+                                          				<p>
+                                                   ` + inf_data.positivos + ` likes ` + inf_data.negativos + ` dislikes
+                                                  </p>
+                                                </div>
+                                              </div>
+                                            `}docu.innerHTML +=`                                            
                                           <div>
-
                                             <p>` + inf_data.elaboracion + `</p>
                                             <p><time datetime="` + inf_data.fecha + `">` + inf_data.fecha + `</time></p>
-
                                           </div>
 
                                           </article>
@@ -137,10 +171,6 @@ function compruebaid(){
                                       		</div>
 
                                           `;
-
-
-
-
                           });
                         }
                       )
