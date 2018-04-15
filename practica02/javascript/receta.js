@@ -22,7 +22,7 @@ function compruebaid(){
               window.location.replace("index.html");
 
             }
-            console.log(inf_data);
+            //console.log(inf_data);
 
             // Si ha ido OK -> GET de fotos de esa receta
             var url_fotos = 'rest/receta/'+id+'/fotos';
@@ -36,7 +36,7 @@ function compruebaid(){
                   fotos_resp.json().then( function(fotos) {
 
                     fotos_data = fotos.FILAS;
-                    console.log(fotos_data);
+                    //console.log(fotos_data);
 
                     // Si ha ido OK -> GET de comentarios
                     var url_coments = 'rest/receta/'+id+'/comentarios';
@@ -51,7 +51,7 @@ function compruebaid(){
                               //console.log(comentarios);
 
                               coments_data = comentarios.FILAS;
-                              console.log(coments_data);
+                              //console.log(coments_data);
 
 
                               // =====================================
@@ -150,7 +150,7 @@ function compruebaid(){
                                                   </p>
                                                 </div>
                                               </div>
-                                            `}docu.innerHTML +=`                                            
+                                            `}docu.innerHTML +=`
                                           <div>
                                             <p>` + inf_data.elaboracion + `</p>
                                             <p><time datetime="` + inf_data.fecha + `">` + inf_data.fecha + `</time></p>
@@ -160,17 +160,26 @@ function compruebaid(){
                                           <div id="comentarios" class="card">
                                             <h4>Comentarios</h4>
                                           ` + txt + `</div>
+                                          `;if(sessionStorage.getItem('usuario') != null){
+                                            docu.innerHTML +=`
+                                            <FORM name="ajax" method="POST" action="">
+                                            	<p><INPUT type="BUTTON"
+                                                       value="Deja tu comentario!"
+                                                       ONCLICK="loadWholePage('comenta.html')">
+                                            	</p>
+                                            </FORM>
 
-                                          <div id="comenta" class="card">
-                                      			<h4>Añade tu comentario</h4>
-                                      			<form action="anadecomentario.php">
-                                      				<input type="text" placeholder="Título..." required>
-                                      				<textarea name="comentario" id="comentario" cols="30" rows="10" placeholder="Comentario..." required></textarea>
-                                      				<input type="submit">
-                                      			</form>
-                                      		</div>
+                                            <div id="displayed">
+                                            </div>`
 
-                                          `;
+
+                                            } else {
+                                              docu.innerHTML +=`
+                                              <div id="comenta" class="card">
+                                                <h4>Para dejar un comentario debes iniciar sesión</h4>
+                                              </div>
+                                              `
+                                            }
                           });
                         }
                       )
