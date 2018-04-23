@@ -1,27 +1,27 @@
 function dejarComentario(frm)
 {
-	let fd = new FormData(frm),
+	let fd = new FormData(),
   xhr = new XMLHttpRequest(),
-	url = 'rest/receta/1/comentario/',
-	usu;
+	url = 'rest/receta/1/comentario/';
 
   if(!sessionStorage.getItem('usuario')) return false;
 
+	let usu = sessionStorage.getItem('usuario');
 
+	fd.append('titulo', 'asdf');
+	fd.append('texto', 'asdf');
+	fd.append('l', 'usuario1');
 
-	fd.append('titulo', frm.titulo);
-	fd.append('texto', frm.texto);
-	fd.append('l', sessionStorage.getItem('usuario'));
-
+	xhr.open('POST', url, true);
 
   xhr.onload = function(){
-    usu = JSON.parse(sessionStorage.getItem('usuario'));
 	   console.log(xhr.responseText);
   }
-  xhr.open('POST', url, true);
 
-  xhr.setRequestHeader('Authorization', usu.clave);
+  xhr.setRequestHeader('Authorization', 'cfd95109aeea1ff47bca4c5e83cd2af0');
   xhr.send(fd);
+
+	return false;
 
 }
 

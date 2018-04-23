@@ -107,9 +107,10 @@ function compruebaid(){
                                                   </ul>
                                                 </div>
                                         				<p>
-                                                <a href="">
+                                                <a onclick="like()">
                                                 <span class="icon-thumbs-up"></span>
-                                                </a> ` + inf_data.positivos + ` likes<a href="">
+                                                </a> ` + inf_data.positivos + ` likes
+                                                <a onclick="dislike()">
                                                 <span class="icon-thumbs-down"></span>
                                                 </a> ` + inf_data.negativos + ` dislikes
                                                 </p>

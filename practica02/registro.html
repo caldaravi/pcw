@@ -42,30 +42,30 @@
 					<h3>Registro de nuevo usuario</h3>
 					<div>
 						<label for="nickname">Login:</label>
-						<input type="text" name="login" id="nickname" pattern="^[^0-9][a-zA-Z0-9]{5,19}" onkeyup="checkUser(this.value)">
+						<input type="text" name="login" id="nickname" pattern="^[^0-9][a-zA-Z0-9]{5,19}" onkeyup="checkUser(this.value)" required>
 						<span id="usuarioStatus"></span>
 					</div>
 
 					<div>
 						<label for="usuario">Nombre:</label>
-						<input type="text" name="nombre" id="nombre" pattern="^[a-zA-Z0-9]{5,19}">
+						<input type="text" name="nombre" id="nombre" pattern="^[a-zA-Z0-9]{5,19}" required>
 					</div>
 					<div>
 						<label for="contrasena">Contraseña:</label>
-						<input type="password" name="contrasena" id="contrasena" pattern="^[a-zA-Z0-9_-]{7,19}">
+						<input type="password" name="contrasena" id="contrasena" pattern="^[a-zA-Z0-9_-]{7,19}" required>
 					</div>
 					<div>
 						<label for="contrasena2">Repetir contraseña:</label>
-						<input type="password" name="contrasena2" id="contrasena2" pattern="^[a-zA-Z0-9_-]{7,19}">
+						<input type="password" name="contrasena2" id="contrasena2" pattern="^[a-zA-Z0-9_-]{7,19}" required>
 						<span id="contrasenaDistinta"></span>
 					</div>
 					<div>
 						<label for="email">Email:</label>
-						<input type="email" name="email" id="email">
+						<input type="email" name="email" id="email" required>
 					</div>
 					<div>
 						<label for="fecha">Fecha nacimiento:</label>
-						<input type="date" name="fecha" id="fecha">
+						<input type="date" name="fecha" id="fecha" required>
 					</div>
 					<input type="submit" class="simple">
 				</form>
