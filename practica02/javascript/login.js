@@ -18,12 +18,36 @@ function hacerLogin(frm)
             //sessionStorage.setItem("password", frm.pwd.value); // modo alternativo
           //}
       }
-  		console.log(r);
-      document.getElementById('id01').style.display='block';
+			var modal = document.getElementById('id01');
+      var span = document.getElementsByClassName("close")[0];
+      modal.style.display='block';
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+         modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+             modal.style.display = "none";
+        }
+      }
     } else {
     	 console.log('ERROR');
-       document.getElementById('id02').style.display='block';
+			 var modal = document.getElementById('id02');
+       var span = document.getElementsByClassName("close")[0];
+       modal.style.display='block';
+       // When the user clicks on <span> (x), close the modal
+       span.onclick = function() {
+          modal.style.display = "none";
+       }
 
+       // When the user clicks anywhere outside of the modal, close it
+       window.onclick = function(event) {
+         if (event.target == modal) {
+              modal.style.display = "none";
+         }
+       }
     }
   }
 

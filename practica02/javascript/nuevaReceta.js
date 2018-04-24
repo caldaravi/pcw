@@ -1,5 +1,7 @@
 var contador = 0;
-var fotos = 0;
+var numFotos = 0;
+var numIngredientes = 0;
+var fotos = [];
 
 function addIngrediente(ingrediente){
 
@@ -20,6 +22,7 @@ function addIngrediente(ingrediente){
     //Devolver el focus y resetear texto
     document.getElementById("ingrediente").value = '';
     document.getElementById("ingrediente").focus();
+    numIngredientes++;
   } else {
     alert("No hay ingrediente");
   }
@@ -51,6 +54,18 @@ function addFoto(){
 
 function cerrarFicha(x){
 
+  var id = x.id.split("foto");
+  id = "img" + id[1];
+
+  var src = document.getElementById(id).src;
+  var img = src.split("http://localhost/pcw/practica02/imgs/");
+  img = img[1];
+
+  var index = fotos.indexOf(img);
+  if(index > -1){
+    fotos.splice(index, 1);
+  }
+
   var elem = document.getElementById(x.id);
   elem.parentNode.removeChild(elem);
 
@@ -68,7 +83,8 @@ function getImg(x){
       document.getElementById('id01').style.display='block';
     } else {
       img.src = "imgs/" + name;
-      fotos++;
+      numFotos++;
+      fotos.push(name);
     }
   } else {
 
@@ -85,52 +101,172 @@ function getImg(x){
       var name = fileupload.files[0].name;
 
       if(file>300000){
-        document.getElementById('id01').style.display='block';
+        var modal = document.getElementById('id01');
+        modal.style.display='block';
+        window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+        }
       } else {
-        image.src = "imgs/" + name;
-        fotos++;
+          image.src = "imgs/" + name;
+          numFotos++;
+          fotos.push(name);
       }
     }
   }
 }
 
 function mandarReceta(form){
-  console.log("mandarReceta()");
-  if(fotos>0){
-    console.log("fotos ok");
-    let xhr = new XMLHttpRequest(),
-    fd  = new FormData(form),
-    url = 'rest/receta/',
-    usu;
+  if(numFotos>0){
+    if(numIngredientes > 0){
+      let xhr = new XMLHttpRequest(),
+      fd  = new FormData(form),
+      url = 'rest/receta/',
+      usu;
 
-    if(xhr){
-      usu = JSON.parse(sessionStorage.getItem('usuario'));
-      fd.append('l',usu.login);
-      fd.append('n',form.titulo.value);
-      fd.append('e',form.elaboracion.value);
-      fd.append('t',form.tiempo.value);
-      fd.append('d',form.dificultad.value);
-      fd.append('c',form.comensales.value);
+      if(xhr){
+        usu = JSON.parse(sessionStorage.getItem('usuario'));
+        var dificultad;
+        switch(form.dificultad.value){
+          case 'baja': dificultad = 0; break;
+          case 'media': dificultad = 1; break;
+          case 'alta': dificultad = 2; break;
+        }
+        fd.append('l',usu.login);
+        fd.append('n',form.titulo.value);
+        fd.append('e',form.elaboracion.value);
+        fd.append('t',form.tiempo.value);
+        fd.append('d',dificultad);
+        fd.append('c',form.comensales.value);
 
-      xhr.open('POST', url, true);
+        xhr.open('POST', url, true);
 
-      xhr.onload = function(){
-         console.log(xhr.responseText);
+        xhr.onload = function(){
+           console.log(xhr.responseText);
 
-         let r = JSON.parse(xhr.responseText);
+           let r = JSON.parse(xhr.responseText);
 
-         if(r.RESULTADO == "OK"){
-           console.log("voto ok");
-         } else {
-           console.log("nope");
-         }
+           if(r.RESULTADO == "OK"){
+             enviarIngredientes(r.ID);
+           } else {
+
+               var modal = document.getElementById('id03');
+               var span = document.getElementsByClassName("close")[0];
+               modal.style.display='block';
+               // When the user clicks on <span> (x), close the modal
+              span.onclick = function() {
+                  modal.style.display = "none";
+              }
+
+              // When the user clicks anywhere outside of the modal, close it
+              window.onclick = function(event) {
+                  if (event.target == modal) {
+                      modal.style.display = "none";
+                  }
+              }
+           }
+        }
+        xhr.setRequestHeader('Authorization', usu.clave);
+        xhr.send(fd);
       }
-      xhr.setRequestHeader('Authorization', usu.clave);
-      xhr.send(fd);
+    } else {
+      var modal = document.getElementById('id04');
+      var span = document.getElementsByClassName("close")[0];
+      modal.style.display='block';
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+         modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+             modal.style.display = "none";
+        }
+      }
     }
   } else {
-    console.log("Falta la foto");
-    document.getElementById('id02').style.display='block';
+      var modal = document.getElementById('id02');
+      var span = document.getElementsByClassName("close")[0];
+      modal.style.display='block';
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+         modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+             modal.style.display = "none";
+        }
+      }
   }
   return false;
+}
+
+function enviarIngredientes(id){
+  let xhr = new XMLHttpRequest(),
+  fd  = new FormData(),
+  url = 'rest/receta/' + id + '/ingredientes',
+  usu;
+
+  if(xhr){
+    var ul = document.getElementById("ingredientes");
+    var vIngredientes = [];
+    var i;
+
+    for(i=0; i<ul.children.length; i++){
+      vIngredientes.push(ul.childNodes[i].innerText);
+    }
+
+    usu = JSON.parse(sessionStorage.getItem('usuario'));
+
+    fd.append('l',usu.login);
+    fd.append('i',JSON.stringify(vIngredientes));
+
+    xhr.open('POST', url, true);
+    xhr.onload = function(){
+       console.log(xhr.responseText);
+
+       let r = JSON.parse(xhr.responseText);
+
+       if(r.RESULTADO == "OK"){
+         enviarFotos(id);
+       } else {
+         console.log("nope");
+       }
+    }
+    xhr.setRequestHeader('Authorization', usu.clave);
+    xhr.send(fd);
+  }
+}
+
+function enviarFotos(id){
+  let xhr = new XMLHttpRequest(),
+  fd  = new FormData(),
+  url = 'rest/receta/' + id + '/foto',
+  usu;
+
+  if(xhr){
+    usu = JSON.parse(sessionStorage.getItem('usuario'));
+
+    fd.append('l',usu.login);
+    fd.append('t',"desc");
+
+    xhr.open('POST', url, true);
+    xhr.onload = function(){
+       console.log(xhr.responseText);
+
+       let r = JSON.parse(xhr.responseText);
+
+       if(r.RESULTADO == "OK"){
+         console.log("fotos subidas al servidor")
+       } else {
+         console.log("nope");
+       }
+    }
+    xhr.setRequestHeader('Authorization', usu.clave);
+    xhr.send(fd);
+  }
 }
