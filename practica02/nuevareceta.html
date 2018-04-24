@@ -26,6 +26,15 @@
 		</ul>
 	</nav>
 
+	<div id="id02" class="modal">
+
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>Debes añadir al menos una imagen</p>
+		</div>
+	</div>
+
 	<div id="nuevareceta" class="card">
 		<h3>Añadir nueva receta</h3>
 		<div>
@@ -64,7 +73,14 @@
 
 		</div>
 		<h4>Fotos de la receta</h4>
+		<div id="id01" class="modal">
 
+			<!-- Modal Content -->
+			<div class="card">
+				<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<p>El tamaño de la imagen debe ser menor de 300Kb</p>
+			</div>
+		</div>
 		<button onclick="addFoto()">Añadir foto</button>
 
 				<div id="fotosReceta">
