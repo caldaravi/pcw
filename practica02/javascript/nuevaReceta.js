@@ -40,12 +40,11 @@ function addFoto(){
   <p><button onclick="cerrarFicha(` + id + `)" class="icon-cancel"></button></p>
   <input onchange="getImg(this)" required id="` + contador + `" type="file" name="foto" accept="image/*">
 
+  <p>Foto:</p>
+  <img id="img` + contador + `" type="file" onclick="getImg(this)" accept="image/*()" src="imgs/sin_imagen.jpg" alt="noimagen" style="cursor: pointer">
 
-    <p>Foto:</p>
-    <img id="img` + contador + `" type="file" onclick="getImg(this)" accept="image/*()" src="imgs/sin_imagen.jpg" alt="noimagen" style="cursor: pointer">
-
-    <p>Descripción: </p>
-    <textarea name="descripcion` + contador + `" cols="30" rows="4"></textarea>
+  <p>Descripción: </p>
+  <textarea name="descripcion` + contador + `" cols="30" rows="4"></textarea>
   `
   contador++;
 }
@@ -95,10 +94,42 @@ function getImg(x){
   }
 }
 
-function mandarReceta(receta){
+function mandarReceta(form){
+  console.log("mandarReceta()");
   if(fotos>0){
-    console.log("enviando receta");
+    console.log("fotos ok");
+    let xhr = new XMLHttpRequest(),
+    fd  = new FormData(form),
+    url = 'rest/receta/',
+    usu;
+
+    if(xhr){
+      usu = JSON.parse(sessionStorage.getItem('usuario'));
+      fd.append('l',usu.login);
+      fd.append('n',form.titulo.value);
+      fd.append('e',form.elaboracion.value);
+      fd.append('t',form.tiempo.value);
+      fd.append('d',form.dificultad.value);
+      fd.append('c',form.comensales.value);
+
+      xhr.open('POST', url, true);
+
+      xhr.onload = function(){
+         console.log(xhr.responseText);
+
+         let r = JSON.parse(xhr.responseText);
+
+         if(r.RESULTADO == "OK"){
+           console.log("voto ok");
+         } else {
+           console.log("nope");
+         }
+      }
+      xhr.setRequestHeader('Authorization', usu.clave);
+      xhr.send(fd);
+    }
   } else {
+    console.log("Falta la foto");
     document.getElementById('id02').style.display='block';
   }
   return false;

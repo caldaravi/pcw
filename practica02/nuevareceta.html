@@ -38,7 +38,7 @@
 	<div id="nuevareceta" class="card">
 		<h3>Añadir nueva receta</h3>
 		<div>
-			<form method="POST" onsubmit="return mandarReceta(this);">
+			<form onsubmit="return mandarReceta(this);">
 				<div>
 					<label for="titulo">Titulo: </label><input required id="titulo" name="titulo" type="text">
 				</div>
@@ -62,12 +62,12 @@
 
 				<div>
 					<label>Ingredientes:</label>
-					<ul id="ingredientes" contenteditable="true"></ul>
+					<ul id="ingredientes" contenteditable="true" required></ul>
 
-					<form>
-			      <input type="text" name="ingrediente" id="ingrediente" placeholder="Escribe tus ingredientes"/>
-			      <button type="button" onclick="addIngrediente(ingrediente)">Agregar</button>
-			    </form>
+
+		      <input type="text" name="ingrediente" id="ingrediente" placeholder="Escribe tus ingredientes"/>
+		      <button type="button" onclick="addIngrediente(ingrediente)">Agregar</button>
+
 
 				</div>​
 
@@ -81,7 +81,7 @@
 				<p>El tamaño de la imagen debe ser menor de 300Kb</p>
 			</div>
 		</div>
-		<button onclick="addFoto()">Añadir foto</button>
+		<button type="button" onclick="addFoto()">Añadir foto</button>
 
 				<div id="fotosReceta">
 

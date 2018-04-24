@@ -14,8 +14,8 @@ function hacerLogin(frm)
       if(window.localStorage){ // Se comprueba si hay soporte para Web Storage
          var frm = document.querySelectorAll("form")[0];
           //if(frm.remember.checked){ // Si se ha marcado guardar datos ...
-            sessionStorage.setItem("usuario", frm.login.value);
-            sessionStorage.setItem("password", frm.pwd.value); // modo alternativo
+            sessionStorage.setItem("usuario", xhr.responseText);
+            //sessionStorage.setItem("password", frm.pwd.value); // modo alternativo
           //}
       }
   		console.log(r);
