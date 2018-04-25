@@ -32,6 +32,66 @@
 
 	<section id="receta">
 
+		<article class="card">
+		<div>
+
+			<div>
+				<h3 id="titulo"></h3>
+					<p id="comensales"></p>
+					<img src="fotos/fichero" alt="alt">
+					<a href="">&lt;</a>
+					<a href="">&gt;</a>
+			</div>
+
+			<div>
+				<div>
+					<h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html?a=autor" id="autor">  </a></h4>
+					<p id="tiempo"><span class="icon-clock"></span> Tiempo:  </p>
+					<p id="nivel"><span class="icon-star-empty"></span> Nivel: </p>
+				</div>
+				<div>
+					<ul id="ingredientes">
+					</ul>
+				</div>
+				<p id="valoraciones">
+				<a onclick="like()">
+				<span class="icon-thumbs-up"></span>
+				</a> likes
+				<a onclick="dislike()">
+				<span class="icon-thumbs-down"></span>
+				</a> dislikes
+				</p>
+			</div>
+		</div>
+
+		<div>
+			<p>elaboracion</p>
+			<p><time datetime="fecha">fecha</time></p>
+		</div>
+
+		</article>
+		<div id="comentarios" class="card">
+			<h4>Comentarios</h4>
+
+			<div>
+				<p><span class="icon-user"></span> <a href="buscar.html?a=autor"><strong>autor</strong></a> dice:</p>
+				<p><strong>titulo</strong></p>
+				<p>coment</p>
+				<time datetime="fecha">fecha</time>
+
+			</div>
+			<hr>
+		</div>
+
+		<form name="ajax" method="POST" action="">
+			<p><input type="button"
+							 value="Deja tu comentario!"
+							 onclick="loadWholePage('comenta.html')">
+			</p>
+		</form>
+
+		<div id="displayed">
+		</div>
 
 	</section>
 

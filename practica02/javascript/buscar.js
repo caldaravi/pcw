@@ -92,31 +92,31 @@ function compruebaUsuario() {
 
         var params = [];
 
-        if(typeof(titulo) != "undefined" && titulo !== null){
+        if(typeof(titulo) != "undefined" && titulo !== null && titulo != "" ){
           params.t = titulo.replace(/\s+/g, ',');
         }
 
-        if(typeof(ingredientes) != "undefined" && ingredientes !== null){
+        if(typeof(ingredientes) != "undefined" && ingredientes !== null && ingredientes != "" ){
           params.i = ingredientes.replace(/\s+/g, ',');
         }
 
-        if(typeof(tmin) != "undefined" && tmin !== null){
+        if(typeof(tmin) != "undefined" && tmin !== null && tmin != "" ){
           params.di = tmin;
         }
 
-        if(typeof(tmax) != "undefined" && tmax !== null){
+        if(typeof(tmax) != "undefined" && tmax !== null && tmax != "" ){
           params.df = tmax;
         }
 
-        if(typeof(dificultad) != "undefined" && dificultad !== null){
+        if(typeof(dificultad) != "undefined" && dificultad !== null && dificultad != "" ){
           params.d = dificultad;
         }
 
-        if(typeof(comensales) != "undefined" && comensales !== null){
+        if(typeof(comensales) != "undefined" && comensales !== null && comensales != "" ){
           params.c = comensales;
         }
 
-        if(typeof(autor) != "undefined" && autor !== null){
+        if(typeof(autor) != "undefined" && autor !== null && autor != "" ){
           params.a = autor;
         }
 

@@ -53,134 +53,57 @@ function compruebaid(){
                               coments_data = comentarios.FILAS;
                               //console.log(coments_data);
 
+                              // Si todo OK -> GET de ingredientes
+                              var url_ingredientes = 'rest/receta/'+id+'/ingredientes';
+                              var ingredientes_data = null;
+                              fetch(url_ingredientes)
+                              .then(
+                                function( ingredientes_resp ) {
+                                  if( ingredientes_resp.status !== 200){
+                                    console.log("Error STATUS GET ingredientes ");
+                                  }
+                                  ingredientes_resp.json().then( function( ingredientes ){
 
-                              // =====================================
-                              // SI TODOS LOS GETS DE ANTES HAN IDO BIEN
-                              // =====================================
+                                    // =====================================
+                                    // SI TODOS LOS GETS ANTERIORES HAN IDO BIEN
+                                    // =====================================
+                                    ingredientes_data = ingredientes.FILAS;
+                                      // Obtenemos elementos del HTML
 
+                                      let titulo = document.getElementById("titulo");
+                                      let comensales = document.getElementById("comensales");
+                                      let autor = document.getElementById("autor");
+                                      let tiempo = document.getElementById("tiempo");
+                                      let nivel = document.getElementById("nivel");
+                                      let like = document.getElementById("valoraciones").children[0];
+                                      let dislike = document.getElementById("valoraciones").children[1];
+                                      let ing_ul = document.getElementById("ingredientes");
+                                      let foto = comensales.nextSibling.nextSibling;
+                                      foto.src="";
+                                      foto.alt=fotos_data[0].texto;
+                                      console.log(fotos_data);
+                                      console.log(foto);
+                                      titulo.innerHTML += inf_data.nombre;
+                                      comensales.innerHTML += inf_data.comensales + ' comensales';
+                                      autor.innerHTML += inf_data.autor;
+                                      tiempo.innerHTML += inf_data.tiempo;
+                                      nivel.innerHTML += inf_data.dificultad;
+                                      like.innerHTML += inf_data.positivos;
+                                      dislike.innerHTML += inf_data.negativos;
 
-                                          // Obtenemos elementos del HTML
-                                          // Calculamos string comentarios:
-                                          var txt = " ";
-                                          for( var i = 0; i < coments_data.length; i++ ){
-                                            txt +=
-                                            `
-                                              <div>
-                                                <p><span class="icon-user"></span> <a href="buscar.html?a=` + coments_data[i].autor + `"><strong>` + coments_data[i].autor + `</strong></a> dice:</p>
-                                                <p><strong>` + coments_data[i].titulo + `</strong></p>
-                                                <p>` + coments_data[i].texto + `</p>
-                                                <time datetime="` + coments_data[i].fecha + `">` + coments_data[i].fecha + `</time>
-
-                                              </div>
-                                              <hr>
-                                            `;
-                                          }
-                                          let docu = document.getElementById("receta");
-                                          if(sessionStorage.getItem('usuario') != null){
-                                            docu.innerHTML +=
-                                            `
-                                            <article class="card">
-                                            <div>
-
-                                              <div>
-                                                <h3>` + inf_data.nombre + `</h3>
-                                                  <p>` + inf_data.comensales + `s</p>
-                                                  <img src="fotos/` + inf_data.fichero + `" alt="` + inf_data.descripcion_foto + `">
-                                                  <a href="">&lt;</a>
-                                                  <a href="">&gt;</a>
-                                              </div>
-
-                                              <div>
-                                                <div>
-                                                  <h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html?a=` + inf_data.autor + `">` + inf_data.autor + `</a></h4>
-                                                  <p><span class="icon-clock"></span> ` + inf_data.tiempo + ` min </p>
-                                                  <p><span class="icon-star-empty"></span>Nivel: ` + inf_data.dificultad + `</p>
-                                                </div>
-                                                <div>
-                                                  <ul>
-                                                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, exercitationem.</li>
-                                                    <li>Architecto cum ab voluptatem maxime, numquam saepe mollitia maiores tempora?</li>
-                                                    <li>Sit sed voluptate odio, culpa libero, voluptas optio unde dolores.</li>
-                                                    <li>Veniam blanditiis est tenetur enim quisquam doloremque fugiat maxime cupiditate.</li>
-                                                    <li>Modi provident odit nisi labore obcaecati libero quos numquam similique.</li>
-                                                    <li>Inventore architecto obcaecati suscipit placeat alias atque, laborum odit explicabo.</li>
-                                                  </ul>
-                                                </div>
-                                        				<p>
-                                                <a onclick="like()">
-                                                <span class="icon-thumbs-up"></span>
-                                                </a> ` + inf_data.positivos + ` likes
-                                                <a onclick="dislike()">
-                                                <span class="icon-thumbs-down"></span>
-                                                </a> ` + inf_data.negativos + ` dislikes
-                                                </p>
-                                              </div>
-                                            </div>
-                                            `} else {
-                                              docu.innerHTML +=
-                                              `
-                                              <article class="card">
-                                              <div>
-
-                                                <div>
-                                                  <h3>` + inf_data.nombre + `</h3>
-                                                    <p>` + inf_data.comensales + `s</p>
-                                                    <img src="fotos/` + inf_data.fichero + `" alt="` + inf_data.descripcion_foto + `">
-                                                    <a href="">&lt;</a>
-                                                    <a href="">&gt;</a>
-                                                </div>
-
-                                                <div>
-                                                  <div>
-                                                    <h4><span class="icon-user" aria-hidden="true"></span><a href="buscar.html?a=` + inf_data.autor + `">` + inf_data.autor + `</a></h4>
-                                                    <p><span class="icon-clock"></span> ` + inf_data.tiempo + ` min </p>
-                                                    <p><span class="icon-star-empty"></span>Nivel: ` + inf_data.dificultad + `</p>
-                                                  </div>
-                                                  <div>
-                                                    <ul>
-                                                      <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi, exercitationem.</li>
-                                                      <li>Architecto cum ab voluptatem maxime, numquam saepe mollitia maiores tempora?</li>
-                                                      <li>Sit sed voluptate odio, culpa libero, voluptas optio unde dolores.</li>
-                                                      <li>Veniam blanditiis est tenetur enim quisquam doloremque fugiat maxime cupiditate.</li>
-                                                      <li>Modi provident odit nisi labore obcaecati libero quos numquam similique.</li>
-                                                      <li>Inventore architecto obcaecati suscipit placeat alias atque, laborum odit explicabo.</li>
-                                                    </ul>
-                                                  </div>
-                                          				<p>
-                                                   ` + inf_data.positivos + ` likes ` + inf_data.negativos + ` dislikes
-                                                  </p>
-                                                </div>
-                                              </div>
-                                            `}docu.innerHTML +=`
-                                          <div>
-                                            <p>` + inf_data.elaboracion + `</p>
-                                            <p><time datetime="` + inf_data.fecha + `">` + inf_data.fecha + `</time></p>
-                                          </div>
-
-                                          </article>
-                                          <div id="comentarios" class="card">
-                                            <h4>Comentarios</h4>
-                                          ` + txt + `</div>
-                                          `;if(sessionStorage.getItem('usuario') != null){
-                                            docu.innerHTML +=`
-                                            <FORM name="ajax" method="POST" action="">
-                                            	<p><INPUT type="BUTTON"
-                                                       value="Deja tu comentario!"
-                                                       ONCLICK="loadWholePage('comenta.html')">
-                                            	</p>
-                                            </FORM>
-
-                                            <div id="displayed">
-                                            </div>`
+                                      for(var ing in ingredientes_data)
+                                      {
+                                        ing_ul.innerHTML += '<li>' + ingredientes_data[ing].nombre + '</li>';
+                                      }
 
 
-                                            } else {
-                                              docu.innerHTML +=`
-                                              <div id="comenta" class="card">
-                                                <h4>Para dejar un comentario debes iniciar sesión</h4>
-                                              </div>
-                                              `
-                                            }
+
+                                  });
+                                }
+                              )
+                              .catch( function(err){
+                                  console.log("Error GET Ingredientes.", err);
+                              })
                           });
                         }
                       )

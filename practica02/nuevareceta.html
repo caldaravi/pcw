@@ -7,8 +7,9 @@
 	<link rel="stylesheet" href="css/estilo.css">
 	<link rel="stylesheet" href="css/fontello.css">
 	<script src="javascript/controlAcceso.js"></script>
+	<script src="javascript/nuevareceta.js"></script>
 </head>
-<body onload="acceso(); control()">
+<body onload="acceso(); control(); creaReceta()">
 
 	<header>
 	<img src="imgs/logo.svg" alt="logo">
@@ -28,7 +29,7 @@
 	<div id="nuevareceta" class="card">
 		<h3>Añadir nueva receta</h3>
 		<div>
-			<form action="nuevareceta.php">
+			<form action="nuevareceta.html">
 				<div>
 					<label for="titulo">Titulo: </label><input required id="titulo" name="titulo" type="text">
 				</div>
