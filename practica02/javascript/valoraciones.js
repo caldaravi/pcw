@@ -2,13 +2,16 @@ function like(){
   console.log("like con ajax");
   let xhr = new XMLHttpRequest(),
   fd  = new FormData(),
-	url = 'rest/receta/1/voto/1';
+	url = 'rest/receta/1/voto/1',
+  usu;
 
   if(xhr){
-    fd.append('l','usuario1');
+
+    usu = JSON.parse(sessionStorage.getItem('usuario'));
+
+    fd.append('l',usu.login);
 
     xhr.open('POST', url, true);
-
     xhr.onload = function(){
   	   console.log(xhr.responseText);
 
@@ -20,7 +23,7 @@ function like(){
          console.log("nope");
        }
     }
-    xhr.setRequestHeader('Authorization', 'cfd95109aeea1ff47bca4c5e83cd2af0');
+    xhr.setRequestHeader('Authorization', usu.clave);
     xhr.send(fd);
   }
 }
@@ -28,7 +31,8 @@ function like(){
 function dislike(){
   console.log("dislike con fetch");
 
-  let fd = new FormData();
+  let fd = new FormData(),
+  usu;
 
   fd.append('l','usuario1');
 
