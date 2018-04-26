@@ -2,6 +2,7 @@ var contador = 0;
 var numFotos = 0;
 var numIngredientes = 0;
 var fotos = [];
+var titulo;
 
 function addIngrediente(ingrediente){
 
@@ -69,8 +70,6 @@ function cerrarFicha(x){
 
   if(index > -1){
     fotos.splice(index, 1);
-  } else {
-    console.log("index: " + index);
   }
 
   var elem = document.getElementById(x.id);
@@ -108,20 +107,7 @@ function getImg(x){
       var name = fileupload.files[0].name;
 
       if(file>300000){
-        var modal = document.getElementById('id01');
-        var span = document.getElementsByClassName("close")[0];
-        modal.style.display='block';
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-           modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-          if (event.target == modal) {
-               modal.style.display = "none";
-          }
-        }
+        mostrarModal("01");
       } else {
           image.src = "imgs/" + name;
           numFotos++;
@@ -142,13 +128,14 @@ function mandarReceta(form){
       if(xhr){
         usu = JSON.parse(sessionStorage.getItem('usuario'));
         var dificultad;
+        titulo = form.titulo.value;
         switch(form.dificultad.value){
           case 'baja': dificultad = 0; break;
           case 'media': dificultad = 1; break;
           case 'alta': dificultad = 2; break;
         }
         fd.append('l',usu.login);
-        fd.append('n',form.titulo.value);
+        fd.append('n',titulo);
         fd.append('e',form.elaboracion.value);
         fd.append('t',form.tiempo.value);
         fd.append('d',dificultad);
@@ -166,10 +153,11 @@ function mandarReceta(form){
              for(var i=0; i<fotos.length; i++){
                enviarFotos(r.ID, i);
              }
-             for(var i=0; i<fotos.length; i++){
-               console.log("Cerrando ficha de: ");
-               console.log(document.getElementById("foto"+i));
+
+             var i = 0;
+             while(fotos.length>0){
                cerrarFicha(document.getElementById("foto"+i));
+               i++;
              }
              document.getElementById("nuevaRecetaForm").reset();
              // Get the <ul> element with id="ingredientes"
@@ -178,75 +166,20 @@ function mandarReceta(form){
              while(list.hasChildNodes()) {
                list.removeChild(list.childNodes[0]);
              }
-
-             var modal = document.getElementById('id05');
-             var span = document.getElementsByClassName("close")[0];
-             modal.style.display='block';
-             // When the user clicks on <span> (x), close the modal
-             span.onclick = function() {
-                modal.style.display = "none";
-                //window.location.href = "/pcw/practica02/index.html";
-             }
-
-             // When the user clicks anywhere outside of the modal, close it
-             window.onclick = function(event) {
-               if (event.target == modal) {
-                    modal.style.display = "none";
-                    window.location.href = "/pcw/practica02/index.html";
-               }
-             }
+             document.getElementById("msgReceta").innerHTML = "Se ha creado correctamente la receta " + titulo;
+             mostrarModal("05");
            } else {
-
-               var modal = document.getElementById('id03');
-               var span = document.getElementsByClassName("close")[0];
-               modal.style.display='block';
-               // When the user clicks on <span> (x), close the modal
-              span.onclick = function() {
-                  modal.style.display = "none";
-              }
-
-              // When the user clicks anywhere outside of the modal, close it
-              window.onclick = function(event) {
-                  if (event.target == modal) {
-                      modal.style.display = "none";
-                  }
-              }
+               mostrarModal("03");
            }
         }
         xhr.setRequestHeader('Authorization', usu.clave);
         xhr.send(fd);
       }
     } else {
-      var modal = document.getElementById('id04');
-      var span = document.getElementsByClassName("close")[0];
-      modal.style.display='block';
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-         modal.style.display = "none";
-      }
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-        if (event.target == modal) {
-             modal.style.display = "none";
-        }
-      }
+      mostrarModal("04");
     }
   } else {
-      var modal = document.getElementById('id02');
-      var span = document.getElementsByClassName("close")[0];
-      modal.style.display='block';
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-         modal.style.display = "none";
-      }
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-        if (event.target == modal) {
-             modal.style.display = "none";
-        }
-      }
+      mostrarModal("02");
   }
   return false;
 }
@@ -318,5 +251,21 @@ function enviarFotos(id, i){
     }
     xhr.setRequestHeader('Authorization', usu.clave);
     xhr.send(fd);
+  }
+}
+
+function mostrarModal(num){
+  var modal = document.getElementById('id'+num);
+  var span = document.getElementsByClassName("close")[0];
+  modal.style.display='block';
+  console.log("Mostrando modal: " + num);
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+         modal.style.display = "none";
+         if(num == "05")
+          window.location.href = "/pcw/practica02/index.html";
+    }
   }
 }
