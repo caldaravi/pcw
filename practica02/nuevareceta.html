@@ -56,7 +56,7 @@
 	<div id="nuevareceta" class="card">
 		<h3>Añadir nueva receta</h3>
 		<div>
-			<form onsubmit="return mandarReceta(this);">
+			<form id="nuevaRecetaForm" onsubmit="return mandarReceta(this);">
 				<div>
 					<label for="titulo">Titulo: </label><input required id="titulo" name="titulo" type="text">
 				</div>
@@ -97,6 +97,14 @@
 			<div class="card">
 				<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
 				<p>El tamaño de la imagen debe ser menor de 300Kb</p>
+			</div>
+		</div>
+		<div id="id05" class="modal">
+
+			<!-- Modal Content -->
+			<div class="card">
+				<span onclick="document.getElementById('id05').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<p>La receta se ha creado correctamente</p>
 			</div>
 		</div>
 		<button type="button" onclick="addFoto()">Añadir foto</button>

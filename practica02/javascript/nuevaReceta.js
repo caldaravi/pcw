@@ -47,13 +47,12 @@ function addFoto(){
   <img id="img` + contador + `" type="file" onclick="getImg(this)" accept="image/*()" src="imgs/sin_imagen.jpg" alt="noimagen" style="cursor: pointer">
 
   <p>Descripción: </p>
-  <textarea name="descripcion` + contador + `" cols="30" rows="4"></textarea>
+  <textarea id="descripcion` + contador + `" name="descripcion` + contador + `" cols="30" rows="4"></textarea>
   `
   contador++;
 }
 
 function cerrarFicha(x){
-
   var id = x.id.split("foto");
   id = "img" + id[1];
 
@@ -61,9 +60,17 @@ function cerrarFicha(x){
   var img = src.split("http://localhost/pcw/practica02/imgs/");
   img = img[1];
 
-  var index = fotos.indexOf(img);
+  var index = -1;
+  for(var i=0; i<fotos.length; i++){
+    if(fotos[i].name == img){
+      index = i;
+    }
+  }
+
   if(index > -1){
     fotos.splice(index, 1);
+  } else {
+    console.log("index: " + index);
   }
 
   var elem = document.getElementById(x.id);
@@ -84,7 +91,7 @@ function getImg(x){
     } else {
       img.src = "imgs/" + name;
       numFotos++;
-      fotos.push(name);
+      fotos.push(x.files[0]);
     }
   } else {
 
@@ -102,16 +109,23 @@ function getImg(x){
 
       if(file>300000){
         var modal = document.getElementById('id01');
+        var span = document.getElementsByClassName("close")[0];
         modal.style.display='block';
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+           modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
           if (event.target == modal) {
-              modal.style.display = "none";
+               modal.style.display = "none";
           }
         }
       } else {
           image.src = "imgs/" + name;
           numFotos++;
-          fotos.push(name);
+          fotos.push(fileupload.files[0]);
       }
     }
   }
@@ -149,6 +163,38 @@ function mandarReceta(form){
 
            if(r.RESULTADO == "OK"){
              enviarIngredientes(r.ID);
+             for(var i=0; i<fotos.length; i++){
+               enviarFotos(r.ID, i);
+             }
+             for(var i=0; i<fotos.length; i++){
+               console.log("Cerrando ficha de: ");
+               console.log(document.getElementById("foto"+i));
+               cerrarFicha(document.getElementById("foto"+i));
+             }
+             document.getElementById("nuevaRecetaForm").reset();
+             // Get the <ul> element with id="ingredientes"
+             var list = document.getElementById("ingredientes");
+             // If the <ul> element has any child nodes, remove its first child node
+             while(list.hasChildNodes()) {
+               list.removeChild(list.childNodes[0]);
+             }
+
+             var modal = document.getElementById('id05');
+             var span = document.getElementsByClassName("close")[0];
+             modal.style.display='block';
+             // When the user clicks on <span> (x), close the modal
+             span.onclick = function() {
+                modal.style.display = "none";
+                //window.location.href = "/pcw/practica02/index.html";
+             }
+
+             // When the user clicks anywhere outside of the modal, close it
+             window.onclick = function(event) {
+               if (event.target == modal) {
+                    modal.style.display = "none";
+                    window.location.href = "/pcw/practica02/index.html";
+               }
+             }
            } else {
 
                var modal = document.getElementById('id03');
@@ -232,7 +278,7 @@ function enviarIngredientes(id){
        let r = JSON.parse(xhr.responseText);
 
        if(r.RESULTADO == "OK"){
-         enviarFotos(id);
+         console.log("imagen enviada a la BD");
        } else {
          console.log("nope");
        }
@@ -242,17 +288,21 @@ function enviarIngredientes(id){
   }
 }
 
-function enviarFotos(id){
+function enviarFotos(id, i){
   let xhr = new XMLHttpRequest(),
   fd  = new FormData(),
   url = 'rest/receta/' + id + '/foto',
   usu;
 
+
+  var desc = document.getElementById("descripcion" + i).value;
+
   if(xhr){
     usu = JSON.parse(sessionStorage.getItem('usuario'));
 
     fd.append('l',usu.login);
-    fd.append('t',"desc");
+    fd.append('t',desc);
+    fd.append('f',fotos[i]);
 
     xhr.open('POST', url, true);
     xhr.onload = function(){
