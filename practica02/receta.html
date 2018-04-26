@@ -39,8 +39,8 @@
 				<h3 id="titulo"></h3>
 					<p id="comensales"></p>
 					<img src="fotos/fichero" alt="alt">
-					<a href="">&lt;</a>
-					<a href="">&gt;</a>
+					<a onclick="pasapagina(-1);">&lt;</a>
+					<a onclick="pasapagina(1);">&gt;</a>
 			</div>
 
 			<div>
@@ -65,30 +65,24 @@
 		</div>
 
 		<div>
-			<p>elaboracion</p>
-			<p><time datetime="fecha">fecha</time></p>
+			<p id="elaboracion"></p>
+			<p><time datetime=""></time></p>
 		</div>
 
 		</article>
 		<div id="comentarios" class="card">
 			<h4>Comentarios</h4>
 
-			<div>
-				<p><span class="icon-user"></span> <a href="buscar.html?a=autor"><strong>autor</strong></a> dice:</p>
-				<p><strong>titulo</strong></p>
-				<p>coment</p>
-				<time datetime="fecha">fecha</time>
-
-			</div>
 			<hr>
+			<form name="ajax" method="POST" action="">
+				<p><input type="button"
+								 value="Deja tu comentario!"
+								 onclick="loadWholePage('comenta.html')">
+				</p>
+			</form>
 		</div>
 
-		<form name="ajax" method="POST" action="">
-			<p><input type="button"
-							 value="Deja tu comentario!"
-							 onclick="loadWholePage('comenta.html')">
-			</p>
-		</form>
+
 
 		<div id="displayed">
 		</div>
