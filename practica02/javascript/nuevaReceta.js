@@ -256,7 +256,7 @@ function enviarFotos(id, i){
 
 function mostrarModal(num){
   var modal = document.getElementById('id'+num);
-  var span = document.getElementsByClassName("close")[0];
+  var span = document.getElementsByClassName("close")[num-1];
   modal.style.display='block';
   console.log("Mostrando modal: " + num);
 

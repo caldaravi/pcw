@@ -35,10 +35,11 @@ function hacerLogin(frm)
     } else {
     	 console.log('ERROR');
 			 var modal = document.getElementById('id02');
-       var span = document.getElementsByClassName("close")[0];
+       var span = document.getElementsByClassName("close")[1];
        modal.style.display='block';
        // When the user clicks on <span> (x), close the modal
        span.onclick = function() {
+				 document.getElementById('usuario').focus();
           modal.style.display = "none";
        }
 
@@ -46,6 +47,7 @@ function hacerLogin(frm)
        window.onclick = function(event) {
          if (event.target == modal) {
               modal.style.display = "none";
+							document.getElementById('usuario').focus();
          }
        }
     }
