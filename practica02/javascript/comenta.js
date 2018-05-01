@@ -1,24 +1,57 @@
 function dejarComentario(frm)
 {
+	console.log(frm);
+	var url_string = window.location.href;
+	var url_str = new URL(url_string);
+	var id = url_str.searchParams.get("id");
+
 	let fd = new FormData(),
   xhr = new XMLHttpRequest(),
-	url = 'rest/receta/1/comentario/';
+	url = 'rest/receta/' + id + '/comentario';
 
   if(!sessionStorage.getItem('usuario')) return false;
 
-	let usu = sessionStorage.getItem('usuario');
-
-	fd.append('titulo', 'asdf');
-	fd.append('texto', 'asdf');
-	fd.append('l', 'usuario1');
+	var usu = JSON.parse(sessionStorage.getItem('usuario'));
+	fd.append('l', usu.login );
+	fd.append('titulo', frm.titulo_coment.value);
+	fd.append('texto', frm.comentario.value);
 
 	xhr.open('POST', url, true);
 
   xhr.onload = function(){
 	   console.log(xhr.responseText);
-  }
 
-  xhr.setRequestHeader('Authorization', 'cfd95109aeea1ff47bca4c5e83cd2af0');
+		 let r = JSON.parse(xhr.responseText);
+
+		 if(r.RESULTADO == "OK"){
+			 console.log("coment ok");
+			 document.getElementById("form_comentario").reset();
+
+
+
+		 } else {
+			 console.log("nope");
+			 // modal
+
+			 var modal = document.getElementById('id01');
+       var span = document.getElementsByClassName("close")[0];
+       modal.style.display='block';
+       // When the user clicks on <span> (x), close the modal
+       span.onclick = function() {
+          modal.style.display = "none";
+					document.getElementById('titulo_coment').focus();
+       }
+
+       // When the user clicks anywhere outside of the modal, close it
+       window.onclick = function(event) {
+         if (event.target == modal) {
+              modal.style.display = "none";
+         }
+       }
+
+		 }
+  }
+	xhr.setRequestHeader('Authorization', "a");
   xhr.send(fd);
 
 	return false;

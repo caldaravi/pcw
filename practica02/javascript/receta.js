@@ -78,8 +78,8 @@ function compruebaid(){
                                       let tiempo = document.getElementById("tiempo");
                                       let nivel = document.getElementById("nivel");
                                       let elabora = document.getElementById("elaboracion");
-                                      let like = document.getElementById("valoraciones").children[0];
-                                      let dislike = document.getElementById("valoraciones").children[1];
+                                      let like = document.getElementById("valoraciones").children[1];
+                                      let dislike = document.getElementById("valoraciones").children[3];
                                       let ing_ul = document.getElementById("ingredientes");
                                       let foto = comensales.nextSibling.nextSibling;
                                       let time = document.getElementsByTagName("time")[0];
@@ -87,11 +87,10 @@ function compruebaid(){
                                       foto.src='fotos/'+fotos_data[0].fichero;
                                       foto.alt=fotos_data[0].texto;
 
-                                      console.log(fotos_data);
-                                      console.log(foto);
                                       titulo.innerHTML += inf_data.nombre;
                                       comensales.innerHTML += inf_data.comensales + ' comensales';
                                       autor.innerHTML += inf_data.autor;
+                                      autor.href += '?a=' + inf_data.autor;
                                       tiempo.innerHTML += inf_data.tiempo;
                                       nivel.innerHTML += inf_data.dificultad;
                                       elabora.innerHTML += inf_data.elaboracion;
@@ -108,6 +107,7 @@ function compruebaid(){
                                       rutas = fotos_data;
 
                                       // Comentarios
+                                      console.log(coments_data);
                                       let plantilla = document.getElementById("comentarios").children[1];
                                       for(var i = 0; i < coments_data.length; i++)
                                       {
@@ -121,7 +121,25 @@ function compruebaid(){
                                   			</div>
                                         `;
                                       }
+                                      let noreg = document.getElementById("comentarios").children[2];
 
+                                      if(sessionStorage.getItem('usuario') != null){
+                                            noreg.innerHTML +=
+                                            `
+                                            <button type="BUTTON"
+                                                       ONCLICK="loadWholePage('comenta.html')">
+                                                       Deja tu comentario!
+                                            </button>
+                                            `
+                                            }
+                                             else {
+                                              noreg.innerHTML +=
+                                              `
+                                              <div id="comenta" class="card">
+                                                <h4>Para dejar un comentario debes iniciar sesión</h4>
+                                              </div>
+                                              `
+                                            }
 
                                   });
                                 }

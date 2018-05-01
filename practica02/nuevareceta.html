@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PCW</title>
+	<link rel="stylesheet" href="css/estilo.css">
+	<link rel="stylesheet" href="css/fontello.css">
+	<script src="javascript/controlAcceso.js"></script>
+	<script src="javascript/nuevaReceta.js"></script>
+</head>
+<body onload="acceso(); control()">
+
+	<header>
+	<img src="imgs/logo.svg" alt="logo">
+		<div>
+			<h1>Recétate</h1>
+			<p>Aquí encontrarás las mejores y más sabrosas recetas de cocina</p>
+		</div>
+
+	</header>
+	<input type="checkbox" id="activador">
+	<nav>
+		<ul>
+			<li><label for="activador">&equiv;</label></li>
+		</ul>
+	</nav>
+
+	<div id="id02" class="modal">
+
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>Debes añadir al menos una imagen</p>
+		</div>
+	</div>
+
+	<div id="id03" class="modal">
+
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>Error en el servidor</p>
+		</div>
+	</div>
+
+	<div id="id04" class="modal">
+
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>Debes añadir los ingredientes de la receta</p>
+		</div>
+	</div>
+
+	<div id="nuevareceta" class="card">
+		<h3>Añadir nueva receta</h3>
+		<div>
+			<form id="nuevaRecetaForm" onsubmit="return mandarReceta(this);">
+				<div>
+					<label for="titulo">Titulo: </label><input required id="titulo" name="titulo" type="text">
+				</div>
+				<div>
+					<label for="elaboracion">Elaboracion: </label><textarea required name="elaboracion" id="elaboracion" cols="30" rows="10" maxlength="250"></textarea>
+				</div>
+				<div>
+					<label for="comensales">Comensales: </label><input required id="comensales" name="comensales" min="0" type="number">
+				</div>
+				<div>
+					<label for="tiempo">Tiempo (min): </label><input required id="tiempo" name="tiempo" min="0" type="number">
+				</div>
+				<div>
+					<label for="dificultad">Dificultad</label>
+						<select name="dificultad" id="dificultad">
+							<option value="baja">Baja</option>
+							<option value="media">Media</option>
+							<option value="alta">Alta</option>
+						</select>
+				</div>
+
+				<div>
+					<label>Ingredientes:</label>
+					<ul id="ingredientes" contenteditable="true" required></ul>
+
+
+		      <input type="text" name="ingrediente" id="ingrediente" placeholder="Escribe tus ingredientes"/>
+		      <button type="button" onclick="addIngrediente(ingrediente)">Agregar</button>
+
+
+				</div>​
+
+		</div>
+		<h4>Fotos de la receta</h4>
+		<div id="id01" class="modal">
+
+			<!-- Modal Content -->
+			<div class="card">
+				<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<p>El tamaño de la imagen debe ser menor de 300Kb</p>
+			</div>
+		</div>
+		<div id="id05" class="modal">
+
+			<!-- Modal Content -->
+			<div class="card">
+				<p id="msgReceta"></p>
+				<button type="button" name="button" onclick="window.location.href = '/pcw/practica02/index.html'">Ir a inicio</button>
+			</div>
+		</div>
+		<button type="button" onclick="addFoto()">Añadir foto</button>
+
+				<div id="fotosReceta">
+
+				</div>
+
+				<br>
+				<div>
+					<input type="submit">
+				</div>
+
+			</form>
+		</div>
+	</div>
+
+
+	<footer>
+
+			<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a><a href=""><span class="icon-up-open"></span></a></p>
+
+	</footer>
+
+
+</body>
+</html>

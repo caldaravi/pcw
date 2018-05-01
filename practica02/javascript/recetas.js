@@ -24,7 +24,7 @@ function getRecetas()
         <img src="fotos/` + data.FILAS[i].fichero + `" alt="` + data.FILAS[i].nombre + `">
         <p>`+ data.FILAS[i].descripcion_foto + `</p>
         <div>
-          <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?u=` + data.FILAS[i].autor + `>` + data.FILAS[i].autor + `</a></h4>
+          <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?a=` + data.FILAS[i].autor + `>` + data.FILAS[i].autor + `</a></h4>
         </div>
         <footer>
           <div>

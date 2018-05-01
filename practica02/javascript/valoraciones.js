@@ -1,8 +1,11 @@
 function like(){
-  console.log("like con ajax");
+  var url_string = window.location.href;
+  var url_str = new URL(url_string);
+  var id = url_str.searchParams.get("id");
+
   let xhr = new XMLHttpRequest(),
   fd  = new FormData(),
-	url = 'rest/receta/1/voto/1',
+	url = 'rest/receta/' + id + '/voto/1',
   usu;
 
   if(xhr){
@@ -19,6 +22,7 @@ function like(){
 
      	 if(r.RESULTADO == "OK"){
          console.log("voto ok");
+         actualiza();
        } else {
          console.log("nope");
        }
@@ -29,15 +33,19 @@ function like(){
 }
 
 function dislike(){
-  console.log("dislike con fetch");
+  var url_string = window.location.href;
+  var url_str = new URL(url_string);
+  var id = url_str.searchParams.get("id");
 
-  let fd = new FormData(),
-  usu;
+  let fd = new FormData();
 
-  fd.append('l','usuario1');
 
-  var url = 'rest/receta/1/voto/0',
-      init = {method: 'POST', body:fd, headers: {'Authorization':'cfd95109aeea1ff47bca4c5e83cd2af0'}};
+  let usu = JSON.parse(sessionStorage.getItem('usuario'));
+
+  fd.append('l',usu.login);
+
+  var url = 'rest/receta/' + id + '/voto/0',
+      init = {method: 'POST', body:fd, headers: {'Authorization':usu.clave}};
 
 
   fetch(url, init).then(function(response){
@@ -45,14 +53,37 @@ function dislike(){
       console.log(data);
     });
     if(!response.ok){
-
-      console.log("Error con código:" + response.status);
-      return;
-    }
-    response.json().then(function(data){
-      console.log("nombre:" + data.nombre);
-    });
+      console.log(response);
+      //document.getElementById('dislikeval').value;
+      console.log("fgh");
+      actualiza();
+    };
   }).catch(function(err){
     console.log("Fetch Error:", err);
   });
+}
+
+function actualiza()
+{
+  var url_1 = new URL(window.location.href);
+  var url_inf = 'rest/receta/'+url_1.searchParams.get("id");
+  var inf_data = null;
+  fetch(url_inf)
+    .then(
+      function(response){
+        if(response.status !== 200){
+          console.log("No se ha podido realizar la peticion GET correctamente.");
+        }
+        response.json().then(function(data) {
+          //ok
+          console.log(data);
+          document.getElementById('dislikeval').innerHTML = data.FILAS[0].negativos;
+          document.getElementById('likeval').innerHTML = data.FILAS[0].positivos;
+          console.log("cambiados");
+        });
+      })
+      .catch( function(err){
+        console.log(err);
+      });
+
 }

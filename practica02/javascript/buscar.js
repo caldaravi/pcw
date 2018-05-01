@@ -2,9 +2,11 @@ function compruebaUsuario() {
   // Comprobar tipo de busqueda
   var url_string = window.location.href;
   var url = new URL(url_string);
-  var user = url.searchParams.get("u");
+  var user = url.searchParams.get("a");
   var submit = url.searchParams.get("submit");
   var pagina = url.searchParams.get("pag");
+  console.log("user:");
+  console.log(user);
   if( user != undefined )
   {
     // Si hay usuario en la URL se realiza la consulta
