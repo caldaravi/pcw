@@ -14,7 +14,38 @@
 <body onload="compruebaid(); control();">
 
 	<div id="storage" style="display:none;"></div>
+	<div id="id01" class="modal">
 
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>No se ha podido enviar el comentario.</p>
+		</div>
+	</div>
+	<div id="id02" class="modal">
+
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>Se ha valorado correctamente.</p>
+		</div>
+	</div>
+	<div id="id03" class="modal">
+
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>No se ha podido realizar la valoración.</p>
+		</div>
+	</div>
+	<div id="id04" class="modal">
+
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>Se ha enviado el comentario correctamente.</p>
+		</div>
+	</div>
 	<header>
 
 		<div>
@@ -54,15 +85,11 @@
 					</ul>
 				</div>
 				<p id="valoraciones">
-					<a onclick="like()">
-						<span class="icon-thumbs-up"></span>
-					</a>
+					
 					<span id="likeval">
 
 					</span> likes
-					<a onclick="dislike()">
-						<span class="icon-thumbs-down"></span>
-					</a>
+
 					<span id="dislikeval">
 
 					</span> dislikes

@@ -6,27 +6,20 @@
 	<title>PCW</title>
 	<link rel="stylesheet" href="css/estilo.css">
 	<link rel="stylesheet" href="css/fontello.css">
+	<script src="javascript/comenta.js"></script>
+	<script src="javascript/receta.js"></script>
 </head>
 <body>
 
-	<div id="id01" class="modal">
-
-		<!-- Modal Content -->
-		<div class="card">
-			<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-			<p>No se ha podido enviar el comentario.</p>
-		</div>
-	</div>
 
     <div id="comenta" class="card">
       <h4>Añade tu comentario</h4>
       <form id="form_comentario" onsubmit=" return dejarComentario(this);">
-        <input id="titulo_coment" type="text" placeholder="Título..." required>
+        <input id="titulo_coment" name="titulo_coment" type="text" maxlength="50" placeholder="Título..." required>
         <textarea name="comentario" id="comentario" cols="30" rows="10" placeholder="Comentario..." required></textarea>
         <input type="submit">
       </form>
     </div>
-
 
 
 </body>

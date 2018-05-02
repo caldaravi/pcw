@@ -24,34 +24,22 @@ function dejarComentario(frm)
 		 let r = JSON.parse(xhr.responseText);
 
 		 if(r.RESULTADO == "OK"){
-			 console.log("coment ok");
-			 document.getElementById("form_comentario").reset();
 
+			 console.log(document.getElementById("titulo_coment").value);
+			 var form = document.getElementById("form_comentario");
+			 form.reset();
+			 if(document.getElementById("form_comentario").reset())
+			 	console.log("form reset");
+			 else
+			 	console.log("form no reset");
 
+			 mostrarModal("04")
 
 		 } else {
-			 console.log("nope");
-			 // modal
-
-			 var modal = document.getElementById('id01');
-       var span = document.getElementsByClassName("close")[0];
-       modal.style.display='block';
-       // When the user clicks on <span> (x), close the modal
-       span.onclick = function() {
-          modal.style.display = "none";
-					document.getElementById('titulo_coment').focus();
-       }
-
-       // When the user clicks anywhere outside of the modal, close it
-       window.onclick = function(event) {
-         if (event.target == modal) {
-              modal.style.display = "none";
-         }
-       }
-
+			 mostrarModal("01");
 		 }
   }
-	xhr.setRequestHeader('Authorization', "a");
+	xhr.setRequestHeader('Authorization', "2");
   xhr.send(fd);
 
 	return false;
@@ -127,4 +115,17 @@ function loadWholePage(url)
 	var x = document.getElementById("displayed");
 
 	loadHTML(url, processHTML, x, y);
+}
+
+function mostrarModal(num){
+  var modal = document.getElementById('id'+num);
+  var span = document.getElementsByClassName("close")[num-1];
+  modal.style.display='block';
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+         modal.style.display = "none";
+    }
+  }
 }

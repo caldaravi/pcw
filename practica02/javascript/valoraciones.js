@@ -21,10 +21,9 @@ function like(){
        let r = JSON.parse(xhr.responseText);
 
      	 if(r.RESULTADO == "OK"){
-         console.log("voto ok");
          actualiza();
        } else {
-         console.log("nope");
+         mostrarModal("03");
        }
     }
     xhr.setRequestHeader('Authorization', usu.clave);
@@ -32,6 +31,39 @@ function like(){
   }
 }
 
+function dislike(){
+  var url_string = window.location.href;
+  var url_str = new URL(url_string);
+  var id = url_str.searchParams.get("id");
+
+  let xhr = new XMLHttpRequest(),
+  fd  = new FormData(),
+	url = 'rest/receta/' + id + '/voto/0',
+  usu;
+
+  if(xhr){
+
+    usu = JSON.parse(sessionStorage.getItem('usuario'));
+
+    fd.append('l',usu.login);
+
+    xhr.open('POST', url, true);
+    xhr.onload = function(){
+  	   console.log(xhr.responseText);
+
+       let r = JSON.parse(xhr.responseText);
+
+     	 if(r.RESULTADO == "OK"){
+         actualiza();
+       } else {
+         mostrarModal("03");
+       }
+    }
+    xhr.setRequestHeader('Authorization', usu.clave);
+    xhr.send(fd);
+  }
+}
+/* CON FETCH
 function dislike(){
   var url_string = window.location.href;
   var url_str = new URL(url_string);
@@ -61,7 +93,7 @@ function dislike(){
   }).catch(function(err){
     console.log("Fetch Error:", err);
   });
-}
+}*/
 
 function actualiza()
 {
@@ -73,6 +105,7 @@ function actualiza()
       function(response){
         if(response.status !== 200){
           console.log("No se ha podido realizar la peticion GET correctamente.");
+          mostrarModal("03");
         }
         response.json().then(function(data) {
           //ok
@@ -80,10 +113,23 @@ function actualiza()
           document.getElementById('dislikeval').innerHTML = data.FILAS[0].negativos;
           document.getElementById('likeval').innerHTML = data.FILAS[0].positivos;
           console.log("cambiados");
+
+          mostrarModal("02");
         });
       })
       .catch( function(err){
         console.log(err);
       });
+}
+function mostrarModal(num){
+  var modal = document.getElementById('id'+num);
+  var span = document.getElementsByClassName("close")[num-1];
+  modal.style.display='block';
 
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+         modal.style.display = "none";
+    }
+  }
 }

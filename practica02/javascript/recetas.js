@@ -29,11 +29,11 @@ function getRecetas()
         <footer>
           <div>
             <div>
-              <p><a href=""><span class="icon-thumbs-up"></span></a> ` + data.FILAS[i].positivos + ` likes</p>
+              <p>` + data.FILAS[i].positivos + ` likes</p>
               <p><span class="icon-comment"></span> ` + data.FILAS[i].comentarios + ` comentarios</p>
             </div>
             <div>
-              <p><a href=""><span class="icon-thumbs-down"></span></a>` + data.FILAS[i].negativos + ` dislikes</p>
+              <p>` + data.FILAS[i].negativos + ` dislikes</p>
           <p><time datetime="` + data.FILAS[i].fecha + `">` + data.FILAS[i].fecha + `</time></p>
             </div>
           </div>

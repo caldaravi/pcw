@@ -17,12 +17,14 @@ function check(form) {
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
            modal.style.display = "none";
+           window.location.href = "/pcw/practica02/login.html";
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
           if (event.target == modal) {
                modal.style.display = "none";
+               window.location.href = "/pcw/practica02/login.html";
           }
         }
 
@@ -65,22 +67,17 @@ function checkUser(value){
   xhr.open('GET', url, true);
 
   xhr.onload = function(){
-    console.log(xhr.responseText);
     let r = JSON.parse(xhr.responseText);
 
     if(r.RESULTADO=='OK'){
       var texto = document.getElementById("usuarioStatus");
-      console.log(texto);
         if(r.DISPONIBLE){
           texto.innerHTML = "Usuario disponible";
           texto.style.color = "#4BB543";
         } else {
           texto.innerHTML = "Usuario NO disponible";
           texto.style.color = "#B22222";
-
         }
-
-      console.log(r);
     } else {
       document.getElementById("usuarioStatus").innerHTML = "";
     }
@@ -89,4 +86,15 @@ function checkUser(value){
   xhr.send();
 
   return false;
+}
+
+function checkKey(e){
+  if (e.which == 32)
+    return false;
+}
+
+function noSpace(){
+  var str = document.getElementById("nickname").value;
+  var res = str.replace(/\s/g, "");
+  document.getElementById("nickname").value = res;
 }

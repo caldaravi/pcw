@@ -78,8 +78,8 @@ function compruebaid(){
                                       let tiempo = document.getElementById("tiempo");
                                       let nivel = document.getElementById("nivel");
                                       let elabora = document.getElementById("elaboracion");
-                                      let like = document.getElementById("valoraciones").children[1];
-                                      let dislike = document.getElementById("valoraciones").children[3];
+                                      let like = document.getElementById("likeval");
+                                      let dislike = document.getElementById("dislikeval");
                                       let ing_ul = document.getElementById("ingredientes");
                                       let foto = comensales.nextSibling.nextSibling;
                                       let time = document.getElementsByTagName("time")[0];
@@ -105,6 +105,34 @@ function compruebaid(){
                                       }
 
                                       rutas = fotos_data;
+
+                                      //valoraciones
+                                      if(sessionStorage.getItem('usuario') != null){
+
+
+                                        var newA = document.createElement("a");
+                                        newA.setAttribute("onclick", "like()");
+
+                                        var span1 = document.createElement("span");
+                                        span1.setAttribute("class", "icon-thumbs-up");
+
+                                        newA.appendChild(span1);
+
+                                        var newA2 = document.createElement("a");
+                                        newA2.setAttribute("onclick", "dislike()");
+
+                                        var span2 = document.createElement("span");
+                                        span2.setAttribute("class", "icon-thumbs-down");
+
+                                        newA2.appendChild(span2);
+
+                                        var p = document.getElementById("valoraciones");
+                                        p.insertBefore(newA, p.childNodes[0]);
+                                        p.insertBefore(newA2, p.childNodes[4]);
+                                        // <a onclick="like()">
+                              					// 	<span class="icon-thumbs-up"></span>
+                              					// </a>
+                                      }
 
                                       // Comentarios
                                       console.log(coments_data);
@@ -136,7 +164,7 @@ function compruebaid(){
                                               noreg.innerHTML +=
                                               `
                                               <div id="comenta" class="card">
-                                                <h4>Para dejar un comentario debes iniciar sesión</h4>
+                                                <h4>Para dejar un comentario debes estar <a href="login.html">logueado</a></h4>
                                               </div>
                                               `
                                             }
