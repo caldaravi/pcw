@@ -185,7 +185,7 @@ function compruebaUsuario() {
               // paginacion
               console.log("tot:");
               console.log(search.TOTAL_COINCIDENCIAS);
-              paginacion(search.TOTAL_COINCIDENCIAS,4);
+              paginacion(search.TOTAL_COINCIDENCIAS,4, url_params);
             }
             else{
               // No resultados

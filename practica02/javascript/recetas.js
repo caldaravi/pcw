@@ -66,7 +66,7 @@ function getRecetas()
         `;
       }
   }
-
+console.log('uihiuh');
     paginacion(i,6);
 
     });
@@ -78,37 +78,68 @@ function getRecetas()
 });
 }
 
-function paginacion(i, results) {
+function paginacion(i, results, url_params) {
   var url_string = window.location.href;
   var url = new URL(url_string);
   // Select actual page:
   var pag = url.searchParams.get("pag");
-  console.log("pag actual: ");
-  console.log(pag);
+  pagina = pag;
   // Paginacion
   var total = i;
   let paginas = total / results;
     // Ceil redondea al entero mayor (si hay 13 resultados, 13/6 = 2,... habrán 3 páginas)
   paginas = Math.ceil(paginas);
   var docu = document.getElementsByClassName("pagination");
-  if(paginas == 1 )
-  {
-      docu[0].innerHTML +=
-      `
-      <a href="#">1</a>
-      `;
+  if(pagina == null){
+    // no viene por URL la pagina
+    pagina = 0;
+  }
+  console.log("pagina actual: " + pagina);
+  console.log("total: " + paginas);
+
+
+
+
+  if(paginas == 1){
+    docu[0].innerHTML =
+    `
+    <p>
+    Página ` + eval(pagina+1) + ` de ` + paginas + `
+    </p>
+    `;
   }
   else {
-    var i;
-    for(i = 1; i<=paginas; i++)
-    {
-      docu[0].innerHTML += '<a href="buscar.html?pag=' + (i-1) + '&lpag=4">' + i + '</a>';
-      if( (i-1) == pag )
-      {
-        docu[0].children[pag].style.backgroundColor = "grey";
-      }
+    if(pagina == 0){
+      docu[0].innerHTML =
+      `
+      <p>Página ` + eval(pagina+1) + ` de ` + paginas + `
+      <a href="buscar.html?` + `pag=` + (eval(pagina+1)) +`&lpag=4">&gt</a>
+      </p>
+      `;
     }
-
+    else if(pagina == eval(paginas-1)){
+      docu[0].innerHTML =
+      `
+      <p>
+      <a href="buscar.html?` + `pag=` + (eval(pagina-1)) +`&lpag=4">&lt</a>
+      Página ` + ( parseInt(pagina)+1 ) + ` de ` + paginas + `
+      </p>
+      `;
+    }
+    else {
+      docu[0].innerHTML =
+      `
+      <p>
+      <a href="buscar.html?` + `pag=` + (eval(pagina-1)) +`&lpag=4">&gt</a>
+      Página ` + ( parseInt(pagina)+1 ) + ` de ` + paginas + `
+      <a href="buscar.html?` + `pag=` + (eval(pagina+1)) +`&lpag=4">&gt</a>
+      </p>
+      `;
+    }
   }
+
+
+
+console.log(docu[0].innerHTML);
 
 }
