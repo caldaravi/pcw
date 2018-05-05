@@ -422,6 +422,9 @@ section#receta>article.card>div>div:nth-of-type(1){
 	}
 
 /* Acerca */
+h2.titleContact {
+  text-align: center;
+}
 /* Create two equal columns that floats next to each other */
 .column {
     float: left;

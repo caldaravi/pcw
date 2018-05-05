@@ -45,7 +45,7 @@ function addFoto(){
   <input required id="` + contador + `" onchange="elegirImagen(event)" type="file" accept="image/*" style="display: none">
 
   <p>Foto:</p>
-  <img id="img` + contador +`" onclick="elegirImagen(event)" accept="image/*()" src="imgs/sin_imagen.jpg" alt="noimagen" style="cursor: pointer">
+  <img id="img` + contador +`" onclick="elegirImagen(event)" accept="image/*()" src="imgs/sin_imagen.jpg" alt="noimagen" style="cursor: pointer; height:200px;max-width:200px;">
 
   <p>Descripción: </p>
   <textarea id="descripcion` + contador + `" name="descripcion` + contador + `" cols="30" rows="4"></textarea>

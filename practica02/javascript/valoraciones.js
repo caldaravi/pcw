@@ -1,7 +1,7 @@
-function like(){
-  var url_string = window.location.href;
-  var url_str = new URL(url_string);
-  var id = url_str.searchParams.get("id");
+function like() {
+  var url_string = window.location.href,
+      url_str = new URL(url_string),
+      id = url_str.searchParams.get("id");
 
   let xhr = new XMLHttpRequest(),
   fd  = new FormData(),
