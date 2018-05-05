@@ -2,6 +2,11 @@ function getRecetas()
 {
   url = 'rest/receta/?u=6';
 
+  var logged = false;
+  if(sessionStorage.getItem('usuario') != null){
+    logged = true;
+  }
+
   fetch(url)
   .then(
     function( response ){
@@ -16,55 +21,7 @@ function getRecetas()
     var i;
     for(i=0;i<data.FILAS.length;i++)
     {
-      if(sessionStorage.getItem('usuario') != null){
-        cont.innerHTML +=
-        `
-        <article class="card">
-        <a href="receta.html?id=` + data.FILAS[i].id + `"><h3>` + data.FILAS[i].nombre + `</h3></a>
-        <img src="fotos/` + data.FILAS[i].fichero + `" alt="` + data.FILAS[i].nombre + `">
-        <p>`+ data.FILAS[i].descripcion_foto + `</p>
-        <div>
-          <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?a=` + data.FILAS[i].autor + `>` + data.FILAS[i].autor + `</a></h4>
-        </div>
-        <footer>
-          <div>
-            <div>
-              <p>` + data.FILAS[i].positivos + ` likes</p>
-              <p><span class="icon-comment"></span> ` + data.FILAS[i].comentarios + ` comentarios</p>
-            </div>
-            <div>
-              <p>` + data.FILAS[i].negativos + ` dislikes</p>
-          <p><time datetime="` + data.FILAS[i].fecha + `">` + data.FILAS[i].fecha + `</time></p>
-            </div>
-          </div>
-        </footer>
-        </article>
-        `;
-      } else {
-        cont.innerHTML +=
-        `
-        <article class="card">
-        <a href="receta.html?id=` + data.FILAS[i].id + `"><h3>` + data.FILAS[i].nombre + `</h3></a>
-        <img src="fotos/` + data.FILAS[i].fichero + `" alt="` + data.FILAS[i].nombre + `">
-        <p>`+ data.FILAS[i].descripcion_foto + `</p>
-        <div>
-          <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?a=` + data.FILAS[i].autor + `>` + data.FILAS[i].autor + `</a></h4>
-        </div>
-        <footer>
-          <div>
-            <div>
-              <p> ` + data.FILAS[i].positivos + ` likes</p>
-              <p><span class="icon-comment"></span> ` + data.FILAS[i].comentarios + ` comentarios</p>
-            </div>
-            <div>
-              <p>` + data.FILAS[i].negativos + ` dislikes</p>
-          <p><time datetime="` + data.FILAS[i].fecha + `">` + data.FILAS[i].fecha + `</time></p>
-            </div>
-          </div>
-        </footer>
-        </article>
-        `;
-      }
+      cont.innerHTML += escribeReceta(data,i,logged);
   }
     paginacion(i,6);
 
@@ -138,12 +95,67 @@ function paginacion(i, results, url_params) {
 
 }
 
-
-
 function build_params(data) {
   let ret = [];
   for (let pos in data){
     ret.push(encodeURIComponent(pos) + "=" + encodeURIComponent(data[pos]));
   }
   return ret.join('&');
+}
+
+
+function escribeReceta(search, i, log){
+  var texto = '';
+  if(log == true){
+    // Registrado -> incluye enlaces mg / nomg
+    texto = `
+    <article class="card">
+        <a href="receta.html?id=` + search.FILAS[i].id + `"><h3>` + search.FILAS[i].nombre + `</h3></a>
+        <img src="fotos/` + search.FILAS[i].fichero + `" alt="` + search.FILAS[i].descripcion_foto + `">
+        <p>` + search.FILAS[i].descripcion_foto + `</p>
+        <div>
+          <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?a=` + search.FILAS[i].autor + `>` + search.FILAS[i].autor + `</a></h4>
+        </div>
+        <footer>
+          <div>
+            <div>
+              <p></a> ` + search.FILAS[i].positivos + ` likes</p>
+              <p><span class="icon-comment"></span> ` + search.FILAS[i].comentarios + ` comentarios</p>
+            </div>
+            <div>
+              <p></a> ` + search.FILAS[i].negativos + ` dislikes</p>
+              <p><time datetime="` + search.FILAS[i].fecha + `">` + search.FILAS[i].fecha + `</time></p>
+            </div>
+          </div>
+        </footer>
+      </article>
+    `
+  }
+  else{
+    // No registrado -> NO incluye enlaces mg / nomg
+    texto = `
+    <article class="card">
+        <a href="receta.html?id=` + search.FILAS[i].id + `"><h3>` + search.FILAS[i].nombre + `</h3></a>
+        <img src="fotos/` + search.FILAS[i].fichero + `" alt="` + search.FILAS[i].descripcion_foto + `">
+        <p>` + search.FILAS[i].descripcion_foto + `</p>
+        <div>
+          <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?a=` + search.FILAS[i].autor + `>` + search.FILAS[i].autor + `</a></h4>
+        </div>
+        <footer>
+          <div>
+            <div>
+              <p> ` + search.FILAS[i].positivos + ` likes</p>
+              <p><span class="icon-comment"></span> ` + search.FILAS[i].comentarios + ` comentarios</p>
+            </div>
+            <div>
+              <p> ` + search.FILAS[i].negativos + ` dislikes</p>
+          <p><time datetime="` + search.FILAS[i].fecha + `">` + search.FILAS[i].fecha + `</time></p>
+            </div>
+          </div>
+        </footer>
+      </article>
+    `;
+  }
+
+  return texto;
 }

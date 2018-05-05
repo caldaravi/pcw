@@ -17,7 +17,7 @@ function control(){
   no_reg.push({a: "index.html", icon: "home", text: "Inicio"});
   no_reg.push({a: "buscar.html", icon: "search", text: "Buscar"});
   no_reg.push({a: "login.html", icon: "login", text: "Login"});
-  no_reg.push({a: "registro.html", icon: "registro", text: "Regístrate"});
+  no_reg.push({a: "registro.html", icon: "user-add", text: "Regístrate"});
 
   var menu = [];
   menu.push({a: "index.html", icon: "home", text: "Inicio"});
