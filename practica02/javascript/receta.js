@@ -24,7 +24,6 @@ function compruebaid(){
               window.location.replace("index.html");
 
             }
-            //console.log(inf_data);
 
             // Si ha ido OK -> GET de fotos de esa receta
             var url_fotos = 'rest/receta/'+id+'/fotos';
@@ -38,7 +37,6 @@ function compruebaid(){
                   fotos_resp.json().then( function(fotos) {
 
                     fotos_data = fotos.FILAS;
-                    //console.log(fotos_data);
 
                     // Si ha ido OK -> GET de comentarios
                     var url_coments = 'rest/receta/'+id+'/comentarios';
@@ -50,10 +48,8 @@ function compruebaid(){
                             console.log("Error STATUS GET comentarios.");
                           }
                           coments_resp.json().then( function( comentarios ){
-                              //console.log(comentarios);
 
                               coments_data = comentarios.FILAS;
-                              //console.log(coments_data);
 
                               // Si todo OK -> GET de ingredientes
                               var url_ingredientes = 'rest/receta/'+id+'/ingredientes';
@@ -129,13 +125,9 @@ function compruebaid(){
                                         var p = document.getElementById("valoraciones");
                                         p.insertBefore(newA, p.childNodes[0]);
                                         p.insertBefore(newA2, p.childNodes[4]);
-                                        // <a onclick="like()">
-                              					// 	<span class="icon-thumbs-up"></span>
-                              					// </a>
                                       }
 
                                       // Comentarios
-                                      console.log(coments_data);
                                       let plantilla = document.getElementById("comentarios").children[1];
                                       for(var i = 0; i < coments_data.length; i++)
                                       {
@@ -155,7 +147,7 @@ function compruebaid(){
                                             noreg.innerHTML +=
                                             `
                                             <button type="BUTTON"
-                                                       ONCLICK="loadWholePage('comenta.html')">
+                                                       ONCLICK="loadHTML('comenta.html')">
                                                        Deja tu comentario!
                                             </button>
                                             `
@@ -207,8 +199,6 @@ function pasapagina(num)
   else if( contador == rutas.length){
     contador = 0;
   }
-  console.log(contador);
-  console.log(rutas[contador].fichero);
   doc.src='fotos/'+rutas[contador].fichero;
 
 }

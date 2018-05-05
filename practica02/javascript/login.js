@@ -35,7 +35,6 @@ function hacerLogin(frm)
         }
       }
     } else {
-    	 console.log('ERROR');
 			 var modal = document.getElementById('id02');
        var span = document.getElementsByClassName("close")[1];
        modal.style.display='block';

@@ -26,11 +26,28 @@
 	</nav>
 
 	<section>
+		<h1 align="center">Programación del Cliente Web</h1>
+		<h3>Miembros del grupo:</h3>
+		<div class="row">
+		  <div class="column" style="background-color:#aaa;">
+		    <h3>Carlos Aldaravi Coll</h3>
+		    <p><a href="www.carlosaldaravi.com">www.carlosaldaravi.com</a></p>
+				<p>Twitter: <strong>@carlosaldaravi</strong></p>
+		  </div>
+		  <div class="column" style="background-color:#bbb;">
+		    <h3>Marcos Urios Gómez</h3>
+		    <p><a href="www.carlosaldaravi.com">www.marcosurios.com</a></p>
+				<p>Twitter: <strong>@marcosurios</strong></p>
+		  </div>
+		</div>
+
 		<div class="card">
 			<h2>Acerca de nosotros</h2>
-			<p>Página web creada por los alumnos <strong>Carlos Aldaravi Coll</strong> y <strong>Marcos Urios Gómez</strong> para la asignatura Programacion del Cliente Web (PCW) del grado en Ingeniería Multimedia impartido en la Universidad de Alicante. </p>
+			<p>Somos dos alumnos de tercer curso de <strong>Ingeniería Multimedia</strong> desarrollando
+				la práctica de PCW en el curso 2017/2018</p>
+				<h3>Problemas y soluciones en la práctica</h3>
 			<p>
-				Hemos implementado las valoraciones de me gusta y no me gusta
+				Hemos implementado las <strong>valoraciones</strong> de me gusta y no me gusta
 				por medio de ajax (like) y fetch (dislike). Utilizándolo en firefox el
 				like funciona correctamente pero el dislike con fetch no por lo que
 				hemos comentado el código de fetch y lo hemos implementado por medio de
@@ -38,14 +55,32 @@
 				tanto el ajax como el FETCH.
 			</p>
 			<p>
-				Cuando falla el dejar un comentario en una receta, tanto en Chrome
+				Cuando falla el <strong>dejar un comentario</strong> en una receta, tanto en Chrome
 				como en firefox sale el modal perfectamente aunque no hace el focus
 				en el formulario cuando se cierra.
 			</p>
 			<p>
-				Hemos añadido en el input de nickname en la página de registro un control
+				Hemos añadido en el input de nickname en la página de <strong>registro</strong> un control
 				para que el usuario no pueda introducir espacios. También para que si el
 				usuario pega un nickname con espacios automáticamente se eliminen dichos espacios.
+			</p>
+			<p>
+				La <strong>carga de fotos</strong> la hacíamos de manera que el usuario tenía que tener las fotos
+				que quería subir en la carpeta 'imgs'. Al darnos cuenta de que esto estaba mal
+				lo hemos solucionado para que la carga sea desde cualquier parte del ordenador.
+				Además nos hemos asegurado que aunque el usuario abra nuevas fichas de fotos, cierre,
+				vuelva a abrir, seleccione una imagen, y luego en esa misma imagen la cambie a otra,
+				no dé ningún tipo de problema. Es más, si el usuario abre 3 fichas de fotos pero sólo
+				selecciona una foto, subimos dicha foto al servidor y cerramos el resto de fichas.
+			</p>
+			<p>
+				Hemos tenido problemas con el apartado de <strong>entrar en una página</strong> a la que no puedes
+				entrar por ejemplo registro cuando estás logueado. El problema era que aunque te
+				ocultaba la página cuando intentabas entrar, sí que mostraba el contenido durante
+				medio o un segundo. El problema era que haciamos el control de acceso desde el body
+				y al hacerlo así cargaba todo el contenido y después hacía el control. Lo hemos
+				solucionado poniendo el control de acceso en el head y de esta manera lo hace antes
+				de cargar el contenido y no le da tiempo a mostrarlo.
 			</p>
 		</div>
 	</section>

@@ -1,26 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>PCW</title>
-	<link rel="stylesheet" href="css/estilo.css">
-	<link rel="stylesheet" href="css/fontello.css">
-	<script src="javascript/comenta.js"></script>
-	<script src="javascript/receta.js"></script>
-</head>
-<body>
-
-
-    <div id="comenta" class="card">
-      <h4>Añade tu comentario</h4>
-      <form id="form_comentario" onsubmit=" return dejarComentario(this);">
-        <input id="titulo_coment" name="titulo_coment" type="text" maxlength="50" placeholder="Título..." required>
-        <textarea name="comentario" id="comentario" cols="30" rows="10" placeholder="Comentario..." required></textarea>
-        <input type="submit">
-      </form>
-    </div>
-
-
-</body>
-</html>
+<div id="comenta" class="card">
+	<h4>Añade tu comentario</h4>
+	<form id="form_comentario" onsubmit=" return dejarComentario(this);">
+		<input id="titulo_coment" name="titulo_coment" type="text" maxlength="50" placeholder="Título..." required>
+		<textarea name="comentario" id="comentario" cols="30" rows="10" placeholder="Comentario..." required></textarea>
+		<input type="submit">
+	</form>
+</div>

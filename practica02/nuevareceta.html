@@ -8,8 +8,11 @@
 	<link rel="stylesheet" href="css/fontello.css">
 	<script src="javascript/controlAcceso.js"></script>
 	<script src="javascript/nuevaReceta.js"></script>
+	<script >
+		acceso();
+	</script>
 </head>
-<body onload="acceso(); control()">
+<body onload="control()">
 
 	<header>
 	<img src="imgs/logo.svg" alt="logo">
@@ -25,6 +28,15 @@
 			<li><label for="activador">&equiv;</label></li>
 		</ul>
 	</nav>
+
+	<div id="id01" class="modal">
+
+		<!-- Modal Content -->
+		<div class="card">
+			<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+			<p>El tamaño de la imagen debe ser menor de 300Kb</p>
+		</div>
+	</div>
 
 	<div id="id02" class="modal">
 
@@ -58,23 +70,23 @@
 		<div>
 			<form id="nuevaRecetaForm" onsubmit="return mandarReceta(this);">
 				<div>
-					<label for="titulo">Titulo: </label><input required id="titulo" name="titulo" type="text">
+					<label for="titulo">Titulo: </label><input required id="titulo" name="titulo" type="text" maxlength="50">
 				</div>
 				<div>
 					<label for="elaboracion">Elaboracion: </label><textarea required name="elaboracion" id="elaboracion" cols="30" rows="10" maxlength="250"></textarea>
 				</div>
 				<div>
-					<label for="comensales">Comensales: </label><input required id="comensales" name="comensales" min="0" type="number">
+					<label for="comensales">Comensales: </label><input required id="comensales" name="comensales" min="1" type="number">
 				</div>
 				<div>
-					<label for="tiempo">Tiempo (min): </label><input required id="tiempo" name="tiempo" min="0" type="number">
+					<label for="tiempo">Tiempo (min): </label><input required id="tiempo" name="tiempo" min="1" type="number">
 				</div>
 				<div>
 					<label for="dificultad">Dificultad</label>
 						<select name="dificultad" id="dificultad">
-							<option value="baja">Baja</option>
-							<option value="media">Media</option>
-							<option value="alta">Alta</option>
+							<option value="0">Baja</option>
+							<option value="1">Media</option>
+							<option value="2">Alta</option>
 						</select>
 				</div>
 
@@ -91,14 +103,7 @@
 
 		</div>
 		<h4>Fotos de la receta</h4>
-		<div id="id01" class="modal">
 
-			<!-- Modal Content -->
-			<div class="card">
-				<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-				<p>El tamaño de la imagen debe ser menor de 300Kb</p>
-			</div>
-		</div>
 		<div id="id05" class="modal">
 
 			<!-- Modal Content -->

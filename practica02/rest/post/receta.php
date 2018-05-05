@@ -101,7 +101,6 @@ else
           }
           else
           {
-            echo("Error description: " . mysqli_error($link));
             $RESPONSE_CODE = 500;
             $R = array('RESULTADO' => 'ERROR', 'CODIGO' => $RESPONSE_CODE, 'DESCRIPCION' => 'Error de servidor.');
           }

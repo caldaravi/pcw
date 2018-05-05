@@ -34,18 +34,18 @@ function addFoto(){
 
   var cont = document.getElementById("fotosReceta");
   var div = document.createElement('div');
-  var id = "foto" + contador;
+  var id = "fichaFoto" + contador;
   div.className = 'imgcontainer';
   div.setAttribute("id", id);
   cont.appendChild(div);
-
   div.innerHTML +=
   `
-  <p><button onclick="cerrarFicha(` + id + `)" class="icon-cancel"></button></p>
-  <input onchange="getImg(this)" required id="` + contador + `" type="file" name="foto" accept="image/*">
+  <p><button id="cerrar` + contador + `" onclick="cerrarFicha(this)" class="icon-cancel"></button></p>
+  <button id="btn` + contador +`" onclick="elegirImagen(event)">Elegir imagen</button>
+  <input required id="` + contador + `" onchange="elegirImagen(event)" type="file" accept="image/*" style="display: none">
 
   <p>Foto:</p>
-  <img id="img` + contador + `" type="file" onclick="getImg(this)" accept="image/*()" src="imgs/sin_imagen.jpg" alt="noimagen" style="cursor: pointer">
+  <img id="img` + contador +`" onclick="elegirImagen(event)" accept="image/*()" src="imgs/sin_imagen.jpg" alt="noimagen" style="cursor: pointer">
 
   <p>Descripción: </p>
   <textarea id="descripcion` + contador + `" name="descripcion` + contador + `" cols="30" rows="4"></textarea>
@@ -53,67 +53,58 @@ function addFoto(){
   contador++;
 }
 
-function cerrarFicha(x){
-  var id = x.id.split("foto");
-  id = "img" + id[1];
+function elegirImagen(event){
+// Check for the various File API support.
+  if (window.File && window.FileReader && window.FileList && window.Blob) {
+    // Great success! All the File APIs are supported.
+    var reader = new FileReader();
+    var file = event.target;
 
-  var src = document.getElementById(id).src;
-  var img = src.split("http://localhost/pcw/practica02/imgs/");
-  img = img[1];
-
-  var index = -1;
-  for(var i=0; i<fotos.length; i++){
-    if(fotos[i].name == img){
-      index = i;
-    }
-  }
-
-  if(index > -1){
-    fotos.splice(index, 1);
-  }
-
-  var elem = document.getElementById(x.id);
-  elem.parentNode.removeChild(elem);
-
-  return false;
-}
-
-function getImg(x){
-
-  if(x.type == "file"){
-    var file = x.files[0].size;
-    var name = x.files[0].name;
-    var img = document.getElementById("img" + x.id);
-
-    if(file>300000){
-      document.getElementById('id01').style.display='block';
-    } else {
-      img.src = "imgs/" + name;
-      numFotos++;
-      fotos.push(x.files[0]);
-    }
-  } else {
-
-    var splited = x.id.split('img');
-    var inputId = splited[1];
-    var fileupload = document.getElementById(inputId);
-    var image = document.getElementById(x.id);
-
-    image.onclick = function () {
-        fileupload.click();
-    };
-    fileupload.onchange = function () {
-      var file = fileupload.files[0].size;
-      var name = fileupload.files[0].name;
-
-      if(file>300000){
+    if(file.type == "file"){
+      if(file.files[0].size > 300000){
         mostrarModal("01");
       } else {
-          image.src = "imgs/" + name;
-          numFotos++;
-          fotos.push(fileupload.files[0]);
-      }
-    }
+        reader.onload = function(){
+          var dataURL = reader.result;
+          var output = document.getElementById('img' + event.explicitOriginalTarget.id);
+          if(output.alt == "noimagen"){
+            output.src = dataURL;
+            output.alt = "imagen";
+            numFotos++;
+            fotos.push({file:file.files[0], id: event.explicitOriginalTarget.id, src: dataURL});
+          } else {
+            output.src = dataURL;
+            output.alt = "imagen";
+            for(var i=0; i<fotos.length; i++){
+              if(fotos[i].id == event.explicitOriginalTarget.id){
+                fotos[i].file = file.files[0];
+                fotos[i].src = dataURL;
+              }
+            }
+          }
+        };
+         reader.readAsDataURL(file.files[0]);
+       }
+     } else {
+       if(file.localName == "button"){
+         var splited = event.explicitOriginalTarget.id.split('btn');
+         var id = splited[1];
+         var image = document.getElementById("img" + id);
+         file.onclick = function () {
+             document.getElementById(id).click();
+         };
+       } else {
+         if(file.localName == "img"){
+           var splited = event.explicitOriginalTarget.id.split('img');
+           var id = splited[1];
+           file.onclick = function () {
+               document.getElementById(id).click();
+           };
+         }
+       }
+     }
+    } else {
+    alert('The File APIs are not fully supported in this browser.');
   }
 }
 
@@ -127,18 +118,13 @@ function mandarReceta(form){
 
       if(xhr){
         usu = JSON.parse(sessionStorage.getItem('usuario'));
-        var dificultad;
         titulo = form.titulo.value;
-        switch(form.dificultad.value){
-          case 'baja': dificultad = 0; break;
-          case 'media': dificultad = 1; break;
-          case 'alta': dificultad = 2; break;
-        }
+
         fd.append('l',usu.login);
         fd.append('n',titulo);
         fd.append('e',form.elaboracion.value);
         fd.append('t',form.tiempo.value);
-        fd.append('d',dificultad);
+        fd.append('d',form.dificultad.value);
         fd.append('c',form.comensales.value);
 
         xhr.open('POST', url, true);
@@ -153,19 +139,8 @@ function mandarReceta(form){
              for(var i=0; i<fotos.length; i++){
                enviarFotos(r.ID, i);
              }
+             limpiarFormulario();
 
-             var i = 0;
-             while(fotos.length>0){
-               cerrarFicha(document.getElementById("foto"+i));
-               i++;
-             }
-             document.getElementById("nuevaRecetaForm").reset();
-             // Get the <ul> element with id="ingredientes"
-             var list = document.getElementById("ingredientes");
-             // If the <ul> element has any child nodes, remove its first child node
-             while(list.hasChildNodes()) {
-               list.removeChild(list.childNodes[0]);
-             }
              document.getElementById("msgReceta").innerHTML = "Se ha creado correctamente la receta " + titulo;
              mostrarModal("05");
            } else {
@@ -206,12 +181,11 @@ function enviarIngredientes(id){
 
     xhr.open('POST', url, true);
     xhr.onload = function(){
-       console.log(xhr.responseText);
 
        let r = JSON.parse(xhr.responseText);
 
        if(r.RESULTADO == "OK"){
-         console.log("imagen enviada a la BD");
+         console.log("ingredientes enviados a la BD");
        } else {
          console.log("nope");
        }
@@ -227,26 +201,24 @@ function enviarFotos(id, i){
   url = 'rest/receta/' + id + '/foto',
   usu;
 
-
-  var desc = document.getElementById("descripcion" + i).value;
+  var desc = document.getElementById("descripcion" + fotos[i].id).value;
 
   if(xhr){
     usu = JSON.parse(sessionStorage.getItem('usuario'));
 
     fd.append('l',usu.login);
     fd.append('t',desc);
-    fd.append('f',fotos[i]);
+    fd.append('f',fotos[i].file);
 
     xhr.open('POST', url, true);
     xhr.onload = function(){
-       console.log(xhr.responseText);
 
        let r = JSON.parse(xhr.responseText);
 
        if(r.RESULTADO == "OK"){
-         console.log("fotos subidas al servidor")
+         console.log("Foto " + i + " subida");
        } else {
-         console.log("nope");
+         console.log("No se ha podido subir la foto");
        }
     }
     xhr.setRequestHeader('Authorization', usu.clave);
@@ -254,12 +226,54 @@ function enviarFotos(id, i){
   }
 }
 
+function limpiarFormulario(){
+  document.getElementById("nuevaRecetaForm").reset();
+  var div = document.getElementById("fotosReceta");
+  var list = document.getElementById("ingredientes");
+
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
+  }
+
+  while(list.hasChildNodes()) {
+    list.removeChild(list.childNodes[0]);
+  }
+}
+
+function cerrarFicha(x){
+  var split = x.id.split("cerrar");
+  var id = split[1];
+  var img = document.getElementById("img"+id);
+
+  var index = -1;
+  for(var i=0; i<fotos.length; i++){
+    if(fotos[i].src == img.src){
+      index = i;
+    }
+  }
+
+  if(index > -1){
+    fotos.splice(index, 1);
+    numFotos--;
+  }
+
+  var elem = document.getElementById("fichaFoto" + id);
+  elem.parentNode.removeChild(elem);
+
+  return false;
+}
+
 function mostrarModal(num){
   var modal = document.getElementById('id'+num);
-  var span = document.getElementsByClassName("close")[num-1];
   modal.style.display='block';
-  console.log("Mostrando modal: " + num);
+  if(num != "05"){
+    var span = document.getElementsByClassName("close")[num-1];
 
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+  }
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == modal) {

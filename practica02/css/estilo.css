@@ -420,6 +420,21 @@ section#receta>article.card>div>div:nth-of-type(1){
 		margin-top:2em;
 	}
 
+/* Acerca */
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 200px; 
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 
 
