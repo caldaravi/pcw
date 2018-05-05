@@ -1,12 +1,20 @@
 function getRecetas()
 {
-  url = 'rest/receta/?u=6';
+  var url = 'rest/receta/?';
+
+  if(window.location.href.split('?')[1] != '' && window.location.href.split('?')[1] != undefined){
+    url += window.location.href.split('?')[1];
+  }
+  else{
+    url += "pag=0&lpag=6";
+  }
 
   var logged = false;
   if(sessionStorage.getItem('usuario') != null){
     logged = true;
   }
 
+  console.log("hago FETCH con: " + url);
   fetch(url)
   .then(
     function( response ){
@@ -14,25 +22,24 @@ function getRecetas()
 
       }
       response.json().then(function(data){
-        //console.log(data);
+        console.log(data);
 
     var cont = document.getElementsByTagName("section")[0].children[0];
 
     var i;
+
     for(i=0;i<data.FILAS.length;i++)
     {
       cont.innerHTML += escribeReceta(data,i,logged);
-  }
-    paginacion(i,6);
+    }
+    paginacion(data.TOTAL_COINCIDENCIAS,6,'');
 
     });
-})
-.catch(function() {
-    // This is where you run code if the server returns any errors
-
-    console.log('ERROR');
-});
-}
+  })
+  .catch(function() {
+      console.log('ERROR');
+  });
+  }
 
 function paginacion(i, results, url_params) {
   var url_string = window.location.href;
@@ -68,7 +75,8 @@ function paginacion(i, results, url_params) {
       docu[0].innerHTML =
       `
       <p>Página ` + eval(pagina+1) + ` de ` + paginas + `
-      <a href="buscar.html?` + url_params + `&pag=` + (eval(pagina+1)) +`&lpag=4">&gt</a>
+      <a href="`+ window.location.href.split('?')[0] + '?' + url_params + `&pag=` + (eval(pagina+1)) +`&lpag=` + results + `">&gt</a>
+      <a href="` + window.location.href.split('?')[0] + "?" + url_params + `&pag=` + (eval(paginas-1)) +`&lpag=` + results + `">&gt&gt</a>
       </p>
       `;
     }
@@ -76,7 +84,8 @@ function paginacion(i, results, url_params) {
       docu[0].innerHTML =
       `
       <p>
-      <a href="buscar.html?` + url_params + `&pag=` + (eval(pagina-1)) +`&lpag=4">&lt</a>
+      <a href="` + window.location.href.split('?')[0] + "?" + url_params + `&pag=` + 0 +`&lpag=` + results + `">&lt&lt</a>
+      <a href="` + window.location.href.split('?')[0] + "?" + url_params + `&pag=` + (eval(pagina-1)) +`&lpag=` + results + `">&lt</a>
       Página ` + ( parseInt(pagina)+1 ) + ` de ` + paginas + `
       </p>
       `;
@@ -85,9 +94,11 @@ function paginacion(i, results, url_params) {
       docu[0].innerHTML =
       `
       <p>
-      <a href="buscar.html?` + url_params + `&pag=` + (eval(pagina-1)) +`&lpag=4">&gt</a>
+      <a href="` + window.location.href.split('?')[0] + "?" + url_params + `&pag=` + 0 +`&lpag=` + results + `">&lt&lt</a>
+      <a href="` + window.location.href.split('?')[0] + "?" + url_params + `&pag=` + (eval(pagina-1)) +`&lpag=` + results + `">&gt</a>
       Página ` + ( parseInt(pagina)+1 ) + ` de ` + paginas + `
-      <a href="buscar.html?` + url_params + `&pag=` + (eval(pagina+1)) +`&lpag=4">&gt</a>
+      <a href="` + window.location.href.split('?')[0] + "?" + url_params + `&pag=` + (eval(pagina+1)) +`&lpag=` + results + `">&gt</a>
+      <a href="` + window.location.href.split('?')[0] + "?" + url_params + `&pag=` + (eval(paginas-1)) +`&lpag=` + results + `">&gt&gt</a>
       </p>
       `;
     }

@@ -24,13 +24,15 @@ function dejarComentario(frm)
 		 if(r.RESULTADO == "OK"){
 			 var form = document.getElementById("form_comentario").reset();
 
+			 // cargar coments
+
 			 mostrarModalComt("04")
 
 		 } else {
 			 mostrarModalComt("01");
 		 }
   }
-	xhr.setRequestHeader('Authorization', "2");
+	xhr.setRequestHeader('Authorization', usu.clave);
   xhr.send(fd);
 
 	return false;
@@ -49,6 +51,9 @@ function loadHTML(url){
   }
   xhr.send(fd);
 
+	// Escondemos boton de dejar comentario
+	hidebtn();
+
 }
 
 function mostrarModalComt(num){
@@ -62,6 +67,11 @@ function mostrarModalComt(num){
 		if(num == "01"){
 			var form = document.getElementById("titulo_coment").focus();
 		}
+		else if(num == '04'){
+			// Cargamos Comentarios
+			var url = new URL(window.location.href);
+			getComentarios(url.searchParams.get("id"));
+		}
 	}
 
   // When the user clicks anywhere outside of the modal, close it
@@ -70,6 +80,11 @@ function mostrarModalComt(num){
          modal.style.display = "none";
 				 if(num == "01"){
 				 	var form = document.getElementById("titulo_coment").focus();
+				}
+				else if(num == '04'){
+					// Cargamos Comentarios
+					var url = new URL(window.location.href);
+					getComentarios(url.searchParams.get("id"));
 				}
     }
   }

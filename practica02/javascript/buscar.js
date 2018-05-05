@@ -123,7 +123,7 @@ function comprobarDatos(frm) {
   if(frm.tiempomax.value != ''){
     params.df = frm.tiempomax.value;
   }
-  if(frm.dificultad.value != ''){
+  if(frm.dificultad.value != '-1'){
     params.d = frm.dificultad.value;
   }
   if(frm.comensales.value != ''){
