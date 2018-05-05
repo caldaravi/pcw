@@ -11,7 +11,7 @@
 	<script src="javascript/controlAcceso.js"></script>
 
 </head>
-<body onload="compruebaUsuario(); control()">
+<body onload="check(); control();">
 
 	<header>
 	<img src="imgs/logo.svg" alt="logo">
@@ -34,30 +34,35 @@
 
 	<div id="busqueda" class="card">
 
-		<form action="buscar.html">
+		<form onsubmit="return comprobarDatos(this);">
 
 			<div>
-				<input type="search" name="busqueda" placeholder="Búsqueda por título...">
-				<input type="submit" name="submit" value="Buscar">
+				<input type="search" id="titulo" name="busqueda" placeholder="Búsqueda por título...">
+				<input type="submit" name="submit">
 				<label for="busqueda_ext" title="Busq. avanzada"><span class="icon-down-open"></span></label>
 			</div>
 
 					<label class="tag" for="ingredientes">
-						Ingredientes:</label> <input id="ingredientes" type="text" name="ingredientes">
+						Ingredientes:</label> <input id="ingredientes" type="text" name="ingredientes"  placeholder="Arroz, sal...">
 
 					<label class="tag" for="tiempomin">
-						Tiempo min.:</label> <input id="tiempomin" type="number" min="0" name="tiempomin">
+						Tiempo min.:</label> <input id="tiempomin" type="number" min="1" name="tiempomin">
 					<label class="tag" for="tiempomax">
-						Tiempo max.:</label> <input id="tiempomax" type="number" min="0" name="tiempomax">
+						Tiempo max.:</label> <input id="tiempomax" type="number" min="1" name="tiempomax">
 
 					<label class="tag" for="dificultad">
-						Dificultad:</label> <input id="dificultad" type="text" name="dificultad">
+						Dificultad:</label>
+						<select name="dificultad" id="dificultad">
+							<option value="0">Baja</option>
+							<option value="1">Media</option>
+							<option value="2">Alta</option>
+						</select>
 
 					<label class="tag" for="comensales">
-						Comensales:</label> <input id="comensales" type="text" name="comensales">
+						Comensales:</label> <input id="comensales" type="number" min="1" name="comensales">
 
-					<label class="tag" for="autor">
-						Autor:</label> <input id="autor" type="text" name="autor">
+					<label class="tag" for="autor" >
+						Autor:</label> <input id="autor" type="text" name="autor" placeholder="usuario1">
 
 					<input type="reset" name="reset">
 

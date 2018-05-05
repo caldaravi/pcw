@@ -26,8 +26,16 @@ function control(){
   menu.push({a: "index.html", icon: "logout", text: "Logout"});
 
   var ul = document.getElementsByTagName('nav')[0].children[0];
-  // console.log(ul);
-  // console.log(menu);
+
+/*
+  // Paginacion persistente (varia en funcion de esto y no de url)
+  if(sessionStorage.getItem("busqueda_avanzada") != '' && sessionStorage.getItem("busqueda_avanzada") != null){
+    if(window.location.href.split('?')[0] != "http://localhost/pcw/practica02/buscar.html")
+    {
+      sessionStorage.removeItem("busqueda_avanzada");
+      console.log("busqueda avanzada borrada");
+    }
+  }*/
 
   if(sessionStorage.getItem('usuario') != null){
     // Hay Usuario

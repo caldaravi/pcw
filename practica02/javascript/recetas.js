@@ -48,7 +48,7 @@ function getRecetas()
         <img src="fotos/` + data.FILAS[i].fichero + `" alt="` + data.FILAS[i].nombre + `">
         <p>`+ data.FILAS[i].descripcion_foto + `</p>
         <div>
-          <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?u=` + data.FILAS[i].autor + `>` + data.FILAS[i].autor + `</a></h4>
+          <span class="icon-user" aria-hidden="true"></span><a href=buscar.html?a=` + data.FILAS[i].autor + `>` + data.FILAS[i].autor + `</a></h4>
         </div>
         <footer>
           <div>
@@ -66,7 +66,6 @@ function getRecetas()
         `;
       }
   }
-console.log('uihiuh');
     paginacion(i,6);
 
     });
@@ -81,24 +80,23 @@ console.log('uihiuh');
 function paginacion(i, results, url_params) {
   var url_string = window.location.href;
   var url = new URL(url_string);
+  var url_provi = ""
+
   // Select actual page:
   var pag = url.searchParams.get("pag");
   pagina = pag;
+
   // Paginacion
   var total = i;
   let paginas = total / results;
-    // Ceil redondea al entero mayor (si hay 13 resultados, 13/6 = 2,... habrán 3 páginas)
+  // Ceil redondea al entero mayor (si hay 13 resultados, 13/6 = 2,... habrán 3 páginas)
   paginas = Math.ceil(paginas);
+
   var docu = document.getElementsByClassName("pagination");
   if(pagina == null){
     // no viene por URL la pagina
     pagina = 0;
   }
-  console.log("pagina actual: " + pagina);
-  console.log("total: " + paginas);
-
-
-
 
   if(paginas == 1){
     docu[0].innerHTML =
@@ -113,7 +111,7 @@ function paginacion(i, results, url_params) {
       docu[0].innerHTML =
       `
       <p>Página ` + eval(pagina+1) + ` de ` + paginas + `
-      <a href="buscar.html?` + `pag=` + (eval(pagina+1)) +`&lpag=4">&gt</a>
+      <a href="buscar.html?` + url_params + `&pag=` + (eval(pagina+1)) +`&lpag=4">&gt</a>
       </p>
       `;
     }
@@ -121,7 +119,7 @@ function paginacion(i, results, url_params) {
       docu[0].innerHTML =
       `
       <p>
-      <a href="buscar.html?` + `pag=` + (eval(pagina-1)) +`&lpag=4">&lt</a>
+      <a href="buscar.html?` + url_params + `&pag=` + (eval(pagina-1)) +`&lpag=4">&lt</a>
       Página ` + ( parseInt(pagina)+1 ) + ` de ` + paginas + `
       </p>
       `;
@@ -130,16 +128,22 @@ function paginacion(i, results, url_params) {
       docu[0].innerHTML =
       `
       <p>
-      <a href="buscar.html?` + `pag=` + (eval(pagina-1)) +`&lpag=4">&gt</a>
+      <a href="buscar.html?` + url_params + `&pag=` + (eval(pagina-1)) +`&lpag=4">&gt</a>
       Página ` + ( parseInt(pagina)+1 ) + ` de ` + paginas + `
-      <a href="buscar.html?` + `pag=` + (eval(pagina+1)) +`&lpag=4">&gt</a>
+      <a href="buscar.html?` + url_params + `&pag=` + (eval(pagina+1)) +`&lpag=4">&gt</a>
       </p>
       `;
     }
   }
 
+}
 
 
-console.log(docu[0].innerHTML);
 
+function build_params(data) {
+  let ret = [];
+  for (let pos in data){
+    ret.push(encodeURIComponent(pos) + "=" + encodeURIComponent(data[pos]));
+  }
+  return ret.join('&');
 }
