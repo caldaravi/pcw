@@ -11,7 +11,7 @@
     <h1>Ejemplo de canvas</h1>
 
     <section>
-      <h2>Canvas 1</h2>
+      <h2>Imagen</h2>
       <canvas id="cv01"></canvas>
 
       <footer>
@@ -27,18 +27,25 @@
     </section>
 
     <section>
-      <h2>Canvas 2</h2>
+      <h2>Puzzle</h2>
       <canvas id="cv02"></canvas>
       <footer>
-        <button type="button" onclick="facil();" name="button">Fácil</button>
-        <button type="button" onclick="media();" name="button">Media</button>
-        <button type="button" onclick="dificil();" name="button">Difícil</button>
+        <button type="button" onclick="eligeDificultad(6,4);" name="button">Fácil</button>
+        <button type="button" onclick="eligeDificultad(9,6);" name="button">Media</button>
+        <button type="button" onclick="eligeDificultad(12,8);" name="button">Difícil</button>
       </footer>
     </section>
+
+    <footer>
+
+  			<p>&copy; <time datetime="2018">2018</time> <a href="acerca.html">Contacto</a><a href=""><span class="icon-up-open"></span></a></p>
+
+  	</footer>
 
     <script>
         prepararCanvas();
     </script>
+
 
   </body>
 </html>

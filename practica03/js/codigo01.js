@@ -1,13 +1,18 @@
 var _ANCHO_ = 360,
-    _ALTO_ = 360;
+    _ALTO_ = 240;
 
 function prepararCanvas(){
-  let cvs = document.querySelectorAll('canvas');
+  let cv = document.querySelector('#cv01'),
+      ctx = cv.getContext('2d'),
+      cvs = document.querySelectorAll('canvas');;
+
+
 
   cvs.forEach(function(e){
     e.width = _ANCHO_;
     e.height = _ALTO_;
   });
+
   //Implementación drag and drop
   let cv01 = document.querySelector('#cv01');
   cv01.ondragover = function(e){
@@ -22,6 +27,7 @@ function prepararCanvas(){
       let img = new Image();
       img.onload = function(){
         let ctx = cv01.getContext('2d');
+        ctx.clearRect(0, 0, cv01.width, cv01.height);
         ctx.drawImage(img,0,0,cv01.width,cv01.height);
       };
       img.src = fr.result;
@@ -107,11 +113,14 @@ function copiar01(){
 
 }
 
-function facil(){
+function eligeDificultad(w, h){
   let cv = document.querySelector('#cv02'),
       ctx = cv.getContext('2d'),
-      r = 3,
-      dim = cv.width / 3;
+      r = w,
+      ancho = cv.width / w,
+      alto = cv.height / h;
+
+      ctx.clearRect(0, 0, cv02.width, cv02.height);
 
   ctx.beginPath();
   ctx.lineWidht = 2;
@@ -119,56 +128,12 @@ function facil(){
 
   for(let i=0; i<r; i++){
     //líneas verticales
-    ctx.moveTo(i * dim, 0);
-    ctx.lineTo(i * dim, cv.height);
+    ctx.moveTo(i * ancho, 0);
+    ctx.lineTo(i * ancho, cv.height);
 
     //líneas horizontales
-    ctx.moveTo(0, i * dim);
-    ctx.lineTo(cv.height, i * dim);
-  }
-  ctx.stroke();
-}
-
-function media(){
-  let cv = document.querySelector('#cv02'),
-      ctx = cv.getContext('2d'),
-      r = 6,
-      dim = cv.width / 6;
-
-  ctx.beginPath();
-  ctx.lineWidht = 2;
-  ctx.strokeStyle = '#a00';
-
-  for(let i=0; i<r; i++){
-    //líneas verticales
-    ctx.moveTo(i * dim, 0);
-    ctx.lineTo(i * dim, cv.height);
-
-    //líneas horizontales
-    ctx.moveTo(0, i * dim);
-    ctx.lineTo(cv.height, i * dim);
-  }
-  ctx.stroke();
-}
-
-function dificil(){
-  let cv = document.querySelector('#cv02'),
-      ctx = cv.getContext('2d'),
-      r = 12,
-      dim = cv.width / 12;
-
-  ctx.beginPath();
-  ctx.lineWidht = 2;
-  ctx.strokeStyle = '#a00';
-
-  for(let i=0; i<r; i++){
-    //líneas verticales
-    ctx.moveTo(i * dim, 0);
-    ctx.lineTo(i * dim, cv.height);
-
-    //líneas horizontales
-    ctx.moveTo(0, i * dim);
-    ctx.lineTo(cv.height, i * dim);
+    ctx.moveTo(0, i * alto);
+    ctx.lineTo(cv.width, i * alto);
   }
   ctx.stroke();
 }
