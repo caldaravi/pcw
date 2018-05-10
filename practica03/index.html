@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilo01.css">
+    <script src="js/codigo01.js"></script>
+  </head>
+
+  <body>
+    <h1>Ejemplo de canvas</h1>
+
+    <section>
+      <h2>Canvas 1</h2>
+      <canvas id="cv01"></canvas>
+
+      <footer>
+        <button type="button" onclick="limpiar()" name="button">limpiar</button>
+        <button type="button" onclick="prueba01()" name="button">Pintar</button>
+        <button type="button" onclick="translacion()" name="button">Transladar</button>
+        <button type="button" onclick="rotacion()" name="button">Rotacion</button>
+        <button type="button" onclick="escalado()" name="button">Escalado</button><br>
+        <button type="button" onclick="imagen01()" name="button">Imagen01</button>
+        <button type="button" onclick="copiar01()" name="button">Copiar</button>
+      </footer>
+
+    </section>
+
+    <section>
+      <h2>Canvas 2</h2>
+      <canvas id="cv02"></canvas>
+      <footer>
+        <button type="button" onclick="facil();" name="button">Fácil</button>
+        <button type="button" onclick="media();" name="button">Media</button>
+        <button type="button" onclick="dificil();" name="button">Difícil</button>
+      </footer>
+    </section>
+
+    <script>
+        prepararCanvas();
+    </script>
+
+  </body>
+</html>
