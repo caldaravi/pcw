@@ -1,13 +1,27 @@
 var _ANCHO_ = 360,
-    _ALTO_ = 360;
+    _ALTO_ = 240,
+    wFicha,
+    hFicha,
+    r;
+
+function sacarFilaCol(e){
+    let dim = e.target.width / r,
+        fila = Math.floor(e.offsetY / dim),
+        col = Math.floor(e.offsetX / dim);
+
+    return [col, fila];
+}
 
 function prepararCanvas(){
-  let cvs = document.querySelectorAll('canvas');
+  let cv = document.querySelector('#cv01'),
+      ctx = cv.getContext('2d'),
+      cvs = document.querySelectorAll('canvas');
 
   cvs.forEach(function(e){
     e.width = _ANCHO_;
     e.height = _ALTO_;
   });
+
   //Implementación drag and drop
   let cv01 = document.querySelector('#cv01');
   cv01.ondragover = function(e){
@@ -22,26 +36,82 @@ function prepararCanvas(){
       let img = new Image();
       img.onload = function(){
         let ctx = cv01.getContext('2d');
+        ctx.clearRect(0, 0, cv01.width, cv01.height);
         ctx.drawImage(img,0,0,cv01.width,cv01.height);
+        copiar01();
       };
       img.src = fr.result;
+
     };
     fr.readAsDataURL(fichero);
 
+    document.getElementById("start").disabled = false;
 
-  }
+
+  };
+  //EVENTOS DE RATON
+  let cv02 = document.querySelector('#cv02');
+  // cv02.onmousemove = function(e){
+  //   let x           = e.offsetX,
+  //       y           = e.offsetY,
+  //       [col, fila] = sacarFilaCol(e),
+  //       ctx02       = cv02.getContext('2d'),
+  //       dim         = cv02.width / r;
+  //
+  //   document.querySelector('#posXY').textContent = `(${x}, ${y})`;
+  //   document.querySelector('#filaCol').textContent = `(${fila}, ${col})`;
+  //
+  //   let fc= cv02.getAttribute('data-FC');
+  //   if(fc){
+  //     fc = JSON.parse(fc);
+  //     if(fc.fila == fila && fc.col == col)
+  //       return;
+  //   }
+  //   console.log("REPINTANDO");
+  //   cv02.width = cv02.width;
+  //   ctx02.drawImage(cv01, col * dim, fila * dim,dim,dim,col * dim, fila * dim,dim,dim);
+  //   eligeDificultad(wFicha, hFicha);
+  //
+  //   fc = {'fila': fila, 'col': col};
+  //   cv02.setAttribute('data-FC', JSON.stringify(fc));
+  // };
+  cv02.onmouseenter = function(e){
+    let x = e.offsetX,
+        y = e.offsetY;
+    document.querySelector('#posEXY').textContent = `(${x}, ${y})`;
+  };
+  cv02.onmouseleave = function(e){
+    let x = e.offsetX,
+        y = e.offsetY;
+    document.querySelector('#posLXY').textContent = `(${x}, ${y})`;
+  };
+  cv02.onmousedown = function(e){
+    let x = e.offsetX,
+        y = e.offsetY;
+    document.querySelector('#posDXY').textContent = `(${x}, ${y})`;
+  };
+  cv02.onclick = function(e){
+    //Hacer con este el click de las fichas
+    let x           = e.offsetX,
+        y           = e.offsetY,
+        [col, fila] = sacarFilaCol(e),
+        ctx01       = cv01.getContext('2d'),
+        ctx02       = cv02.getContext('2d'),
+        dim         = cv02.width / r,
+        imgData     = ctx01.getImageData(col * dim, fila * dim,dim,dim);
+
+    document.querySelector('#posCXY').textContent = `(${x}, ${y})`;
+    //ctx02.putImageData(imgData, col * dim, fila * dim);
+    ctx02.drawImage(cv01, col * dim, fila * dim,dim,dim,col * dim, fila * dim,dim,dim);
+    //eligeDificultad(wFicha, hFicha);
+  };
+  cv02.onmouseup = function(e){
+    let x = e.offsetX,
+        y = e.offsetY;
+    document.querySelector('#posUXY').textContent = `(${x}, ${y})`;
+  };
 }
 
-let cv02 = document.querySelector('#cv02');
-console.log(cv02);
-cv02.onmousemove = function(e){
-  let x = e.offsetX,
-      y = e.offsetY;
-      console.log(e);
-      document.querySelector('#posXY').textContent = `(${x},${y})`;
-};
-
-//
 function prueba01(){
   let cv = document.querySelector('#cv01'),
       ctx = cv.getContext('2d');
@@ -83,9 +153,9 @@ function escalado(){
 
 }
 
-function limpiar(){
-  let cv = document.querySelector('#cv01');
-
+function limpiar(e){
+  //let cv = document.querySelector('#cv01');
+  let cv = e.target.parentNode.parentNode.querySelector('canvas');
   cv.width = cv.width;
 }
 
@@ -118,68 +188,31 @@ function copiar01(){
 
 }
 
-function facil(){
+function eligeDificultad(w, h){
+  r = w;
+  wFicha = w;
+  hFicha = h;
   let cv = document.querySelector('#cv02'),
       ctx = cv.getContext('2d'),
-      r = 3,
-      dim = cv.width / 3;
+      ancho = cv.width / w,
+      alto = cv.height / h;
+
+      //Limpiar canvas
+      //ctx.clearRect(0, 0, cv02.width, cv02.height);
 
   ctx.beginPath();
   ctx.lineWidht = 2;
   ctx.strokeStyle = '#a00';
 
-  for(let i=0; i<r; i++){
+  for(let i=1; i<r; i++){
     //líneas verticales
-    ctx.moveTo(i * dim, 0);
-    ctx.lineTo(i * dim, cv.height);
+    ctx.moveTo(i * ancho, 0);
+    ctx.lineTo(i * ancho, cv.height);
 
     //líneas horizontales
-    ctx.moveTo(0, i * dim);
-    ctx.lineTo(cv.height, i * dim);
+    ctx.moveTo(0, i * alto);
+    ctx.lineTo(cv.width, i * alto);
   }
-  ctx.stroke();
-}
-
-function media(){
-  let cv = document.querySelector('#cv02'),
-      ctx = cv.getContext('2d'),
-      r = 6,
-      dim = cv.width / 6;
-
-  ctx.beginPath();
-  ctx.lineWidht = 2;
-  ctx.strokeStyle = '#a00';
-
-  for(let i=0; i<r; i++){
-    //líneas verticales
-    ctx.moveTo(i * dim, 0);
-    ctx.lineTo(i * dim, cv.height);
-
-    //líneas horizontales
-    ctx.moveTo(0, i * dim);
-    ctx.lineTo(cv.height, i * dim);
-  }
-  ctx.stroke();
-}
-
-function dificil(){
-  let cv = document.querySelector('#cv02'),
-      ctx = cv.getContext('2d'),
-      r = 12,
-      dim = cv.width / 12;
-
-  ctx.beginPath();
-  ctx.lineWidht = 2;
-  ctx.strokeStyle = '#a00';
-
-  for(let i=0; i<r; i++){
-    //líneas verticales
-    ctx.moveTo(i * dim, 0);
-    ctx.lineTo(i * dim, cv.height);
-
-    //líneas horizontales
-    ctx.moveTo(0, i * dim);
-    ctx.lineTo(cv.height, i * dim);
-  }
+  ctx.rect(0,0,cv.width, cv.height);
   ctx.stroke();
 }
