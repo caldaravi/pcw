@@ -28,8 +28,19 @@ function prepararCanvas(){
     };
     fr.readAsDataURL(fichero);
 
+
   }
 }
+
+let cv02 = document.querySelector('#cv02');
+console.log(cv02);
+cv02.onmousemove = function(e){
+  let x = e.offsetX,
+      y = e.offsetY;
+      console.log(e);
+      document.querySelector('#posXY').textContent = `(${x},${y})`;
+};
+
 //
 function prueba01(){
   let cv = document.querySelector('#cv01'),
