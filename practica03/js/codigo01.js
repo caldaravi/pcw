@@ -45,8 +45,10 @@ function prepararCanvas(){
     };
     fr.readAsDataURL(fichero);
 
-    document.getElementById("start").disabled = false;
-
+    let btn = document.getElementsByClassName("btnDificultad");
+    for (let i = 0; i < btn.length; i++) {
+        btn[i].disabled = false;
+    }
 
   };
   //EVENTOS DE RATON
@@ -189,6 +191,8 @@ function copiar01(){
 }
 
 function eligeDificultad(w, h){
+  
+  copiar01();
   r = w;
   wFicha = w;
   hFicha = h;
