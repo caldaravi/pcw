@@ -15,7 +15,7 @@
       <canvas id="cv01"></canvas>
 
       <footer>
-        <button type="button" onclick="limpiar()" name="button">limpiar</button>
+        <button type="button" onclick="limpiar(event)" name="button">limpiar</button>
         <button type="button" onclick="prueba01()" name="button">Pintar</button>
         <button type="button" onclick="translacion()" name="button">Transladar</button>
         <button type="button" onclick="rotacion()" name="button">Rotacion</button>
@@ -28,12 +28,26 @@
 
     <section>
       <h2>Puzzle</h2>
-      <canvas id="cv02"></canvas>
-      <footer>
-        <button type="button" onclick="eligeDificultad(6,4);" name="button">Fácil</button>
-        <button type="button" onclick="eligeDificultad(9,6);" name="button">Media</button>
-        <button type="button" onclick="eligeDificultad(12,8);" name="button">Difícil</button>
-      </footer>
+      <div class="">
+        <canvas id="cv02"></canvas>
+        <footer>
+          <button type="button" onclick="" name="button">Color líneas</button>
+          <button type="button" class="btnDificultad" onclick="eligeDificultad(6,4);" name="button">Fácil</button>
+          <button type="button" class="btnDificultad" onclick="eligeDificultad(9,6);" name="button">Media</button>
+          <button type="button" class="btnDificultad" onclick="eligeDificultad(12,8);" name="button">Difícil</button>
+          <button type="button" id="start" onclick="" name="button" disabled>Empezar!</button>
+          <button type="button" onclick="" name="button" disabled>Terminar</button>
+          <button type="button" onclick="" name="button" disabled>Ayuda</button>
+
+          <div>Posición (X,Y): <output id="posXY"></output> </div>
+          <div>PosiciónE (X,Y): <output id="posEXY"></output> </div>
+          <div>PosiciónL (X,Y): <output id="posLXY"></output> </div>
+          <div>Posición Down (X,Y): <output id="posDXY"></output> </div>
+          <div>Posición Click (X,Y): <output id="posCXY"></output> </div>
+          <div>Posición Up (X,Y): <output id="posUXY"></output> </div>
+          <div>Fila/Columna: <output id="filaCol"></output> </div>
+        </footer>
+      </div>
     </section>
 
     <footer>
