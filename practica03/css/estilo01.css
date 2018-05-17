@@ -70,7 +70,7 @@ div#container{
     padding: 15px;
   }
 
-  section>canvas{
+canvas{
     border: 1px solid #234;
     margin: 5px;
   }
