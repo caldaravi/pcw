@@ -1,8 +1,21 @@
+// Puzzle Práctica 3 PCW
+
+// Variables generales
 var _ANCHO_ = 360,
     _ALTO_ = 240,
     wFicha,
     hFicha,
     r;
+
+// Variables del Puzzle
+var _piezas,
+    _piezaActual,
+    _piezaCambio,
+    _movimientos,
+    _desordenadas;
+// Variables de Tiempo
+var timercount = 0,
+    timestart = null;
 
 function sacarFilaCol(e){
     let dim = e.target.width / r,
@@ -22,26 +35,42 @@ function prepararCanvas(){
     e.height = _ALTO_;
   });
 
+  ctx.font = "bold 12px sans-serif";
+  ctx.fillText("Haz click o arrastra una imagen aquí",_ANCHO_/6,_ALTO_/2);
+
   //Implementación drag and drop
   let cv01 = document.querySelector('#cv01');
   cv01.ondragover = function(e){
     e.stopPropagation();
+
+    //Resaltar canvas que puede drag&drop aqui
+    e.target.style.border = "3px dotted red";
+
+    e.preventDefault(); // igual que return false;
+  };
+  cv01.ondragleave = function(e){
+    e.stopPropagation();
+
+    //Devolver Canvas a estado inicial
+    e.target.style.border = "";
+
     e.preventDefault(); // igual que return false;
   };
   cv01.ondrop = function(e){
     e.preventDefault();
+    e.target.style.border = "";
     let fichero = e.dataTransfer.files[0],
         fr = new FileReader();
     fr.onload = function(){
       let img = new Image();
       img.onload = function(){
+
         let ctx = cv01.getContext('2d');
         ctx.clearRect(0, 0, cv01.width, cv01.height);
         ctx.drawImage(img,0,0,cv01.width,cv01.height);
         copiar01();
       };
       img.src = fr.result;
-
     };
     fr.readAsDataURL(fichero);
 
@@ -49,8 +78,15 @@ function prepararCanvas(){
     for (let i = 0; i < btn.length; i++) {
         btn[i].disabled = false;
     }
-
+    document.getElementById("color").disabled = false;
   };
+
+  cv01.onclick = function(e){
+    e.preventDefault();
+    document.getElementById("imgUp").click();
+  };
+
+
   //EVENTOS DE RATON
   let cv02 = document.querySelector('#cv02');
   // cv02.onmousemove = function(e){
@@ -114,6 +150,32 @@ function prepararCanvas(){
   };
 }
 
+function subirImg(event){
+
+  var reader = new FileReader();
+  var file = event.target.files[0];
+
+  reader.onload = function(){
+    let img = new Image();
+
+    img.onload = function(){
+      let ctx = cv01.getContext('2d');
+      ctx.clearRect(0, 0, cv01.width, cv01.height);
+      ctx.drawImage(img,0,0,cv01.width,cv01.height);
+      copiar01();
+    };
+    img.src = reader.result;
+  };
+
+  reader.readAsDataURL(file);
+
+   let btn = document.getElementsByClassName("btnDificultad");
+   for (let i = 0; i < btn.length; i++) {
+       btn[i].disabled = false;
+   }
+   document.getElementById("color").disabled = false;
+}
+
 function prueba01(){
   let cv = document.querySelector('#cv01'),
       ctx = cv.getContext('2d');
@@ -155,10 +217,12 @@ function escalado(){
 
 }
 
-function limpiar(e){
-  //let cv = document.querySelector('#cv01');
-  let cv = e.target.parentNode.parentNode.querySelector('canvas');
-  cv.width = cv.width;
+function limpiar(){
+  let cv1 = document.querySelector('#cv01'),
+      cv2 = document.querySelector('#cv02');
+  //let cv = e.target.parentNode.parentNode.querySelector('canvas');
+  cv1.width = cv1.width;
+  cv2.width = cv2.width;
 }
 
 function imagen01(){
@@ -191,8 +255,10 @@ function copiar01(){
 }
 
 function eligeDificultad(w, h){
-  
+
   copiar01();
+  let color = document.getElementById("color").value;
+  document.getElementById("start").disabled = false;
   r = w;
   wFicha = w;
   hFicha = h;
@@ -206,7 +272,7 @@ function eligeDificultad(w, h){
 
   ctx.beginPath();
   ctx.lineWidht = 2;
-  ctx.strokeStyle = '#a00';
+  ctx.strokeStyle = color;
 
   for(let i=1; i<r; i++){
     //líneas verticales
@@ -219,4 +285,110 @@ function eligeDificultad(w, h){
   }
   ctx.rect(0,0,cv.width, cv.height);
   ctx.stroke();
+}
+
+function finalizar(){
+  limpiar();
+  stop();
+  document.getElementById("cv01").style.pointerEvents = "auto";
+
+}
+
+function empezar(){
+  let btn = document.getElementsByClassName("btnDificultad");
+  for (let i = 0; i < btn.length; i++) {
+      btn[i].disabled = true;
+  }
+  document.getElementById("color").disabled = true;
+  document.getElementById("start").disabled = true;
+  document.getElementById("end").disabled = false;
+  document.getElementById("help").disabled = false;
+  document.getElementById("cv01").style.pointerEvents = "none";
+
+  _piezas = [];
+  showtimer();
+  sw_start();
+}
+
+function showtimer() {
+	if(timercount) {
+		clearTimeout(timercount);
+		clockID = 0;
+	}
+	if(!timestart){
+		timestart = new Date();
+	}
+	var timeend = new Date();
+	var timedifference = timeend.getTime() - timestart.getTime();
+	timeend.setTime(timedifference);
+	var minutes_passed = timeend.getMinutes();
+	if(minutes_passed < 10){
+		minutes_passed = "0" + minutes_passed;
+	}
+	var seconds_passed = timeend.getSeconds();
+	if(seconds_passed < 10){
+		seconds_passed = "0" + seconds_passed;
+	}
+	document.timeform.timetextarea.value = minutes_passed + ":" + seconds_passed;
+	timercount = setTimeout("showtimer()", 1000);
+}
+
+function sw_start(){
+	if(!timercount){
+	timestart   = new Date();
+	document.timeform.timetextarea.value = "00:00";
+	timercount  = setTimeout("showtimer()", 1000);
+	}
+	else{
+	var timeend = new Date();
+		var timedifference = timeend.getTime() - timestart.getTime();
+		timeend.setTime(timedifference);
+		var minutes_passed = timeend.getMinutes();
+		if(minutes_passed < 10){
+			minutes_passed = "0" + minutes_passed;
+		}
+		var seconds_passed = timeend.getSeconds();
+		if(seconds_passed < 10){
+			seconds_passed = "0" + seconds_passed;
+		}
+		var milliseconds_passed = timeend.getMilliseconds();
+		if(milliseconds_passed < 10){
+			milliseconds_passed = "00" + milliseconds_passed;
+		}
+		else if(milliseconds_passed < 100){
+			milliseconds_passed = "0" + milliseconds_passed;
+		}
+	}
+}
+
+function stop() {
+	if(timercount) {
+		clearTimeout(timercount);
+		timercount  = 0;
+		var timeend = new Date();
+		var timedifference = timeend.getTime() - timestart.getTime();
+		timeend.setTime(timedifference);
+		var minutes_passed = timeend.getMinutes();
+		if(minutes_passed < 10){
+			minutes_passed = "0" + minutes_passed;
+		}
+		var seconds_passed = timeend.getSeconds();
+		if(seconds_passed < 10){
+			seconds_passed = "0" + seconds_passed;
+		}
+		var milliseconds_passed = timeend.getMilliseconds();
+		if(milliseconds_passed < 10){
+			milliseconds_passed = "00" + milliseconds_passed;
+		}
+		else if(milliseconds_passed < 100){
+			milliseconds_passed = "0" + milliseconds_passed;
+		}
+		document.timeform.timetextarea.value = minutes_passed + ":" + seconds_passed + "." + milliseconds_passed;
+	}
+	timestart = null;
+}
+
+function reset() {
+	timestart = null;
+	document.timeform.timetextarea.value = "00:00";
 }
