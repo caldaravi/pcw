@@ -19,8 +19,14 @@ var _ANCHO_ = 360,
     casillas,       // vector guarda columna y fila de ultima casilla clickada para comprobar
     start,          // permite hacer click y ordenar piezas del puzzle una vez se ha empezado el juego
     movimientos,    // contador de movimientos totales por partida
+    total = 0,
+    restantes = 0,
     timercount = 0,
-    timestart = null;
+    timestart = null,
+    min = 0,
+    s = 0,
+    ms = 0,
+    _ayuda = true;
 
 function sacarFilaCol(e){
     let dim = e.target.width / r,
@@ -143,24 +149,18 @@ function prepararCanvas(){
 
           // Si ha clickado previamente
           if(click){
-            console.log("-- segundo click --");
+            //console.log("-- segundo click --");
             // Si 2a vez clicka en la misma casilla
-            if([col,fila][0] == casillas[0][0] && [col,fila][1] == casillas[0][1]){
-              console.log("-- DESELECCIONA --");
+            if([col,fila][0] == casillas[0] && [col,fila][1] == casillas[1]){
+              //console.log("-- DESELECCIONA --");
               // Se DESELECCIONA
-              var index = casillas[0][1]*wFicha+casillas[0][0];
-              ctx02.putImageData(_piezas[index].imgData, casillas[0][0]*_ANCHO_/wFicha , casillas[0][1]*_ALTO_/hFicha);
+              var index = casillas[1]*wFicha+casillas[0];
+              ctx02.putImageData(_piezas[index].imgData, casillas[0]*_ANCHO_/wFicha , casillas[1]*_ALTO_/hFicha);
               // Y se pintan las lineas de nuevo
               updatelines();
             }
             // Si 2a vez clicka en otra casilla distinta
             else{
-              console.log("-- MUEVE --");
-              // Comprobamos si ha ganado
-              if(checkwin()){
-                console.log("pues has ganado subnormal jaja");
-              }
-              else{
                 // Posicion en el array de cada celda tocada
                 var anterior = casillas[1]   * wFicha + casillas[0],
                     actual   = [col,fila][1] * wFicha + [col,fila][0];
@@ -171,24 +171,32 @@ function prepararCanvas(){
 
                     ctx02.putImageData( _piezas[anterior].imgData, casillas[0] * (_ANCHO_ / wFicha), casillas[1] * (_ALTO_ / hFicha) );
                     ctx02.putImageData( _piezas[actual].imgData, [col,fila][0] * (_ANCHO_ / wFicha), [col,fila][1] * (_ALTO_ / hFicha) );
-                    movimientos++;
-                    document.getElementById('movimientos').innerHTML = movimientos;
-              }
+
+                    drawlines();
+                    if(checkwin()){
+                      finish_puzzle();
+                    }
+                    else{
+                      movimientos++;
+                      document.getElementById('movimientos').innerHTML = movimientos;
+                      document.getElementById('desordenadas').innerHTML =restantes;
+                    }
             }
             click = false;
           }
           else{
-            console.log("-- PRIMERA QUE MARCA --");
+            //console.log("-- PRIMERA QUE MARCA --");
 
             // Primera que marca
             casillas = [col, fila];
             ctx02.beginPath();
             ctx02.fillStyle = 'rgba(0,35,0,0.2)';
-            ctx02.fillRect(casillas[0][0] * _ANCHO_ / wFicha, casillas[0][1] * _ALTO_ / hFicha ,_ANCHO_ / wFicha,_ANCHO_ / wFicha);
+            ctx02.fillRect(casillas[0] * (_ANCHO_/wFicha), casillas[1] * (_ALTO_/hFicha), _ANCHO_/wFicha, _ALTO_/hFicha);
             ctx02.stroke();
             // Se SELECCIONA
-            /*ctx02.strokeStyle = linecolor;
-            ctx02.rect(casillas[0]. * _ANCHO_ / wFicha, celdaY * _ALTO_/ hFicha, _ANCHO_ / wFicha, _ALTO_ / hFicha);
+            /*
+            ctx02.strokeStyle = linecolor;
+            ctx02.rect(casillas[0]*_ANCHO_ / wFicha, celdaY * _ALTO_/ hFicha, _ANCHO_ / wFicha, _ALTO_ / hFicha);
             ctx02.stroke();*/
             click = true;
           }
@@ -201,6 +209,14 @@ function prepararCanvas(){
     let x = e.offsetX,
         y = e.offsetY;
     //document.querySelector('#posUXY').textContent = `(${x}, ${y})`;
+  };
+
+  cv02.onmouseenter = function(e){
+    if(start) undoayuda();
+    _ayuda = true;
+  };
+  cv02.onmousedown = function(e){
+    return false;
   };
 
 }
@@ -344,6 +360,39 @@ function drawlines()
 
 }
 
+function ayuda() {
+  if(_ayuda){
+    cv = document.getElementById('cv02');
+    ctx = cv.getContext('2d');
+    //ctx.beginPath();
+    for(var i = 0 ; i < hFicha; i++){
+      for(var j = 0; j < wFicha; j++){
+        index = (i*wFicha)+j;
+        if( _piezas[index].sx != j*(_ANCHO_/wFicha) || _piezas[index].sy != i*(_ALTO_/hFicha) ){
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(70,0,0,0.5)';
+          ctx.fillRect(j * (_ANCHO_/wFicha),i * (_ALTO_/hFicha), _ANCHO_/wFicha, _ALTO_/hFicha);
+          ctx.stroke();
+        }
+      }
+    }
+    _ayuda = false;
+  }
+}
+
+function undoayuda(){
+  cv = document.getElementById('cv02');
+  ctx = cv.getContext('2d');
+  for(var i = 0 ; i < hFicha; i++){
+    for(var j = 0; j < wFicha; j++){
+      index = (i*wFicha)+j;
+      console.log("actualizo");
+      ctx.putImageData(_piezas[index].imgData, j * (_ANCHO_/wFicha),i * (_ALTO_/hFicha) );
+
+    }
+  }
+}
+
 function start_puzzle() {
   movimientos = 0;
   // Guardamos en _piezas posiciones iniciales e imagesdata correspondientes
@@ -374,8 +423,63 @@ function start_puzzle() {
   updatebuttons(true);
 
   start = true;
-  //console.log(_piezas);
+
+  total = hFicha * wFicha;
+
+  checkwin();
+
+  document.getElementById('desordenadas').innerHTML   = restantes;
+  document.getElementById('movimientos').innerHTML = movimientos;
+
 }
+
+
+function popup(x) {
+  texto = '¡Has perdido!';
+  if(restantes == 0) texto = '¡Has ganado!';
+  // Modificamos tiempos
+  if(min == 0) min = '';
+  else min += ' min ';
+  if(s == 0) s = '';
+  else s += ' s ';
+
+  var t = document.timeform.timetextarea.value;
+  if(x){
+    // Aparece
+    container = document.getElementById('container');
+    modal = document.createElement('div');
+    modal.setAttribute('id', 'win-popup');
+    container.appendChild(modal);
+    document.getElementById('win-popup').className = 'modal';
+
+    modal.innerHTML =
+    `<div class="modal-content">
+        <div class="modal-header">
+          <span id="cross" onclick="popup(false)" class="close">&times;</span>
+          <h2>` + texto + `</h2>
+        </div>
+        <div class="modal-body">
+          <p>Has realizado un tiempo de ` + min + s + ms + ` ms</p>
+          <p>Has colocado correctamente ` + (total-restantes) + ` piezas de un total de ` + total + ` en ` + movimientos + ` movimientos.</p>
+        </div>
+      </div>
+    `;
+    modal.style.display = "block";
+  }
+  else{
+    // Desaparece
+    modal = document.getElementById('win-popup');
+    modal.parentNode.removeChild(modal);
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+        popup(false);
+    }
+  }
+
+}
+
 
 function finish_puzzle() {
   limpiar();
@@ -385,22 +489,39 @@ function finish_puzzle() {
 
   // Restaurar botones
   updatebuttons(false);
+
+  popup(true);
+
+  total = 0;
+  movimientos = 0;
+  document.getElementById('movimientos').innerHTML = movimientos;
+  restantes = 0;
+  document.getElementById('desordenadas').innerHTML = restantes;
+  reset();
+
+  // Dibujamos texto
+  cv = document.getElementById('cv01');
+  ctx = cv.getContext('2d');
+  ctx.font = "bold 12px sans-serif";
+  ctx.fillText("Haz click o arrastra una imagen aquí",_ANCHO_/6,_ALTO_/2);
+
 }
 
 function checkwin() {
   var value = true;
   var coords;
-  for(var i = 0 ; i < hFicha && value; i++){
+  var ok = 0;
+  for(var i = 0 ; i < hFicha; i++){
     for(var j = 0; j < wFicha; j++){
       index = (i*wFicha)+j;
-      console.log("Compruebo " + _piezas[index].sx +"=="+(j*(_ANCHO_/wFicha))+" y " + _piezas[index].sy +"=="+(i*(_ALTO_/hFicha)));
-      if( _piezas[index].sx != j*(_ANCHO_/wFicha) || _piezas[index].sy != i*(_ALTO_/hFicha) ){
-        value = false;
-        break;
+      //console.log("Compruebo " + _piezas[index].sx +"=="+(j*(_ANCHO_/wFicha))+" y " + _piezas[index].sy +"=="+(i*(_ALTO_/hFicha)));
+      if( _piezas[index].sx == j*(_ANCHO_/wFicha) && _piezas[index].sy == i*(_ALTO_/hFicha) ){
+        ok++
       }
     }
   }
-  console.log(value);
+  if( ok != total ) value = false;
+  restantes = total - ok;
   return value;
 }
 
@@ -585,6 +706,9 @@ function stop() {
 		}
 		document.timeform.timetextarea.value = minutes_passed + ":" + seconds_passed + "." + milliseconds_passed;
 	}
+  min = minutes_passed;
+  s = seconds_passed;
+  ms = milliseconds_passed;
 	timestart = null;
 }
 

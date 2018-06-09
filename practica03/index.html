@@ -34,8 +34,12 @@
           <p>Tiempo: </p>
           <input type=text name="timetextarea" value="00:00" size="10" style = "font-size:20px" disabled>
         </div>
+        <div>
           <p>Piezas desordenadas: </p> <p id="desordenadas"></p>
+        </div>
+        <div>
           <p>Movimientos realizados: </p> <p id="movimientos"></p>
+        </div>
         </form>
     </div>
 
@@ -65,11 +69,7 @@
           <div>
             <button type="button" id="start" onclick="start_puzzle()" name="button" disabled>Empezar!</button>
             <button type="button" id="finish" onclick="finish_puzzle()" name="button" disabled>Terminar</button>
-
-
-            <!--<button type="button" id="start" onclick="empezar();" name="button" disabled>Empezar!</button>
-            <button type="button" id="end" onclick="finalizar();" name="button" disabled>Terminar</button>-->
-            <button type="button" id="help" onclick="" name="button" disabled>Ayuda</button>
+            <button type="button" id="help" onclick="ayuda()" name="button" disabled>Ayuda</button>
 
           </div>
         </footer>
