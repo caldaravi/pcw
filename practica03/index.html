@@ -22,45 +22,52 @@
       <h2>Imagen</h2>
       <canvas id="cv01"></canvas>
       <footer>
-        <button type="button" onclick="limpiar(event)" name="button">limpiar</button>
-        <button type="button" onclick="prueba01()" name="button">Pintar</button>
-        <button type="button" onclick="translacion()" name="button">Transladar</button>
-        <button type="button" onclick="rotacion()" name="button">Rotacion</button>
-        <button type="button" onclick="escalado()" name="button">Escalado</button><br>
-        <button type="button" onclick="imagen01()" name="button">Imagen01</button>
-        <button type="button" onclick="copiar01()" name="button">Copiar</button>
+        <input id="imgUp" onchange="subirImg(event)" type="file" accept="image/*" style="display: none">
       </footer>
 
     </section>
+
+    <div id="marcador" style="display: block">
+        <form name="timeform">
+          Tiempo: <input type=text name="timetextarea" value="00:00" size="10" style = "font-size:20px" disabled>
+          <p id="desordenadas">Piezas desordenadas: </p>
+          <p id="movimientos">Movimientos realizados: </p>
+        </form>
+    </div>
 
     <section>
       <h2>Puzzle</h2>
       <div class="">
         <canvas id="cv02"></canvas>
         <footer>
-          
+
           <div>
-            <button type="button" onclick="" name="button">Color líneas</button>
+            <p>Escoge el color de las lineas</p>
+            <input type="color" id="color_lines" onchange="updatelines()" name="favcolor" value="#ff0000">
           </div>
           <div>
-            <button type="button" class="btnDificultad" onclick="eligeDificultad(6,4);" name="button" disabled>Fácil</button>
-            <button type="button" class="btnDificultad" onclick="eligeDificultad(9,6);" name="button" disabled>Media</button>
-            <button type="button" class="btnDificultad" onclick="eligeDificultad(12,8);" name="button" disabled>Difícil</button>
+            <p>Escoge el color del hover</p>
+            <input type="color" id="color_hover" onchange="updatehover()" name="favcolor" value="#ffffff">
+
           </div>
           <div>
-            <button type="button" id="start" onclick="" name="button" disabled>Empezar!</button>
-            <button type="button" onclick="" name="button" disabled>Terminar</button>
-            <button type="button" onclick="" name="button" disabled>Ayuda</button>
+            <button type="button" onclick="gana()" name="button">Ordena</button>
           </div>
+          <div>
+            <button type="button" class="btnDificultad" onclick="eligeDificultad(6,4);" name="button" disabled>Fácil 6,4</button>
+            <button type="button" class="btnDificultad" onclick="eligeDificultad(9,6);" name="button" disabled>Media 9,6</button>
+            <button type="button" class="btnDificultad" onclick="eligeDificultad(12,8);" name="button" disabled>Difícil 12,8</button>
+          </div>
+          <div>
+            <button type="button" id="start" onclick="start_puzzle()" name="button" disabled>Empezar!</button>
+            <button type="button" id="finish" onclick="finish_puzzle()" name="button" disabled>Terminar</button>
 
 
-          <div>Posición (X,Y): <output id="posXY"></output> </div>
-          <div>PosiciónE (X,Y): <output id="posEXY"></output> </div>
-          <div>PosiciónL (X,Y): <output id="posLXY"></output> </div>
-          <div>Posición Down (X,Y): <output id="posDXY"></output> </div>
-          <div>Posición Click (X,Y): <output id="posCXY"></output> </div>
-          <div>Posición Up (X,Y): <output id="posUXY"></output> </div>
-          <div>Fila/Columna: <output id="filaCol"></output> </div>
+            <!--<button type="button" id="start" onclick="empezar();" name="button" disabled>Empezar!</button>
+            <button type="button" id="end" onclick="finalizar();" name="button" disabled>Terminar</button>-->
+            <button type="button" id="help" onclick="" name="button" disabled>Ayuda</button>
+
+          </div>
         </footer>
       </div>
     </section>
