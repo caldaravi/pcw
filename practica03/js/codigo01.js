@@ -93,6 +93,7 @@ function prepararCanvas(){
   _lasthoverX = 0;
   _lasthoverY = 0;
   cv02.onmousemove = function(e){
+    if(start){
       let mouseX = e.offsetX,
           mouseY = e.offsetY,
           celdaX = Math.floor( mouseX /(_ANCHO_ / wFicha) ), // coordsX / 60
@@ -116,10 +117,12 @@ function prepararCanvas(){
           }
       _lasthoverX = celdaX;
       _lasthoverY = celdaY;
+    }
+
     };
 
   cv02.onmouseleave = function(e){
-    if(dibujadas) drawlines();
+    if(dibujadas && start) drawlines();
     //let x = e.offsetX,
       //  y = e.offsetY;
   //  document.querySelector('#posLXY').textContent = `(${x}, ${y})`;
@@ -146,7 +149,6 @@ function prepararCanvas(){
               console.log("-- DESELECCIONA --");
               // Se DESELECCIONA
               var index = casillas[0][1]*wFicha+casillas[0][0];
-              console.log(_piezas);
               ctx02.putImageData(_piezas[index].imgData, casillas[0][0]*_ANCHO_/wFicha , casillas[0][1]*_ALTO_/hFicha);
               // Y se pintan las lineas de nuevo
               updatelines();
@@ -154,25 +156,24 @@ function prepararCanvas(){
             // Si 2a vez clicka en otra casilla distinta
             else{
               console.log("-- MUEVE --");
-              // Posicion en el array de cada celda tocada
-              var anterior = casillas[1]   * wFicha + casillas[0],
-                  actual   = [col,fila][1] * wFicha + [col,fila][0];
-                  console.log("Antes del cambio");
-                  console.log("actual: ");
-                  console.log(_piezas[actual]);
-                  console.log("anterior: ");
-                  console.log(_piezas[anterior]);
-                  tmp               = _piezas[actual];
-                  _piezas[actual]   = _piezas[anterior];
-                  _piezas[anterior] = tmp;
-                  console.log("Despues del cambio");
-                  console.log("actual: ");
-                  console.log(_piezas[actual]);
-                  console.log("anterior: ");
-                  console.log(_piezas[anterior]);
+              // Comprobamos si ha ganado
+              if(checkwin()){
+                console.log("pues has ganado subnormal jaja");
+              }
+              else{
+                // Posicion en el array de cada celda tocada
+                var anterior = casillas[1]   * wFicha + casillas[0],
+                    actual   = [col,fila][1] * wFicha + [col,fila][0];
 
-                  ctx02.putImageData( _piezas[anterior].imgData, casillas[0] * (_ANCHO_ / wFicha), casillas[1] * (_ALTO_ / hFicha) );
-                  ctx02.putImageData( _piezas[actual].imgData, [col,fila][0] * (_ANCHO_ / wFicha), [col,fila][1] * (_ALTO_ / hFicha) );
+                    tmp               = _piezas[actual];
+                    _piezas[actual]   = _piezas[anterior];
+                    _piezas[anterior] = tmp;
+
+                    ctx02.putImageData( _piezas[anterior].imgData, casillas[0] * (_ANCHO_ / wFicha), casillas[1] * (_ALTO_ / hFicha) );
+                    ctx02.putImageData( _piezas[actual].imgData, [col,fila][0] * (_ANCHO_ / wFicha), [col,fila][1] * (_ALTO_ / hFicha) );
+                    movimientos++;
+                    document.getElementById('movimientos').innerHTML = movimientos;
+              }
             }
             click = false;
           }
@@ -303,8 +304,6 @@ function guardardatos(){
   ctx = cv.getContext('2d');
   let pixW = _ANCHO_ / wFicha,
       pixH = _ALTO_ / hFicha;
-      console.log("wficha: " + wFicha);
-      console.log("hficha: " + hFicha);
   for (var i = 0; i < hFicha; i++) {
     for(var j = 0; j < wFicha; j++){
         tmp = {};
@@ -342,11 +341,11 @@ function drawlines()
     ctx.rect(0,0,cv.width, cv.height);
     ctx.stroke();
     dibujadas = true;
-    console.log("ye");
+
 }
 
 function start_puzzle() {
-
+  movimientos = 0;
   // Guardamos en _piezas posiciones iniciales e imagesdata correspondientes
   guardardatos();
 
@@ -372,7 +371,7 @@ function start_puzzle() {
   showtimer();
   sw_start();
 
-  updatebuttons();
+  updatebuttons(true);
 
   start = true;
   //console.log(_piezas);
@@ -381,43 +380,37 @@ function start_puzzle() {
 function finish_puzzle() {
   limpiar();
   stop();
+  start = false;
   document.getElementById("cv01").style.pointerEvents = "auto";
 
-  if( checkwin() ){
-
-  }
-  else{
-
-  }
+  // Restaurar botones
+  updatebuttons(false);
 }
 
 function checkwin() {
   var value = true;
   var coords;
-  for(var i = 0 ; i < hFicha; i++){
+  for(var i = 0 ; i < hFicha && value; i++){
     for(var j = 0; j < wFicha; j++){
       index = (i*wFicha)+j;
-      if( _piezas[index].sx != j || _piezas[index-1].sy != i ){
+      console.log("Compruebo " + _piezas[index].sx +"=="+(j*(_ANCHO_/wFicha))+" y " + _piezas[index].sy +"=="+(i*(_ALTO_/hFicha)));
+      if( _piezas[index].sx != j*(_ANCHO_/wFicha) || _piezas[index].sy != i*(_ALTO_/hFicha) ){
         value = false;
         break;
       }
     }
-    if(!value) break;
   }
+  console.log(value);
   return value;
 }
 
 function gana(){
   cv = document.getElementById('cv02');
   ctx = cv.getContext('2d');
-  console.log("dificultad y: " + dificultad.y);
-  console.log("dificultad x: " + dificultad.x);
-  console.log("index irrepetible: ");
   for(var i = 0 ; i < hFicha; i++){
     for(var j = 0; j < wFicha; j++){
-      index = (i*wFicha)+(j+1);
-      console.log("index: " + index);
-      ctx.putImageData(_piezas[index-1].imgData,_piezas[index-1].sx,_piezas[index-1].sy);
+      index = (i*wFicha)+j;
+      ctx.putImageData(_piezas[index].imgData,_piezas[index].sx,_piezas[index].sy);
     }
   }
 }
@@ -454,13 +447,24 @@ function enable_start(){
   btn.disabled = false;
 }
 
-function updatebuttons() {
-  enabledificultad(true);
-  document.getElementById('color_lines').disabled = true;
-  document.getElementById('start').disabled       = true;
-  document.getElementById('finish').disabled      = false;
-  document.getElementById('help').disabled        = false;
+function updatebuttons(x) {
+  if(x){
+    enabledificultad(true);
+    document.getElementById('color_lines').disabled = true;
+    document.getElementById('start').disabled       = true;
+    document.getElementById('finish').disabled      = false;
+    document.getElementById('help').disabled        = false;
+  }
+  else{
+
+      enabledificultad(true);
+      document.getElementById('color_lines').disabled = false;
+      document.getElementById('start').disabled       = true;
+      document.getElementById('finish').disabled      = true;
+      document.getElementById('help').disabled        = true;
+  }
 }
+
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
