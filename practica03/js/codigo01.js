@@ -1,3 +1,6 @@
+// Puzzle Práctica 3 PCW
+
+// Variables generales
 var _ANCHO_ = 360,
     _ALTO_ = 240,
     wFicha,
@@ -17,6 +20,16 @@ var _ANCHO_ = 360,
     start,          // permite hacer click y ordenar piezas del puzzle una vez se ha empezado el juego
     movimientos,    // contador de movimientos totales por partida
     timercount = 0,
+    timestart = null;
+
+// Variables del Puzzle
+var _piezas,
+    _piezaActual,
+    _piezaCambio,
+    _movimientos,
+    _desordenadas;
+// Variables de Tiempo
+var timercount = 0,
     timestart = null;
 
 function sacarFilaCol(e){
@@ -56,18 +69,19 @@ function prepararCanvas(){
 
   cv01.ondrop = function(e){
     e.preventDefault();
+    e.target.style.border = "";
     let fichero = e.dataTransfer.files[0],
         fr = new FileReader();
     fr.onload = function(){
       let img = new Image();
       img.onload = function(){
+
         let ctx = cv01.getContext('2d');
         ctx.clearRect(0, 0, cv01.width, cv01.height);
         ctx.drawImage(img,0,0,cv01.width,cv01.height);
         copiar01();
       };
       img.src = fr.result;
-
     };
     fr.readAsDataURL(fichero);
     cv01.className="";
@@ -253,6 +267,8 @@ function eligeDificultad(w, h){
   dificultad = {};
   _piezas = [];
   copiar01();
+  let color = document.getElementById("color").value;
+  document.getElementById("start").disabled = false;
   r = w;
   wFicha = w;
   hFicha = h;
@@ -560,4 +576,110 @@ function updatelines() {
 
 function updatehover() {
   hovercolor = document.getElementById('color_hover').value;
+}
+
+function finalizar(){
+  limpiar();
+  stop();
+  document.getElementById("cv01").style.pointerEvents = "auto";
+
+}
+
+function empezar(){
+  let btn = document.getElementsByClassName("btnDificultad");
+  for (let i = 0; i < btn.length; i++) {
+      btn[i].disabled = true;
+  }
+  document.getElementById("color").disabled = true;
+  document.getElementById("start").disabled = true;
+  document.getElementById("end").disabled = false;
+  document.getElementById("help").disabled = false;
+  document.getElementById("cv01").style.pointerEvents = "none";
+
+  _piezas = [];
+  showtimer();
+  sw_start();
+}
+
+function showtimer() {
+	if(timercount) {
+		clearTimeout(timercount);
+		clockID = 0;
+	}
+	if(!timestart){
+		timestart = new Date();
+	}
+	var timeend = new Date();
+	var timedifference = timeend.getTime() - timestart.getTime();
+	timeend.setTime(timedifference);
+	var minutes_passed = timeend.getMinutes();
+	if(minutes_passed < 10){
+		minutes_passed = "0" + minutes_passed;
+	}
+	var seconds_passed = timeend.getSeconds();
+	if(seconds_passed < 10){
+		seconds_passed = "0" + seconds_passed;
+	}
+	document.timeform.timetextarea.value = minutes_passed + ":" + seconds_passed;
+	timercount = setTimeout("showtimer()", 1000);
+}
+
+function sw_start(){
+	if(!timercount){
+	timestart   = new Date();
+	document.timeform.timetextarea.value = "00:00";
+	timercount  = setTimeout("showtimer()", 1000);
+	}
+	else{
+	var timeend = new Date();
+		var timedifference = timeend.getTime() - timestart.getTime();
+		timeend.setTime(timedifference);
+		var minutes_passed = timeend.getMinutes();
+		if(minutes_passed < 10){
+			minutes_passed = "0" + minutes_passed;
+		}
+		var seconds_passed = timeend.getSeconds();
+		if(seconds_passed < 10){
+			seconds_passed = "0" + seconds_passed;
+		}
+		var milliseconds_passed = timeend.getMilliseconds();
+		if(milliseconds_passed < 10){
+			milliseconds_passed = "00" + milliseconds_passed;
+		}
+		else if(milliseconds_passed < 100){
+			milliseconds_passed = "0" + milliseconds_passed;
+		}
+	}
+}
+
+function stop() {
+	if(timercount) {
+		clearTimeout(timercount);
+		timercount  = 0;
+		var timeend = new Date();
+		var timedifference = timeend.getTime() - timestart.getTime();
+		timeend.setTime(timedifference);
+		var minutes_passed = timeend.getMinutes();
+		if(minutes_passed < 10){
+			minutes_passed = "0" + minutes_passed;
+		}
+		var seconds_passed = timeend.getSeconds();
+		if(seconds_passed < 10){
+			seconds_passed = "0" + seconds_passed;
+		}
+		var milliseconds_passed = timeend.getMilliseconds();
+		if(milliseconds_passed < 10){
+			milliseconds_passed = "00" + milliseconds_passed;
+		}
+		else if(milliseconds_passed < 100){
+			milliseconds_passed = "0" + milliseconds_passed;
+		}
+		document.timeform.timetextarea.value = minutes_passed + ":" + seconds_passed + "." + milliseconds_passed;
+	}
+	timestart = null;
+}
+
+function reset() {
+	timestart = null;
+	document.timeform.timetextarea.value = "00:00";
 }
