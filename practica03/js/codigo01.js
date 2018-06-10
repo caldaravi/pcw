@@ -3,10 +3,12 @@
 // Variables generales
 var _ANCHO_ = 360,
     _ALTO_ = 240,
-    wFicha,
-    hFicha,
-    r,
-    _piezas,        // vector que guarda columna, fila e imagedata de cada pieza
+    wFicha, // anchura de la ficha del puzzle
+    hFicha, // alto de la ficha del puzzle
+    r;
+
+// Variables de puzzle
+var _piezas,        // vector que guarda columna, fila e imagedata de cada pieza
     _lasthoverX,    // comprobacion hover casilla anterior
     _lasthoverY,    // comprobacion hover casilla anterior
     _hoverX,        // comprobacion hover casilla actual
@@ -21,12 +23,14 @@ var _ANCHO_ = 360,
     movimientos,    // contador de movimientos totales por partida
     total = 0,
     restantes = 0,
-    timercount = 0,
+    _ayuda = true;
+
+// Variables del tiempo
+var timercount = 0,
     timestart = null,
     min = 0,
     s = 0,
-    ms = 0,
-    _ayuda = true;
+    ms = 0;
 
 function sacarFilaCol(e){
     let dim = e.target.width / r,
@@ -290,30 +294,6 @@ function eligeDificultad(w, h){
   dificultad.y = h;
 }
 
-/*
-function finalizar(){
-  limpiar();
-  stop();
-  document.getElementById("cv01").style.pointerEvents = "auto";
-
-}
-
-function empezar(){
-  let btn = document.getElementsByClassName("btnDificultad");
-  for (let i = 0; i < btn.length; i++) {
-      btn[i].disabled = true;
-  }
-  document.getElementById("color").disabled = true;
-  document.getElementById("start").disabled = true;
-  document.getElementById("end").disabled = false;
-  document.getElementById("help").disabled = false;
-  document.getElementById("cv01").style.pointerEvents = "none";
-
-  //_piezas = [];
-  showtimer();
-  sw_start();
-}*/
-
 function guardardatos(){
   // Guardar datos casillas originales
   cv = document.getElementById('cv02');
@@ -416,6 +396,7 @@ function start_puzzle() {
   }
 
   document.getElementById("cv01").style.pointerEvents = "none";
+  document.getElementById("imgBtn").disabled = true;
 
   showtimer();
   sw_start();
@@ -454,7 +435,7 @@ function popup(x) {
 
     modal.innerHTML =
     `<div class="modal-content">
-        <div class="modal-header">
+        <div id="modalHeader" class="modal-header">
           <span id="cross" onclick="popup(false)" class="close">&times;</span>
           <h2>` + texto + `</h2>
         </div>
@@ -464,6 +445,7 @@ function popup(x) {
         </div>
       </div>
     `;
+    if(restantes == 0) document.getElementById("modalHeader").style.backgroundColor = "green";
     modal.style.display = "block";
   }
   else{
@@ -477,34 +459,30 @@ function popup(x) {
         popup(false);
     }
   }
-
 }
 
-
 function finish_puzzle() {
-  limpiar();
-  stop();
-  start = false;
-  document.getElementById("cv01").style.pointerEvents = "auto";
 
   // Restaurar botones
   updatebuttons(false);
-
   popup(true);
+  limpiar();
+  stop();
 
+  start = false;
   total = 0;
   movimientos = 0;
-  document.getElementById('movimientos').innerHTML = movimientos;
   restantes = 0;
+
+  document.getElementById("cv01").style.pointerEvents = "auto";
+  document.getElementById('movimientos').innerHTML = movimientos;
   document.getElementById('desordenadas').innerHTML = restantes;
-  reset();
 
   // Dibujamos texto
   cv = document.getElementById('cv01');
   ctx = cv.getContext('2d');
   ctx.font = "bold 12px sans-serif";
   ctx.fillText("Haz click o arrastra una imagen aquí",_ANCHO_/6,_ALTO_/2);
-
 }
 
 function checkwin() {
@@ -514,7 +492,6 @@ function checkwin() {
   for(var i = 0 ; i < hFicha; i++){
     for(var j = 0; j < wFicha; j++){
       index = (i*wFicha)+j;
-      //console.log("Compruebo " + _piezas[index].sx +"=="+(j*(_ANCHO_/wFicha))+" y " + _piezas[index].sy +"=="+(i*(_ALTO_/hFicha)));
       if( _piezas[index].sx == j*(_ANCHO_/wFicha) && _piezas[index].sy == i*(_ALTO_/hFicha) ){
         ok++
       }
@@ -577,9 +554,9 @@ function updatebuttons(x) {
     document.getElementById('help').disabled        = false;
   }
   else{
-
       enabledificultad(true);
       document.getElementById('color_lines').disabled = false;
+      document.getElementById("imgBtn").disabled      = false;
       document.getElementById('start').disabled       = true;
       document.getElementById('finish').disabled      = true;
       document.getElementById('help').disabled        = true;
@@ -608,28 +585,7 @@ function updatehover() {
   hovercolor = document.getElementById('color_hover').value;
 }
 
-function finalizar(){
-  limpiar();
-  stop();
-  document.getElementById("cv01").style.pointerEvents = "auto";
-
-}
-
-function empezar(){
-  let btn = document.getElementsByClassName("btnDificultad");
-  for (let i = 0; i < btn.length; i++) {
-      btn[i].disabled = true;
-  }
-  document.getElementById("color").disabled = true;
-  document.getElementById("start").disabled = true;
-  document.getElementById("end").disabled = false;
-  document.getElementById("help").disabled = false;
-  document.getElementById("cv01").style.pointerEvents = "none";
-
-  _piezas = [];
-  showtimer();
-  sw_start();
-}
+// Contador de Tiempo
 
 function showtimer() {
 	if(timercount) {
@@ -710,9 +666,5 @@ function stop() {
   s = seconds_passed;
   ms = milliseconds_passed;
 	timestart = null;
-}
-
-function reset() {
-	timestart = null;
-	document.timeform.timetextarea.value = "00:00";
+  document.timeform.timetextarea.value = "00:00";
 }

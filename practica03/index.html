@@ -23,6 +23,7 @@
       <canvas id="cv01">
       </canvas>
       <footer>
+        <button id="imgBtn" type="button" name="button" onclick="imgUp.click()">Imagen</button>
         <input id="imgUp" onchange="subirImg(event)" type="file" accept="image/*" style="display: none">
       </footer>
 
@@ -57,9 +58,6 @@
             <p>Escoge el color del hover</p>
             <input type="color" id="color_hover" onchange="updatehover()" name="favcolor" value="#ffffff">
 
-          </div>
-          <div>
-            <button type="button" onclick="gana()" name="button">Ordena</button>
           </div>
           <div>
             <button type="button" class="btnDificultad" onclick="eligeDificultad(6,4);" name="button" disabled>Fácil 6,4</button>
